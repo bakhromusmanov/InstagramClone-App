@@ -34,9 +34,9 @@ final class CustomTabBar: UITabBar {
       appearance.stackedLayoutAppearance.selected.iconColor = ThemeManager.textPrimaryColor
       appearance.stackedLayoutAppearance.normal.iconColor = ThemeManager.textSecondaryColor
       
-      // Adjust image and title position
-      appearance.stackedLayoutAppearance.normal.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: Constants.tabBarTitleOffsetY)
-      appearance.stackedLayoutAppearance.selected.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: Constants.tabBarTitleOffsetY)
+      // Adjust image position
+      appearance.stackedLayoutAppearance.normal.badgePositionAdjustment = UIOffset(horizontal: 0, vertical: Constants.tabBarTitleOffsetY)
+      appearance.stackedLayoutAppearance.selected.badgePositionAdjustment = UIOffset(horizontal: 0, vertical: Constants.tabBarTitleOffsetY)
       
       // Setting cornerRadius of tab bar
       layer.cornerRadius = Constants.tabBarCornerRadius
