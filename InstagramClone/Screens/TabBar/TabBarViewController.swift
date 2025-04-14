@@ -28,36 +28,36 @@ final class TabBarViewController: UITabBarController {
       //MARK: Make HomeModule
       let homeViewController = HomeViewController()
       let homeNavigationController = makeNavigationController(
-         selectedImage: UIImage(systemName: Constants.homeSelectedImageName) ?? UIImage(),
-         unselectedImage: UIImage(systemName: Constants.homeUnselectedImageName) ?? UIImage(),
+         selectedImage: UIImage(systemName: ThemeManager.homeSelectedImageName) ?? UIImage(),
+         unselectedImage: UIImage(systemName: ThemeManager.homeUnselectedImageName) ?? UIImage(),
          rootViewController: homeViewController)
       
       //MARK: Make SearchModule
       let searchViewController = SearchViewController()
       let searchNavigationController = makeNavigationController(
-         selectedImage: UIImage(systemName: Constants.searchSelectedImageName) ?? UIImage(),
-         unselectedImage: UIImage(systemName: Constants.searchUnselectedImageName) ?? UIImage(),
+         selectedImage: UIImage(systemName: ThemeManager.searchSelectedImageName) ?? UIImage(),
+         unselectedImage: UIImage(systemName: ThemeManager.searchUnselectedImageName) ?? UIImage(),
          rootViewController: searchViewController)
       
       //MARK: Make ImageSelectorModule
       let imageSelectorViewController = ImageSelectorController()
       let imageSelectorNavigationController = makeNavigationController(
-         selectedImage: UIImage(systemName: Constants.plusSelectedImageName) ?? UIImage(),
-         unselectedImage: UIImage(systemName: Constants.plusUnselectedImageName) ?? UIImage(),
+         selectedImage: UIImage(systemName: ThemeManager.plusSelectedImageName) ?? UIImage(),
+         unselectedImage: UIImage(systemName: ThemeManager.plusUnselectedImageName) ?? UIImage(),
          rootViewController: imageSelectorViewController)
       
       //MARK: Make NotificationsModule
       let notificationsViewController = NotificationsViewController()
       let notificationsNavigationController = makeNavigationController(
-         selectedImage: UIImage(systemName: Constants.likeSelectedImageName) ?? UIImage(),
-         unselectedImage: UIImage(systemName: Constants.likeUnselectedImageName) ?? UIImage(),
+         selectedImage: UIImage(systemName: ThemeManager.likeSelectedImageName) ?? UIImage(),
+         unselectedImage: UIImage(systemName: ThemeManager.likeUnselectedImageName) ?? UIImage(),
          rootViewController: notificationsViewController)
       
       //MARK: Make ProfileModule
       let profileViewController = ProfileViewController()
       let profileNavigationController = makeNavigationController(
-         selectedImage: UIImage(systemName: Constants.profileSelectedImageName) ?? UIImage(),
-         unselectedImage: UIImage(systemName: Constants.profileUnselectedImageName) ?? UIImage(),
+         selectedImage: UIImage(systemName: ThemeManager.profileSelectedImageName) ?? UIImage(),
+         unselectedImage: UIImage(systemName: ThemeManager.profileUnselectedImageName) ?? UIImage(),
          rootViewController: profileViewController)
       
       viewControllers = [
@@ -82,15 +82,6 @@ private extension TabBarViewController {
 //MARK: - Constants
 private extension TabBarViewController {
    enum Constants {
-      static let homeSelectedImageName = "house.fill"
-      static let homeUnselectedImageName = "house"
-      static let searchSelectedImageName = "magnifyingglass"
-      static let searchUnselectedImageName = "magnifyingglass"
-      static let likeSelectedImageName = "heart.fill"
-      static let likeUnselectedImageName = "heart"
-      static let profileSelectedImageName = "person.fill"
-      static let profileUnselectedImageName = "person"
-      static let plusSelectedImageName = "plus.app.fill"
-      static let plusUnselectedImageName = "plus.app"
+
    }
 }
