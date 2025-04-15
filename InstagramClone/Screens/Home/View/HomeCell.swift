@@ -35,7 +35,7 @@ final class HomeCell: UICollectionViewCell {
    
    private let avatarImageView: UIImageView = {
       let imageView = UIImageView(image: UIImage(named: ThemeManager.avatarImageName))
-      imageView.contentMode = .scaleAspectFit
+      imageView.contentMode = .scaleAspectFill
       imageView.clipsToBounds = true
       imageView.layer.cornerRadius = Constants.avatarCornerRadius
       return imageView
@@ -43,7 +43,7 @@ final class HomeCell: UICollectionViewCell {
    
    private let mediaImageView: UIImageView = {
       let imageView = UIImageView(image: UIImage(named: ThemeManager.mediaImageName))
-      imageView.contentMode = .scaleAspectFit
+      imageView.contentMode = .scaleAspectFill
       return imageView
    }()
    
@@ -57,6 +57,7 @@ final class HomeCell: UICollectionViewCell {
    
    private lazy var likeButton: UIButton = {
       let button = UIButton(type: .system)
+      button.contentMode = .scaleAspectFill
       button.setImage(UIImage(systemName: ThemeManager.likeUnselectedImageName, withConfiguration: ThemeManager.config), for: .normal)
       button.setImage(UIImage(systemName: ThemeManager.likeSelectedImageName, withConfiguration: ThemeManager.config), for: .selected)
       button.imageView?.contentMode = .scaleAspectFit
@@ -66,6 +67,7 @@ final class HomeCell: UICollectionViewCell {
    
    private lazy var commentButton: UIButton = {
       let button = UIButton(type: .system)
+      button.contentMode = .scaleAspectFill
       button.setImage(UIImage(systemName: ThemeManager.commentUnselectedImageName, withConfiguration: ThemeManager.config), for: .normal)
       button.setImage(UIImage(systemName: ThemeManager.commentSelectedImageName, withConfiguration: ThemeManager.config), for: .selected)
       button.imageView?.contentMode = .scaleAspectFit
@@ -75,6 +77,7 @@ final class HomeCell: UICollectionViewCell {
    
    private lazy var shareButton: UIButton = {
       let button = UIButton(type: .system)
+      button.contentMode = .scaleAspectFill
       button.setImage(UIImage(systemName: ThemeManager.shareUnselectedImageName, withConfiguration: ThemeManager.config), for: .normal)
       button.setImage(UIImage(systemName: ThemeManager.shareSelectedImageName, withConfiguration: ThemeManager.config), for: .selected)
       button.imageView?.contentMode = .scaleAspectFit
@@ -133,9 +136,9 @@ final class HomeCell: UICollectionViewCell {
       let mediaHeight = width
       let actionsSectionHeight = ThemeManager.actionButtonSize + 2 * Constants.containerEdgesInset
       let footerSectionHeight =
-      ThemeManager.labelHeight(font: Constants.likesCountLabelFont) +
-      ThemeManager.labelHeight(font: Constants.captionLabelFont) +
-      ThemeManager.labelHeight(font: Constants.timestampLabelFont) +
+      ceil(Constants.likesCountLabelFont.lineHeight) +
+      ceil(Constants.captionLabelFont.lineHeight) +
+      ceil(Constants.timestampLabelFont.lineHeight) +
       2 * Constants.containerEdgesInset
 
       return avatarSectionHeight + mediaHeight + actionsSectionHeight + footerSectionHeight
@@ -266,9 +269,9 @@ private extension HomeCell {
       static let labelToLabelOffset: CGFloat = 8
       
       //Fonts
-      static let usernameButtonFont: UIFont = ThemeManager.title
-      static let likesCountLabelFont: UIFont = ThemeManager.title
-      static let captionLabelFont: UIFont = ThemeManager.body
+      static let usernameButtonFont: UIFont = ThemeManager.titleBold
+      static let likesCountLabelFont: UIFont = ThemeManager.titleBold
+      static let captionLabelFont: UIFont = ThemeManager.titleRegular
       static let timestampLabelFont: UIFont = ThemeManager.caption
    }
 }

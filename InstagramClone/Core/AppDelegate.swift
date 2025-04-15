@@ -18,8 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
       
       let tabViewController = TabBarViewController()
+      let loginViewController = LoginViewController()
       window = UIWindow(frame: UIScreen.main.bounds)
-      window?.rootViewController = tabViewController
+      window?.rootViewController = loginViewController
       window?.makeKeyAndVisible()
       
       return true

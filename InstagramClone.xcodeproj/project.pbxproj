@@ -12,6 +12,8 @@
 		A4A195982DA92A2F000C77CA /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A195972DA92A2F000C77CA /* ThemeManager.swift */; };
 		A4A1959A2DA9309B000C77CA /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A195992DA9309B000C77CA /* CustomTabBar.swift */; };
 		A4CCF55B2DACC8A900F73878 /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CCF55A2DACC8A900F73878 /* HomeCell.swift */; };
+		A4DF48A72DAE5C9C0031D04B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DF48A62DAE5C9C0031D04B /* LoginViewController.swift */; };
+		A4DF48A92DAE5CE50031D04B /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DF48A82DAE5CE50031D04B /* RegistrationViewController.swift */; };
 		D0E261212D15E0F7003D6C71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E261202D15E0F7003D6C71 /* AppDelegate.swift */; };
 		D0E261282D15E0F7003D6C71 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = D0E261272D15E0F7003D6C71 /* Base */; };
 		D0E2612A2D15E0F9003D6C71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E261292D15E0F9003D6C71 /* Assets.xcassets */; };
@@ -30,6 +32,8 @@
 		A4A195972DA92A2F000C77CA /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		A4A195992DA9309B000C77CA /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		A4CCF55A2DACC8A900F73878 /* HomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
+		A4DF48A62DAE5C9C0031D04B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		A4DF48A82DAE5CE50031D04B /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		B352A547463F7ACADE7A2B66 /* Pods-InstagramClone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramClone.release.xcconfig"; path = "Target Support Files/Pods-InstagramClone/Pods-InstagramClone.release.xcconfig"; sourceTree = "<group>"; };
 		BBFE27019D1AD07D4E88C5A5 /* Pods_InstagramClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstagramClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0E2611D2D15E0F7003D6C71 /* InstagramClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstagramClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -177,6 +181,7 @@
 		A4BF0C062DA8EFAB004C3CC6 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				A4DF48A42DAE5C370031D04B /* Authentication */,
 				A4427E6B2DA8F060003688F2 /* TabBar */,
 				A4427E6C2DA8F073003688F2 /* Home */,
 				A4427E6D2DA8F080003688F2 /* Search */,
@@ -185,6 +190,23 @@
 				A4427E6F2DA8F091003688F2 /* Profile */,
 			);
 			path = Screens;
+			sourceTree = "<group>";
+		};
+		A4DF48A42DAE5C370031D04B /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				A4DF48A52DAE5C7B0031D04B /* View */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		A4DF48A52DAE5C7B0031D04B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A4DF48A62DAE5C9C0031D04B /* LoginViewController.swift */,
+				A4DF48A82DAE5CE50031D04B /* RegistrationViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		B20D0365A056F96CE09779C1 /* Frameworks */ = {
@@ -374,9 +396,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4DF48A72DAE5C9C0031D04B /* LoginViewController.swift in Sources */,
 				D0E2613E2D15E2CC003D6C71 /* ImageSelectorController.swift in Sources */,
 				A47029292DA8E9C00024FBEE /* Extensions.swift in Sources */,
 				D0E261402D15E2E4003D6C71 /* NotificationsViewController.swift in Sources */,
+				A4DF48A92DAE5CE50031D04B /* RegistrationViewController.swift in Sources */,
 				A4CCF55B2DACC8A900F73878 /* HomeCell.swift in Sources */,
 				D0E2613C2D15E2AF003D6C71 /* SearchViewController.swift in Sources */,
 				D0E261212D15E0F7003D6C71 /* AppDelegate.swift in Sources */,
