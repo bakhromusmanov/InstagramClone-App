@@ -51,7 +51,7 @@ final class HomeCell: UICollectionViewCell {
       let button = UIButton(type: .system)
       button.setTitle(Constants.usernameButtonTitle, for: .normal)
       button.setTitleColor(ThemeManager.textPrimaryColor, for: .normal)
-      button.titleLabel?.font = ThemeManager.title
+      button.titleLabel?.font = Constants.usernameButtonFont
       return button
    }()
    
@@ -91,27 +91,27 @@ final class HomeCell: UICollectionViewCell {
    private let likeCountLabel: UILabel = {
       let label = UILabel()
       label.text = Constants.likeCountButtonTitle
-      label.font = ThemeManager.subtitle
+      label.font = Constants.likesCountLabelFont
       label.textAlignment = .left
-      label.tintColor = ThemeManager.textPrimaryColor
+      label.textColor = ThemeManager.textPrimaryColor
       return label
    }()
    
    private let captionLabel: UILabel = {
       let label = UILabel()
       label.text = Constants.captionLabelTitle
-      label.font = ThemeManager.body
+      label.font = Constants.captionLabelFont
       label.textAlignment = .left
-      label.tintColor = ThemeManager.textPrimaryColor
+      label.textColor = ThemeManager.textPrimaryColor
       return label
    }()
    
    private let timestampLabel: UILabel = {
       let label = UILabel()
       label.text = Constants.timestampLabelTitle
-      label.font = ThemeManager.caption
+      label.font = Constants.timestampLabelFont
       label.textAlignment = .left
-      label.tintColor = ThemeManager.textSecondaryColor
+      label.textColor = ThemeManager.textSecondaryColor
       return label
    }()
    
@@ -128,9 +128,21 @@ final class HomeCell: UICollectionViewCell {
    }
    
    //MARK: - Public Functions
+   static func calculateHeight(for width: CGFloat) -> CGFloat {
+      let avatarSectionHeight = Constants.avatarImageViewSize + 2 * Constants.containerEdgesInset
+      let mediaHeight = width
+      let actionsSectionHeight = ThemeManager.actionButtonSize + 2 * Constants.containerEdgesInset
+      let footerSectionHeight =
+      ThemeManager.labelHeight(font: Constants.likesCountLabelFont) +
+      ThemeManager.labelHeight(font: Constants.captionLabelFont) +
+      ThemeManager.labelHeight(font: Constants.timestampLabelFont) +
+      2 * Constants.containerEdgesInset
+
+      return avatarSectionHeight + mediaHeight + actionsSectionHeight + footerSectionHeight
+   }
    
    //MARK: - Private Functions
-
+   
 }
 
 //MARK: - Appearance & Theming
@@ -240,7 +252,7 @@ private extension HomeCell {
 }
 
 //MARK: - Constants
-extension HomeCell {
+private extension HomeCell {
    enum Constants {
       static let usernameButtonTitle = "user"
       static let likeCountButtonTitle = "1 like"
@@ -252,5 +264,11 @@ extension HomeCell {
       static let avatarCornerRadius: CGFloat = avatarImageViewSize / 2
       static let containerEdgesInset: CGFloat = 8
       static let labelToLabelOffset: CGFloat = 8
+      
+      //Fonts
+      static let usernameButtonFont: UIFont = ThemeManager.title
+      static let likesCountLabelFont: UIFont = ThemeManager.title
+      static let captionLabelFont: UIFont = ThemeManager.body
+      static let timestampLabelFont: UIFont = ThemeManager.caption
    }
 }

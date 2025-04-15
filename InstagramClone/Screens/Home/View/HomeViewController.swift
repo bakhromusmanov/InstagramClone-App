@@ -38,27 +38,10 @@ final class HomeViewController: UIViewController {
    private func navigationBar(isHidden: Bool) {
       navigationController?.navigationBar.isHidden = isHidden
    }
-   
-   private func calculateCellHeight() -> CGFloat {
-      let avatarSectionHeight = HomeCell.Constants.avatarImageViewSize + 2 * HomeCell.Constants.containerEdgesInset
-      let mediaHeight = view.bounds.width
-      let actionsSectionHeight = ThemeManager.actionButtonSize + 2 * HomeCell.Constants.containerEdgesInset
-      let footerSectionHeight =
-      ThemeManager.labelHeight(font: ThemeManager.subtitle) +
-      ThemeManager.labelHeight(font: ThemeManager.body) +
-      ThemeManager.labelHeight(font: ThemeManager.caption) +
-      2 * HomeCell.Constants.containerEdgesInset
-      
-      let height = avatarSectionHeight + mediaHeight + actionsSectionHeight + footerSectionHeight
-      print(height)
-      return height
-   }
 }
 
 //MARK: - Helpers
-private extension HomeViewController {
-   
-}
+
 
 //MARK: - UICollectionViewDataSource
 extension HomeViewController: UICollectionViewDataSource {
@@ -83,7 +66,7 @@ extension HomeViewController: UICollectionViewDelegate {
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
       let width = view.bounds.width
-      let height = calculateCellHeight()
+      let height = HomeCell.calculateHeight(for: width)
       return CGSize(width: width, height: height)
    }
 }
@@ -103,8 +86,8 @@ private extension HomeViewController {
    
    func setupConstraints() {
       collectionView.snp.makeConstraints { make in
-         make.leading.trailing.equalToSuperview()
-         make.top.bottom.equalTo(view.safeAreaLayoutGuide)
+         make.bottom.leading.trailing.equalToSuperview()
+         make.top.equalTo(view.snp.topMargin)
       }
    }
 }
