@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CustomTextField: UITextField {
+class CustomTextField: UITextField {
    
    //MARK: - Initialization
    init(placeholder: String) {

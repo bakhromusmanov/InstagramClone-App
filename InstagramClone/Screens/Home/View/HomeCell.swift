@@ -58,8 +58,8 @@ final class HomeCell: UICollectionViewCell {
    private lazy var likeButton: UIButton = {
       let button = UIButton(type: .system)
       button.contentMode = .scaleAspectFill
-      button.setImage(UIImage(systemName: ThemeManager.likeUnselectedImageName, withConfiguration: ThemeManager.config), for: .normal)
-      button.setImage(UIImage(systemName: ThemeManager.likeSelectedImageName, withConfiguration: ThemeManager.config), for: .selected)
+      button.setBackgroundImage(UIImage(systemName: ThemeManager.likeUnselectedImageName, withConfiguration: ThemeManager.config), for: .normal)
+      button.setBackgroundImage(UIImage(systemName: ThemeManager.likeSelectedImageName, withConfiguration: ThemeManager.config), for: .selected)
       button.imageView?.contentMode = .scaleAspectFit
       button.tintColor = ThemeManager.textPrimaryColor
       return button
@@ -68,8 +68,8 @@ final class HomeCell: UICollectionViewCell {
    private lazy var commentButton: UIButton = {
       let button = UIButton(type: .system)
       button.contentMode = .scaleAspectFill
-      button.setImage(UIImage(systemName: ThemeManager.commentUnselectedImageName, withConfiguration: ThemeManager.config), for: .normal)
-      button.setImage(UIImage(systemName: ThemeManager.commentSelectedImageName, withConfiguration: ThemeManager.config), for: .selected)
+      button.setBackgroundImage(UIImage(systemName: ThemeManager.commentUnselectedImageName, withConfiguration: ThemeManager.config), for: .normal)
+      button.setBackgroundImage(UIImage(systemName: ThemeManager.commentSelectedImageName, withConfiguration: ThemeManager.config), for: .selected)
       button.imageView?.contentMode = .scaleAspectFit
       button.tintColor = ThemeManager.textPrimaryColor
       return button
@@ -78,8 +78,8 @@ final class HomeCell: UICollectionViewCell {
    private lazy var shareButton: UIButton = {
       let button = UIButton(type: .system)
       button.contentMode = .scaleAspectFill
-      button.setImage(UIImage(systemName: ThemeManager.shareUnselectedImageName, withConfiguration: ThemeManager.config), for: .normal)
-      button.setImage(UIImage(systemName: ThemeManager.shareSelectedImageName, withConfiguration: ThemeManager.config), for: .selected)
+      button.setBackgroundImage(UIImage(systemName: ThemeManager.shareUnselectedImageName, withConfiguration: ThemeManager.config), for: .normal)
+      button.setBackgroundImage(UIImage(systemName: ThemeManager.shareSelectedImageName, withConfiguration: ThemeManager.config), for: .selected)
       button.imageView?.contentMode = .scaleAspectFit
       button.tintColor = ThemeManager.textPrimaryColor
       return button

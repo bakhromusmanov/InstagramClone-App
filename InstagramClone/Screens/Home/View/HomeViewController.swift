@@ -35,9 +35,6 @@ final class HomeViewController: UIViewController {
    }
    
    //MARK: - Private Functions
-   private func navigationBar(isHidden: Bool) {
-      navigationController?.navigationBar.isHidden = isHidden
-   }
 }
 
 //MARK: - Helpers

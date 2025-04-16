@@ -41,13 +41,9 @@ final class LoginViewController: UIViewController {
       return textField
    }()
    
-   private lazy var loginButton: UIButton = {
-      let button = UIButton(type: .system)
-      button.titleLabel?.font = ThemeManager.inputFieldBoldFont
-      button.setTitleColor(ThemeManager.inputFieldPrimaryColor, for: .normal)
+   private lazy var loginButton: CustomButton = {
+      let button = CustomButton(type: .system)
       button.setTitle(Constants.loginButtonTitle, for: .normal)
-      button.backgroundColor = ThemeManager.buttonPrimaryColor
-      button.layer.cornerRadius = Constants.loginButtonCornerRadius
       return button
    }()
    
@@ -62,6 +58,7 @@ final class LoginViewController: UIViewController {
       let button = UIButton(type: .system)
       button.setTitleColor(ThemeManager.inputFieldSecondaryColor, for: .normal)
       button.setDualTitle(regularText: Constants.dontHaveAccountTitle, boldText: Constants.signUpTitle)
+      button.addTarget(self, action: #selector(signUpButtonPressed), for: .touchUpInside)
       return button
    }()
    
@@ -71,19 +68,27 @@ final class LoginViewController: UIViewController {
       setupViews()
       setupConstraints()
       updateColors()
+      navigationBar(isHidden: true)
    }
    
-   //MARK: Public Functions
+   //MARK: - Public Functions
    
-   //MARK: Private Functions
+   //MARK: - Private Functions
+   private func showRegistrationController() {
+      let controller = RegistrationViewController()
+      navigationController?.pushViewController(controller, animated: true)
+   }
+   
+   //MARK: - Actions
+   @objc private func signUpButtonPressed(sender: UIButton) {
+      showRegistrationController()
+   }
 }
 
 //MARK: - Appearance & Theming
 private extension LoginViewController {
    func updateColors() {
-      let gradientLayer = ThemeManager.primaryGradientLayer
-      view.layer.insertSublayer(gradientLayer, at: 0)
-      gradientLayer.frame = view.frame
+      setGradientBackground(startColor: ThemeManager.accentSecondaryColor, endColor: ThemeManager.accentPrimaryColor)
    }
 }
 
@@ -151,7 +156,6 @@ private extension LoginViewController {
       static let dontHaveAccountTitle = "Don't have an account? "
       static let signUpTitle = "Sign Up"
       
-      static let loginButtonCornerRadius: CGFloat = 5
       static let logoImageViewHeight: CGFloat = 80
       static let logoImageViewWidth: CGFloat = 120
       static let inputFieldHeight: CGFloat = 50

@@ -26,22 +26,12 @@ final class ThemeManager {
    static let textPrimaryColor = UIColor.textPrimary
    static let textSecondaryColor = UIColor.textSecondary
    static let inputFieldPrimaryColor = UIColor.white
-   static let inputFieldSecondaryColor = UIColor.white.withAlphaComponent(0.7)
+   static let inputFieldSecondaryColor = UIColor.white.withAlphaComponent(0.75)
    static let buttonPrimaryColor = UIColor.accentPrimary.withAlphaComponent(0.75)
    
    static let accentPrimaryColor = UIColor.accentPrimary
    static let accentSecondaryColor = UIColor.accentSecondary
-   
-   //MARK: - Gradient Colors
-   static let primaryGradientLayer = makeGradient(startColor: accentSecondaryColor, endColor: accentPrimaryColor)
-   static func makeGradient(startColor: UIColor, endColor: UIColor) -> CAGradientLayer {
-      let gradientLayer = CAGradientLayer()
-      gradientLayer.colors = [UIColor.accentSecondary.cgColor, UIColor.accentPrimary.cgColor]
-      gradientLayer.locations = [0, 1]
-      gradientLayer.startPoint = CGPoint(x: 0, y: 0)
-      gradientLayer.endPoint = CGPoint(x: 1, y: 1)
-      return gradientLayer
-   }
+
    
    //MARK: - Icons
    static let actionButtonSize: CGFloat = 24

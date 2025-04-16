@@ -11,6 +11,9 @@
 		A47029292DA8E9C00024FBEE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47029282DA8E9C00024FBEE /* Extensions.swift */; };
 		A470D5F72DAFB5A00062A804 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A470D5F62DAFB5A00062A804 /* CustomTextField.swift */; };
 		A470D5FA2DAFBA390062A804 /* UIButton+AttributedTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A470D5F92DAFBA390062A804 /* UIButton+AttributedTitle.swift */; };
+		A470D5FC2DAFC0700062A804 /* UIViewController+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A470D5FB2DAFC0700062A804 /* UIViewController+Gradient.swift */; };
+		A470D5FE2DAFC6870062A804 /* UIVIewController+NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A470D5FD2DAFC6870062A804 /* UIVIewController+NavigationBar.swift */; };
+		A470D6002DAFCF8F0062A804 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A470D5FF2DAFCF8F0062A804 /* CustomButton.swift */; };
 		A4A195982DA92A2F000C77CA /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A195972DA92A2F000C77CA /* ThemeManager.swift */; };
 		A4A1959A2DA9309B000C77CA /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A195992DA9309B000C77CA /* CustomTabBar.swift */; };
 		A4CCF55B2DACC8A900F73878 /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CCF55A2DACC8A900F73878 /* HomeCell.swift */; };
@@ -33,6 +36,9 @@
 		A47029282DA8E9C00024FBEE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		A470D5F62DAFB5A00062A804 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		A470D5F92DAFBA390062A804 /* UIButton+AttributedTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+AttributedTitle.swift"; sourceTree = "<group>"; };
+		A470D5FB2DAFC0700062A804 /* UIViewController+Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Gradient.swift"; sourceTree = "<group>"; };
+		A470D5FD2DAFC6870062A804 /* UIVIewController+NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIewController+NavigationBar.swift"; sourceTree = "<group>"; };
+		A470D5FF2DAFCF8F0062A804 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		A4A195972DA92A2F000C77CA /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		A4A195992DA9309B000C77CA /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		A4CCF55A2DACC8A900F73878 /* HomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
@@ -133,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				A470D5F62DAFB5A00062A804 /* CustomTextField.swift */,
+				A470D5FF2DAFCF8F0062A804 /* CustomButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -173,6 +180,8 @@
 			children = (
 				A47029282DA8E9C00024FBEE /* Extensions.swift */,
 				A470D5F92DAFBA390062A804 /* UIButton+AttributedTitle.swift */,
+				A470D5FB2DAFC0700062A804 /* UIViewController+Gradient.swift */,
+				A470D5FD2DAFC6870062A804 /* UIVIewController+NavigationBar.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -410,11 +419,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A470D5FC2DAFC0700062A804 /* UIViewController+Gradient.swift in Sources */,
 				A470D5F72DAFB5A00062A804 /* CustomTextField.swift in Sources */,
+				A470D6002DAFCF8F0062A804 /* CustomButton.swift in Sources */,
 				A4DF48A72DAE5C9C0031D04B /* LoginViewController.swift in Sources */,
 				D0E2613E2D15E2CC003D6C71 /* ImageSelectorController.swift in Sources */,
 				A47029292DA8E9C00024FBEE /* Extensions.swift in Sources */,
 				D0E261402D15E2E4003D6C71 /* NotificationsViewController.swift in Sources */,
+				A470D5FE2DAFC6870062A804 /* UIVIewController+NavigationBar.swift in Sources */,
 				A4DF48A92DAE5CE50031D04B /* RegistrationViewController.swift in Sources */,
 				A4CCF55B2DACC8A900F73878 /* HomeCell.swift in Sources */,
 				D0E2613C2D15E2AF003D6C71 /* SearchViewController.swift in Sources */,
