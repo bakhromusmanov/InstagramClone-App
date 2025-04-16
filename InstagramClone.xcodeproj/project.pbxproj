@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3F7435E491FB4D3D8BD8ADF5 /* Pods_InstagramClone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFE27019D1AD07D4E88C5A5 /* Pods_InstagramClone.framework */; };
 		A47029292DA8E9C00024FBEE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47029282DA8E9C00024FBEE /* Extensions.swift */; };
+		A470D5F72DAFB5A00062A804 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A470D5F62DAFB5A00062A804 /* CustomTextField.swift */; };
+		A470D5FA2DAFBA390062A804 /* UIButton+AttributedTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A470D5F92DAFBA390062A804 /* UIButton+AttributedTitle.swift */; };
 		A4A195982DA92A2F000C77CA /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A195972DA92A2F000C77CA /* ThemeManager.swift */; };
 		A4A1959A2DA9309B000C77CA /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A195992DA9309B000C77CA /* CustomTabBar.swift */; };
 		A4CCF55B2DACC8A900F73878 /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CCF55A2DACC8A900F73878 /* HomeCell.swift */; };
@@ -29,6 +31,8 @@
 /* Begin PBXFileReference section */
 		39C49211B62A878F5ED4A342 /* Pods-InstagramClone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramClone.debug.xcconfig"; path = "Target Support Files/Pods-InstagramClone/Pods-InstagramClone.debug.xcconfig"; sourceTree = "<group>"; };
 		A47029282DA8E9C00024FBEE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		A470D5F62DAFB5A00062A804 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		A470D5F92DAFBA390062A804 /* UIButton+AttributedTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+AttributedTitle.swift"; sourceTree = "<group>"; };
 		A4A195972DA92A2F000C77CA /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		A4A195992DA9309B000C77CA /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		A4CCF55A2DACC8A900F73878 /* HomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
@@ -120,8 +124,17 @@
 				D0E261202D15E0F7003D6C71 /* AppDelegate.swift */,
 				A4BF0C022DA8EEC2004C3CC6 /* Base */,
 				A4BF0C032DA8EEC6004C3CC6 /* Extensions */,
+				A470D5F82DAFB5B10062A804 /* Components */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		A470D5F82DAFB5B10062A804 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				A470D5F62DAFB5A00062A804 /* CustomTextField.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		A4A195922DA926EC000C77CA /* ImageSelector */ = {
@@ -159,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				A47029282DA8E9C00024FBEE /* Extensions.swift */,
+				A470D5F92DAFBA390062A804 /* UIButton+AttributedTitle.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -396,6 +410,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A470D5F72DAFB5A00062A804 /* CustomTextField.swift in Sources */,
 				A4DF48A72DAE5C9C0031D04B /* LoginViewController.swift in Sources */,
 				D0E2613E2D15E2CC003D6C71 /* ImageSelectorController.swift in Sources */,
 				A47029292DA8E9C00024FBEE /* Extensions.swift in Sources */,
@@ -406,6 +421,7 @@
 				D0E261212D15E0F7003D6C71 /* AppDelegate.swift in Sources */,
 				A4A195982DA92A2F000C77CA /* ThemeManager.swift in Sources */,
 				A4A1959A2DA9309B000C77CA /* CustomTabBar.swift in Sources */,
+				A470D5FA2DAFBA390062A804 /* UIButton+AttributedTitle.swift in Sources */,
 				D0E261422D15E2EE003D6C71 /* ProfileViewController.swift in Sources */,
 				D0E2613A2D15E2A3003D6C71 /* HomeViewController.swift in Sources */,
 				D0E261382D15E258003D6C71 /* TabBarViewController.swift in Sources */,

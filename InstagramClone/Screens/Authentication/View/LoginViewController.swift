@@ -28,34 +28,16 @@ final class LoginViewController: UIViewController {
       return stackView
    }()
    
-   private let emailTextField: UITextField = {
-      let textField = UITextField()
+   private let emailTextField: CustomTextField = {
+      let textField = CustomTextField(placeholder: Constants.emailPlaceholder)
       textField.keyboardType = .emailAddress
-      textField.borderStyle = .roundedRect
-      textField.backgroundColor = ThemeManager.backgroundInputField
-      textField.textColor = ThemeManager.inputFieldPrimaryColor
-      textField.font = ThemeManager.inputFieldRegularFont
-
-      let placeholderAttributes: [NSAttributedString.Key: Any] = [
-         .foregroundColor : ThemeManager.inputFieldSecondaryColor,
-         .font : ThemeManager.inputFieldRegularFont]
-      textField.attributedPlaceholder = NSAttributedString(string: Constants.emailPlaceholder, attributes: placeholderAttributes)
       return textField
    }()
    
-   private let passwordTextField: UITextField = {
-      let textField = UITextField()
+   private let passwordTextField: CustomTextField = {
+      let textField = CustomTextField(placeholder: Constants.passwordPlaceholder)
       textField.keyboardType = .default
-      textField.borderStyle = .roundedRect
-      textField.backgroundColor = ThemeManager.backgroundInputField
-      textField.textColor = ThemeManager.inputFieldPrimaryColor
-      textField.font = ThemeManager.inputFieldRegularFont
       textField.isSecureTextEntry = true
-
-      let placeholderAttributes: [NSAttributedString.Key: Any] = [
-         .foregroundColor : ThemeManager.inputFieldSecondaryColor,
-         .font : ThemeManager.inputFieldRegularFont]
-      textField.attributedPlaceholder = NSAttributedString(string: Constants.passwordPlaceholder, attributes: placeholderAttributes)
       return textField
    }()
    
@@ -72,30 +54,14 @@ final class LoginViewController: UIViewController {
    private lazy var forgotPasswordButton: UIButton = {
       let button = UIButton(type: .system)
       button.setTitleColor(ThemeManager.inputFieldSecondaryColor, for: .normal)
-      
-      let titleAttributes: [NSAttributedString.Key: Any] = [.font: ThemeManager.titleRegular]
-      
-      let titleBoldAttributes: [NSAttributedString.Key: Any] = [.font: ThemeManager.titleBold]
-      
-      let attributedTitle = NSMutableAttributedString(string: Constants.forgotPasswordTitle, attributes: titleAttributes)
-      attributedTitle.append(NSAttributedString(string: Constants.getHelpTitle, attributes: titleBoldAttributes))
-      
-      button.setAttributedTitle(attributedTitle, for: .normal)
+      button.setDualTitle(regularText: Constants.forgotPasswordTitle, boldText: Constants.getHelpTitle)
       return button
    }()
    
    private lazy var signUpButton: UIButton = {
       let button = UIButton(type: .system)
       button.setTitleColor(ThemeManager.inputFieldSecondaryColor, for: .normal)
-      
-      let titleAttributes: [NSAttributedString.Key: Any] = [.font: ThemeManager.titleRegular]
-      
-      let titleBoldAttributes: [NSAttributedString.Key: Any] = [.font: ThemeManager.titleBold]
-      
-      let attributedTitle = NSMutableAttributedString(string: Constants.dontHaveAccountTitle, attributes: titleAttributes)
-      attributedTitle.append(NSAttributedString(string: Constants.signUpTitle, attributes: titleBoldAttributes))
-      
-      button.setAttributedTitle(attributedTitle, for: .normal)
+      button.setDualTitle(regularText: Constants.dontHaveAccountTitle, boldText: Constants.signUpTitle)
       return button
    }()
    
