@@ -36,7 +36,7 @@ final class LoginViewController: UIViewController {
    
    private let passwordTextField: CustomTextField = {
       let textField = CustomTextField(placeholder: Constants.passwordPlaceholder)
-      textField.keyboardType = .default
+      textField.keyboardType = .asciiCapable
       textField.isSecureTextEntry = true
       return textField
    }()

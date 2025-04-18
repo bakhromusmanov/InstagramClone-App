@@ -38,17 +38,20 @@ final class RegistrationViewController: UIViewController {
    
    private let passwordTextField: CustomTextField = {
       let textField = CustomTextField(placeholder: Constants.passwordPlaceholder)
+      textField.keyboardType = .asciiCapable
       textField.isSecureTextEntry = true
       return textField
    }()
    
    private let fullNameTextField: CustomTextField = {
       let textField = CustomTextField(placeholder: Constants.fullNamePlaceholder)
+      textField.keyboardType = .asciiCapable
       return textField
    }()
    
    private let usernameTextField: CustomTextField = {
       let textField = CustomTextField(placeholder: Constants.usernamePlaceholder)
+      textField.keyboardType = .namePhonePad
       return textField
    }()
    
