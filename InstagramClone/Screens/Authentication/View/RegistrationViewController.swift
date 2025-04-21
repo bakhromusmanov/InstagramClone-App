@@ -18,6 +18,7 @@ final class RegistrationViewController: UIViewController {
       button.setBackgroundImage(UIImage(named: Constants.addPhotoImageName), for: .normal)
       button.imageView?.contentMode = .scaleAspectFill
       button.tintColor = Constants.addPhotoTintColor
+      button.layer.masksToBounds = true
       button.addTarget(self, action: #selector(addPhotoButtonPressed), for: .touchUpInside)
       return button
    }()
@@ -90,17 +91,42 @@ final class RegistrationViewController: UIViewController {
       navigationController?.popViewController(animated: true)
    }
    
-   //MARK: - Actions
-   @objc private func addPhotoButtonPressed(sender: UIButton) {
-      
+   private func takePhotoWithCamera() {
+      let imagePicker = UIImagePickerController()
+      imagePicker.delegate = self
+      imagePicker.sourceType = .camera
+      imagePicker.allowsEditing = true
+      present(imagePicker, animated: true)
    }
    
+   private func choosePhotoFromLibrary() {
+      let imagePicker = UIImagePickerController()
+      imagePicker.delegate = self
+      imagePicker.sourceType = .photoLibrary
+      imagePicker.allowsEditing = true
+      present(imagePicker, animated: true)
+   }
+   
+   //MARK: - Actions
    @objc private func signUpButtonPressed(sender: UIButton) {
       
    }
    
    @objc private func haveAccountButtonPressed(sender: UIButton) {
       showLoginController()
+   }
+   
+   @objc private func addPhotoButtonPressed(sender: UIButton) {
+      if UIImagePickerController.isSourceTypeAvailable(.camera) {
+         showPhotoPicker(
+            onCameraTap: { [weak self] in
+               self?.takePhotoWithCamera() },
+            onLibraryTap: { [weak self] in
+               self?.choosePhotoFromLibrary() }
+         )
+      } else {
+         choosePhotoFromLibrary()
+      }
    }
    
    @objc private func textDidChange(sender: UITextField) {
@@ -119,6 +145,22 @@ final class RegistrationViewController: UIViewController {
       }
       
       signUpButton.updateStyle(isValid: viewModel.isValid)
+   }
+}
+
+//MARK: - UIImagePickerControllerDelegate
+extension RegistrationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+      guard let selectedImage = info[.editedImage] as? UIImage else { return }
+      addPhotoButton.setBackgroundImage(selectedImage, for: .normal)
+      addPhotoButton.layer.cornerRadius = Constants.addPhotoButtonCornerRadius
+      addPhotoButton.layer.borderWidth = Constants.addPhotoButtonBorderWidth
+      addPhotoButton.layer.borderColor = Constants.addPhotoButtonBorderColor
+      dismiss(animated: true)
+   }
+   
+   func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+      dismiss(animated: true)
    }
 }
 
@@ -188,11 +230,11 @@ private extension RegistrationViewController {
    }
 }
 
-
 //MARK: - Constants
 private extension RegistrationViewController {
    enum Constants {
       static let addPhotoTintColor = UIColor.white
+      static let addPhotoButtonBorderColor: CGColor = UIColor.white.cgColor
       
       static let addPhotoImageName = "plusPhoto"
       static let emailPlaceholder = "Email"
@@ -205,6 +247,8 @@ private extension RegistrationViewController {
       
       static let addPhotoButtonHeight: CGFloat = 140
       static let addPhotoButtonWidth: CGFloat = 140
+      static let addPhotoButtonCornerRadius: CGFloat = addPhotoButtonWidth / 2
+      static let addPhotoButtonBorderWidth: CGFloat = 3
       static let inputFieldHeight: CGFloat = 50
       
       static let contentTopInset: CGFloat = 32

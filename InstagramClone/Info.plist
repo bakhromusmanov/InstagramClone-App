@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict/>
+<dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Your profile picture and posts are more fun with photos! This app needs access to your photo library so you can choose existing photos to upload.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Want to share a moment right now? This app needs access to your camera so you can take and upload new photos for your profile and posts.</string>
+</dict>
 </plist>
