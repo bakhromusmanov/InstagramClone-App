@@ -10,6 +10,7 @@ import UIKit
 final class LoginViewController: UIViewController {
    
    //MARK: - Properties
+   private var viewModel = LoginViewModel()
    
    //MARK: - Subviews
    private let logoImageView: UIImageView = {
@@ -28,35 +29,40 @@ final class LoginViewController: UIViewController {
       return stackView
    }()
    
-   private let emailTextField: CustomTextField = {
+   private lazy var emailTextField: CustomTextField = {
       let textField = CustomTextField(placeholder: Constants.emailPlaceholder)
       textField.keyboardType = .emailAddress
+      textField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
       return textField
    }()
    
-   private let passwordTextField: CustomTextField = {
+   private lazy var passwordTextField: CustomTextField = {
       let textField = CustomTextField(placeholder: Constants.passwordPlaceholder)
       textField.keyboardType = .asciiCapable
       textField.isSecureTextEntry = true
+      textField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
       return textField
    }()
    
    private lazy var loginButton: CustomButton = {
       let button = CustomButton(type: .system)
+      button.updateStyle(isValid: false)
       button.setTitle(Constants.loginButtonTitle, for: .normal)
+      button.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
       return button
    }()
    
    private lazy var forgotPasswordButton: UIButton = {
       let button = UIButton(type: .system)
-      button.setTitleColor(ThemeManager.inputFieldSecondaryColor, for: .normal)
+      button.setTitleColor(ThemeManager.inputFieldDisabledTextColor, for: .normal)
       button.setDualTitle(regularText: Constants.forgotPasswordTitle, boldText: Constants.getHelpTitle)
+      button.addTarget(self, action: #selector(forgotPasswordButtonPressed), for: .touchUpInside)
       return button
    }()
    
    private lazy var signUpButton: UIButton = {
       let button = UIButton(type: .system)
-      button.setTitleColor(ThemeManager.inputFieldSecondaryColor, for: .normal)
+      button.setTitleColor(ThemeManager.inputFieldDisabledTextColor, for: .normal)
       button.setDualTitle(regularText: Constants.dontHaveAccountTitle, boldText: Constants.signUpTitle)
       button.addTarget(self, action: #selector(signUpButtonPressed), for: .touchUpInside)
       return button
@@ -79,9 +85,32 @@ final class LoginViewController: UIViewController {
       navigationController?.pushViewController(controller, animated: true)
    }
    
+   
    //MARK: - Actions
    @objc private func signUpButtonPressed(sender: UIButton) {
       showRegistrationController()
+   }
+   
+   @objc private func forgotPasswordButtonPressed(sender: UIButton) {
+
+   }
+   
+   @objc private func loginButtonPressed(sender: UIButton) {
+      
+   }
+   
+   @objc private func textDidChange(sender: UITextField) {
+      guard let text = sender.text else { return }
+      
+      switch sender {
+      case emailTextField:
+         viewModel.email = text
+      case passwordTextField:
+         viewModel.password = text
+      default: return
+      }
+      
+      loginButton.updateStyle(isValid: viewModel.isValid)
    }
 }
 

@@ -10,6 +10,7 @@ import UIKit
 final class RegistrationViewController: UIViewController {
    
    //MARK: - Properties
+   private var viewModel = RegistrationViewModel()
    
    //MARK: - Subviews
    private lazy var addPhotoButton: UIButton = {
@@ -30,40 +31,46 @@ final class RegistrationViewController: UIViewController {
       return stackView
    }()
    
-   private let emailTextField: CustomTextField = {
+   private lazy var emailTextField: CustomTextField = {
       let textField = CustomTextField(placeholder: Constants.emailPlaceholder)
       textField.keyboardType = .emailAddress
+      textField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
       return textField
    }()
    
-   private let passwordTextField: CustomTextField = {
+   private lazy var passwordTextField: CustomTextField = {
       let textField = CustomTextField(placeholder: Constants.passwordPlaceholder)
       textField.keyboardType = .asciiCapable
       textField.isSecureTextEntry = true
+      textField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
       return textField
    }()
    
-   private let fullNameTextField: CustomTextField = {
+   private lazy var fullNameTextField: CustomTextField = {
       let textField = CustomTextField(placeholder: Constants.fullNamePlaceholder)
       textField.keyboardType = .asciiCapable
+      textField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
       return textField
    }()
    
-   private let usernameTextField: CustomTextField = {
+   private lazy var usernameTextField: CustomTextField = {
       let textField = CustomTextField(placeholder: Constants.usernamePlaceholder)
       textField.keyboardType = .namePhonePad
+      textField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
       return textField
    }()
    
    private lazy var signUpButton: CustomButton = {
       let button = CustomButton(type: .system)
+      button.updateStyle(isValid: false)
       button.setTitle(Constants.signUpButtonTitle, for: .normal)
+      button.addTarget(self, action: #selector(signUpButtonPressed), for: .touchUpInside)
       return button
    }()
    
    private lazy var haveAccountButton: UIButton = {
       let button = UIButton(type: .system)
-      button.setTitleColor(ThemeManager.inputFieldSecondaryColor, for: .normal)
+      button.setTitleColor(ThemeManager.inputFieldDisabledTextColor, for: .normal)
       button.setDualTitle(regularText: Constants.haveAccountTitle, boldText: Constants.loginTitle)
       button.addTarget(self, action: #selector(haveAccountButtonPressed), for: .touchUpInside)
       return button
@@ -84,12 +91,34 @@ final class RegistrationViewController: UIViewController {
    }
    
    //MARK: - Actions
-   @objc private func addPhotoButtonPressed() {
+   @objc private func addPhotoButtonPressed(sender: UIButton) {
       
    }
    
-   @objc private func haveAccountButtonPressed() {
+   @objc private func signUpButtonPressed(sender: UIButton) {
+      
+   }
+   
+   @objc private func haveAccountButtonPressed(sender: UIButton) {
       showLoginController()
+   }
+   
+   @objc private func textDidChange(sender: UITextField) {
+      guard let text = sender.text else { return }
+      
+      switch sender {
+      case emailTextField:
+         viewModel.email = text
+      case passwordTextField:
+         viewModel.password = text
+      case fullNameTextField:
+         viewModel.fullName = text
+      case usernameTextField:
+         viewModel.username = text
+      default: return
+      }
+      
+      signUpButton.updateStyle(isValid: viewModel.isValid)
    }
 }
 
@@ -97,6 +126,10 @@ final class RegistrationViewController: UIViewController {
 private extension RegistrationViewController {
    func updateColors() {
       setGradientBackground(startColor: ThemeManager.accentSecondaryColor, endColor: ThemeManager.accentPrimaryColor)
+   }
+   
+   func updateSignUpButton(isEnabled: Bool) {
+      
    }
 }
 

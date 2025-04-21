@@ -7,24 +7,12 @@
 
 import Foundation
 
-struct LoginViewModel {
-   var email: String?
-   var password: String?
+struct LoginViewModel: EmailValidatable, PasswordValidatable {
+   var email: String = ""
+   var password: String = ""
    
    var isValid: Bool {
-      guard let email = email, let password = password else { return false }
-      return !email.isEmpty && !password.isEmpty
+      return isEmailValid && isPasswordValid
    }
 }
 
-struct RegistrationViewModel {
-   var email: String?
-   var password: String?
-   var fullName: String?
-   var username: String?
-   
-   var isValid: Bool {
-      guard let email = email, let password = password, let fullName = fullName, let username = username else { return false }
-      return !email.isEmpty && !password.isEmpty && !fullName.isEmpty && !username.isEmpty
-   }
-}

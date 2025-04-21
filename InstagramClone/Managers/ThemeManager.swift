@@ -8,6 +8,9 @@
 import UIKit
 
 final class ThemeManager {
+   
+   private init() { }
+   
    //MARK: - Style
    
    //MARK: - Fonts
@@ -25,9 +28,12 @@ final class ThemeManager {
    
    static let textPrimaryColor = UIColor.textPrimary
    static let textSecondaryColor = UIColor.textSecondary
-   static let inputFieldPrimaryColor = UIColor.white
-   static let inputFieldSecondaryColor = UIColor.white.withAlphaComponent(0.75)
-   static let buttonPrimaryColor = UIColor.accentPrimary.withAlphaComponent(0.75)
+   
+   static let inputFieldEnabledTextColor = UIColor.white
+   static let inputFieldDisabledTextColor = UIColor.white.withAlphaComponent(0.5)
+   
+   static let buttonEnabledColor = UIColor.accentPrimary.withAlphaComponent(0.75)
+   static let buttonDisabledColor = UIColor.accentSecondary.withAlphaComponent(0.5)
    
    static let accentPrimaryColor = UIColor.accentPrimary
    static let accentSecondaryColor = UIColor.accentSecondary
