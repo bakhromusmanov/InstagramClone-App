@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import FirebaseCore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       window?.rootViewController = loginNavigationController
       window?.makeKeyAndVisible()
       
+      FirebaseApp.configure()
       return true
    }
 }

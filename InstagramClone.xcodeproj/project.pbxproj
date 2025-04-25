@@ -14,6 +14,7 @@
 		A470D5FC2DAFC0700062A804 /* UIViewController+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A470D5FB2DAFC0700062A804 /* UIViewController+Gradient.swift */; };
 		A470D5FE2DAFC6870062A804 /* UIVIewController+NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A470D5FD2DAFC6870062A804 /* UIVIewController+NavigationBar.swift */; };
 		A470D6002DAFCF8F0062A804 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A470D5FF2DAFCF8F0062A804 /* CustomButton.swift */; };
+		A48006E92DBBA19A0031BB7E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A48006E82DBBA19A0031BB7E /* GoogleService-Info.plist */; };
 		A48F69272DB2806700523B56 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48F69262DB2806700523B56 /* LoginViewModel.swift */; };
 		A4A195982DA92A2F000C77CA /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A195972DA92A2F000C77CA /* ThemeManager.swift */; };
 		A4A1959A2DA9309B000C77CA /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A195992DA9309B000C77CA /* CustomTabBar.swift */; };
@@ -44,6 +45,7 @@
 		A470D5FB2DAFC0700062A804 /* UIViewController+Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Gradient.swift"; sourceTree = "<group>"; };
 		A470D5FD2DAFC6870062A804 /* UIVIewController+NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIewController+NavigationBar.swift"; sourceTree = "<group>"; };
 		A470D5FF2DAFCF8F0062A804 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		A48006E82DBBA19A0031BB7E /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A48F69262DB2806700523B56 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		A4A195972DA92A2F000C77CA /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		A4A195992DA9309B000C77CA /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 		A47029272DA8E44D0024FBEE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A48006E82DBBA19A0031BB7E /* GoogleService-Info.plist */,
 				D0E261292D15E0F9003D6C71 /* Assets.xcassets */,
 				D0E2612B2D15E0F9003D6C71 /* LaunchScreen.storyboard */,
 				D0E261262D15E0F7003D6C71 /* Main.storyboard */,
@@ -388,6 +391,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0E2612A2D15E0F9003D6C71 /* Assets.xcassets in Resources */,
+				A48006E92DBBA19A0031BB7E /* GoogleService-Info.plist in Resources */,
 				D0E2612D2D15E0F9003D6C71 /* Base in Resources */,
 				D0E261282D15E0F7003D6C71 /* Base in Resources */,
 			);
