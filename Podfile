@@ -10,14 +10,11 @@ target 'InstagramClone' do
 pod 'SnapKit'
 
 # Pods for Firebase
+pod 'Firebase/Core'
 pod 'FirebaseAuth'
 pod 'FirebaseFirestore'
-pod 'Firebase/Core'
 pod 'Firebase/Database'
-pod 'Firebase/Firestore'
 pod 'Firebase/Storage'
-pod 'Firebase/Messaging'
-pod 'Firebase/Auth'
 
 # Third Party Libraries
 # pod 'ActiveLabel'

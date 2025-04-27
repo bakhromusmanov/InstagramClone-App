@@ -25,6 +25,7 @@
 		A4F090832DB604BA00F989A4 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F090822DB604BA00F989A4 /* RegistrationViewModel.swift */; };
 		A4F090862DB6112D00F989A4 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F090852DB6112D00F989A4 /* SettingsManager.swift */; };
 		A4F090882DB64F2C00F989A4 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F090872DB64F2C00F989A4 /* UIViewController+Alert.swift */; };
+		D0192AD02DBD04250005171A /* ImageUploaderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0192ACF2DBD04250005171A /* ImageUploaderService.swift */; };
 		D0E261212D15E0F7003D6C71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E261202D15E0F7003D6C71 /* AppDelegate.swift */; };
 		D0E261282D15E0F7003D6C71 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = D0E261272D15E0F7003D6C71 /* Base */; };
 		D0E2612A2D15E0F9003D6C71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E261292D15E0F9003D6C71 /* Assets.xcassets */; };
@@ -58,6 +59,7 @@
 		A4F090872DB64F2C00F989A4 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		B352A547463F7ACADE7A2B66 /* Pods-InstagramClone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramClone.release.xcconfig"; path = "Target Support Files/Pods-InstagramClone/Pods-InstagramClone.release.xcconfig"; sourceTree = "<group>"; };
 		BBFE27019D1AD07D4E88C5A5 /* Pods_InstagramClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstagramClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0192ACF2DBD04250005171A /* ImageUploaderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploaderService.swift; sourceTree = "<group>"; };
 		D0E2611D2D15E0F7003D6C71 /* InstagramClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstagramClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0E261202D15E0F7003D6C71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0E261272D15E0F7003D6C71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 		A4BF0C052DA8EFA3004C3CC6 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				D0192ACF2DBD04250005171A /* ImageUploaderService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -291,34 +294,10 @@
 				A4BF0C042DA8EF9D004C3CC6 /* Managers */,
 				A4BF0C052DA8EFA3004C3CC6 /* Services */,
 				A4BF0C062DA8EFAB004C3CC6 /* Screens */,
-				D0E261342D15E1B7003D6C71 /* Model */,
-				D0E261352D15E1CD003D6C71 /* View */,
-				D0E261362D15E1D9003D6C71 /* Controllers */,
 				A47029272DA8E44D0024FBEE /* Resources */,
 				D0E2612E2D15E0F9003D6C71 /* Info.plist */,
 			);
 			path = InstagramClone;
-			sourceTree = "<group>";
-		};
-		D0E261342D15E1B7003D6C71 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		D0E261352D15E1CD003D6C71 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		D0E261362D15E1D9003D6C71 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controllers;
 			sourceTree = "<group>";
 		};
 		E7650E75BAF919DE7BBD1F2F /* Pods */ = {
@@ -360,7 +339,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1530;
-				LastUpgradeCheck = 1620;
+				LastUpgradeCheck = 1630;
 				TargetAttributes = {
 					D0E2611C2D15E0F7003D6C71 = {
 						CreatedOnToolsVersion = 15.3;
@@ -463,6 +442,7 @@
 				D0E261212D15E0F7003D6C71 /* AppDelegate.swift in Sources */,
 				A4A195982DA92A2F000C77CA /* ThemeManager.swift in Sources */,
 				A4A1959A2DA9309B000C77CA /* CustomTabBar.swift in Sources */,
+				D0192AD02DBD04250005171A /* ImageUploaderService.swift in Sources */,
 				A470D5FA2DAFBA390062A804 /* UIButton+AttributedTitle.swift in Sources */,
 				D0E261422D15E2EE003D6C71 /* ProfileViewController.swift in Sources */,
 				D0E2613A2D15E2A3003D6C71 /* HomeViewController.swift in Sources */,
@@ -529,6 +509,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = DPQ98A8CD6;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -592,6 +573,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = DPQ98A8CD6;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -621,7 +603,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = DPQ98A8CD6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = InstagramClone/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Instagram;
@@ -658,7 +639,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = DPQ98A8CD6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = InstagramClone/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Instagram;
