@@ -10,6 +10,7 @@ import UIKit
 class CustomTextField: UITextField {
    
    //MARK: - Initialization
+   
    init(placeholder: String) {
       super.init(frame: .zero)
       
@@ -29,6 +30,7 @@ class CustomTextField: UITextField {
    }
    
    //MARK: - Custom Content Inset
+   
    override func textRect(forBounds bounds: CGRect) -> CGRect {
       return bounds.inset(by: UIEdgeInsets(top: 0, left: Constants.contentLeftRightInset, bottom: 0, right: Constants.contentLeftRightInset))
    }
@@ -40,6 +42,7 @@ class CustomTextField: UITextField {
 }
 
 //MARK: - Constants
+
 private extension CustomTextField {
    enum Constants {
       static let contentLeftRightInset: CGFloat = 12

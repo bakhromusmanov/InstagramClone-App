@@ -10,6 +10,7 @@ import UIKit
 final class TabBarViewController: UITabBarController {
    
    //MARK: - Lifecycle
+   
    override func viewDidLoad() {
       super.viewDidLoad()
       setValue(CustomTabBar(), forKey: "tabBar")
@@ -24,8 +25,11 @@ final class TabBarViewController: UITabBarController {
    }
    
    //MARK: - Private Functions
+   
    private func setupTabBarControllers() {
+      
       //MARK: Make HomeModule
+      
       let homeViewController = HomeViewController()
       let homeNavigationController = makeNavigationController(
          selectedImage: UIImage(systemName: ThemeManager.homeSelectedImageName) ?? UIImage(),
@@ -33,6 +37,7 @@ final class TabBarViewController: UITabBarController {
          rootViewController: homeViewController)
       
       //MARK: Make SearchModule
+      
       let searchViewController = SearchViewController()
       let searchNavigationController = makeNavigationController(
          selectedImage: UIImage(systemName: ThemeManager.searchSelectedImageName) ?? UIImage(),
@@ -40,6 +45,7 @@ final class TabBarViewController: UITabBarController {
          rootViewController: searchViewController)
       
       //MARK: Make ImageSelectorModule
+      
       let imageSelectorViewController = ImageSelectorController()
       let imageSelectorNavigationController = makeNavigationController(
          selectedImage: UIImage(systemName: ThemeManager.plusSelectedImageName) ?? UIImage(),
@@ -47,6 +53,7 @@ final class TabBarViewController: UITabBarController {
          rootViewController: imageSelectorViewController)
       
       //MARK: Make NotificationsModule
+      
       let notificationsViewController = NotificationsViewController()
       let notificationsNavigationController = makeNavigationController(
          selectedImage: UIImage(systemName: ThemeManager.likeSelectedImageName) ?? UIImage(),
@@ -54,6 +61,7 @@ final class TabBarViewController: UITabBarController {
          rootViewController: notificationsViewController)
       
       //MARK: Make ProfileModule
+      
       let profileViewController = ProfileViewController()
       let profileNavigationController = makeNavigationController(
          selectedImage: UIImage(systemName: ThemeManager.profileSelectedImageName) ?? UIImage(),
@@ -70,6 +78,7 @@ final class TabBarViewController: UITabBarController {
 }
 
 //MARK: - Helpers
+
 private extension TabBarViewController {
    func makeNavigationController(selectedImage: UIImage, unselectedImage: UIImage, rootViewController: UIViewController) -> UINavigationController {
       let navigationController = UINavigationController(rootViewController: rootViewController)
@@ -80,6 +89,7 @@ private extension TabBarViewController {
 }
 
 //MARK: - Constants
+
 private extension TabBarViewController {
    enum Constants {
 

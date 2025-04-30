@@ -25,6 +25,8 @@ extension UIViewController {
    }
 }
 
+//MARK: - Constants
+
 private extension UIViewController {
    enum Constants {
       static let cancelTitle = "Cancel"

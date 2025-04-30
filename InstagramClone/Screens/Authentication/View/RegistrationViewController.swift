@@ -10,9 +10,12 @@ import UIKit
 final class RegistrationViewController: UIViewController {
    
    //MARK: - Properties
+   
    private var viewModel = RegistrationViewModel()
+   private var profileImage: UIImage?
    
    //MARK: - Subviews
+   
    private lazy var addPhotoButton: UIButton = {
       let button = UIButton(type: .system)
       button.setBackgroundImage(UIImage(named: Constants.addPhotoImageName), for: .normal)
@@ -78,6 +81,7 @@ final class RegistrationViewController: UIViewController {
    }()
    
    //MARK: - Lifecycle
+   
    override func viewDidLoad() {
       super.viewDidLoad()
       setupViews()
@@ -87,6 +91,7 @@ final class RegistrationViewController: UIViewController {
    }
    
    //MARK: - Private Functions
+   
    private func showLoginController() {
       navigationController?.popViewController(animated: true)
    }
@@ -107,9 +112,35 @@ final class RegistrationViewController: UIViewController {
       present(imagePicker, animated: true)
    }
    
+   private func register(user: AuthEntity) {
+       AuthService.register(user: user) { error in
+           if let error {
+               print("DEBUG: Error while registering user: \(error.localizedDescription)")
+               return
+           }
+
+           print("DEBUG: Successfully registered user \(user)")
+       }
+   }
+   
    //MARK: - Actions
+   
    @objc private func signUpButtonPressed(sender: UIButton) {
+      var user = AuthEntity(
+         email: viewModel.email,
+         password: viewModel.password,
+         fullname: viewModel.fullName,
+         username: viewModel.username
+      )
       
+      if let profileImage {
+         ImageUploaderService.uploadProfileImage(image: profileImage, completion: { downloadURL in
+            user.profileImageURL = downloadURL
+            self.register(user: user)
+         })
+      } else {
+         register(user: user)
+      }
    }
    
    @objc private func haveAccountButtonPressed(sender: UIButton) {
@@ -140,7 +171,7 @@ final class RegistrationViewController: UIViewController {
       case fullNameTextField:
          viewModel.fullName = text
       case usernameTextField:
-         viewModel.username = text
+         viewModel.username = text.lowercased()
       default: return
       }
       
@@ -149,10 +180,12 @@ final class RegistrationViewController: UIViewController {
 }
 
 //MARK: - UIImagePickerControllerDelegate
+
 extension RegistrationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
       guard let selectedImage = info[.editedImage] as? UIImage else { return }
-      addPhotoButton.setBackgroundImage(selectedImage, for: .normal)
+      profileImage = selectedImage
+      addPhotoButton.setBackgroundImage(profileImage, for: .normal)
       addPhotoButton.layer.cornerRadius = Constants.addPhotoButtonCornerRadius
       addPhotoButton.layer.borderWidth = Constants.addPhotoButtonBorderWidth
       addPhotoButton.layer.borderColor = Constants.addPhotoButtonBorderColor
@@ -165,6 +198,7 @@ extension RegistrationViewController: UIImagePickerControllerDelegate, UINavigat
 }
 
 //MARK: - Appearance & Theming
+
 private extension RegistrationViewController {
    func updateColors() {
       setGradientBackground(startColor: ThemeManager.accentSecondaryColor, endColor: ThemeManager.accentPrimaryColor)
@@ -176,6 +210,7 @@ private extension RegistrationViewController {
 }
 
 //MARK: - Layout & Constraints
+
 private extension RegistrationViewController {
    func setupViews() {
       view.addSubview(addPhotoButton)
@@ -231,6 +266,7 @@ private extension RegistrationViewController {
 }
 
 //MARK: - Constants
+
 private extension RegistrationViewController {
    enum Constants {
       static let addPhotoTintColor = UIColor.white

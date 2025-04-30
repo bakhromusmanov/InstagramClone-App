@@ -12,6 +12,7 @@ final class HomeCell: UICollectionViewCell {
    //MARK: - Properties
    
    //MARK: - Subviews
+   
    private let headerView: UIView = {
       let view = UIView()
       view.backgroundColor = .clear
@@ -119,6 +120,7 @@ final class HomeCell: UICollectionViewCell {
    }()
    
    //MARK: - Initialization
+   
    override init(frame: CGRect) {
       super.init(frame: .zero)
       setupViews()
@@ -131,6 +133,7 @@ final class HomeCell: UICollectionViewCell {
    }
    
    //MARK: - Public Functions
+   
    static func calculateHeight(for width: CGFloat) -> CGFloat {
       let avatarSectionHeight = Constants.avatarImageViewSize + 2 * Constants.containerEdgesInset
       let mediaHeight = width
@@ -149,6 +152,7 @@ final class HomeCell: UICollectionViewCell {
 }
 
 //MARK: - Appearance & Theming
+
 private extension HomeCell {
    func showLayoutColors(_ isEnabled: Bool) {
       guard isEnabled else { return }
@@ -169,6 +173,7 @@ private extension HomeCell {
 }
 
 //MARK: - Layout & Constraints
+
 private extension HomeCell {
    func setupViews() {
       contentView.addSubview(headerView)
@@ -255,6 +260,7 @@ private extension HomeCell {
 }
 
 //MARK: - Constants
+
 private extension HomeCell {
    enum Constants {
       static let usernameButtonTitle = "user"

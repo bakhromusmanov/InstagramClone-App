@@ -1,5 +1,5 @@
 //
-//  AuthenticationContract.swift
+//  AuthContract.swift
 //  InstagramClone
 //
 //  Created by Bakhrom Usmanov on 21/04/25.
@@ -18,6 +18,7 @@ protocol PasswordValidatable {
 }
 
 //MARK: - Default EmailValidatable
+
 extension EmailValidatable {
    var isEmailValid: Bool {
       return email.contains("@") && email.contains(".")
@@ -25,6 +26,7 @@ extension EmailValidatable {
 }
 
 //MARK: - Default PasswordValidatable
+
 extension PasswordValidatable {
    var isPasswordValid: Bool {
       return password.count >= SettingsManager.minPasswordLength

@@ -10,9 +10,11 @@ import UIKit
 final class CustomTabBar: UITabBar {
    
    //MARK: - Properties
+   
    var safeAreaBottomInset: CGFloat = 0
    
    // MARK: - Initialization
+   
    override init(frame: CGRect) {
       super.init(frame: frame)
       setupTabBar()
@@ -23,6 +25,7 @@ final class CustomTabBar: UITabBar {
    }
    
    // MARK: - Setup Tab Bar Appearance
+   
    private func setupTabBar() {
       let appearance = UITabBarAppearance()
       
@@ -50,6 +53,7 @@ final class CustomTabBar: UITabBar {
    }
    
    // MARK: - Override Height
+   
    override func sizeThatFits(_ size: CGSize) -> CGSize {
       var sizeThatFits = super.sizeThatFits(size)
       sizeThatFits.height = Constants.tabBarHeight + safeAreaBottomInset
@@ -58,6 +62,7 @@ final class CustomTabBar: UITabBar {
 }
 
 // MARK: - Constants
+
 private extension CustomTabBar {
    enum Constants {
       static let tabBarHeight: CGFloat = 64

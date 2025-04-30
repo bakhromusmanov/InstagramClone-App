@@ -1,0 +1,40 @@
+//
+//  AuthService.swift
+//  InstagramClone
+//
+//  Created by Bakhrom Usmanov on 29/04/25.
+//
+
+import Foundation
+import FirebaseAuth
+import FirebaseDatabase
+
+struct AuthService {
+   static func register(user: AuthEntity, completion: @escaping (Error?) -> Void) {
+      
+      var user = user
+      
+      Auth.auth().createUser(withEmail: user.email, password: user.password, completion: { result, error in
+         if let error {
+            completion(error)
+            return
+         }
+         
+         guard let uid = result?.user.uid else {
+            print("DEBUG: Error while generating UID")
+            return
+         }
+      
+         user.userId = uid
+         let userPath = DatabaseEndpoint.user(uid: uid).path
+         let ref = Database.database().reference().child(userPath)
+         
+         ref.setValue(user.toDictionary()) { error, _ in
+            completion(error)
+            return
+         }
+      })
+   
+   }
+}
+

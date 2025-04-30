@@ -8,9 +8,11 @@
 import UIKit
 
 final class HomeViewController: UIViewController {
+   
    //MARK: - Properties
    
    //MARK: Subviews
+   
    private lazy var collectionView: UICollectionView = {
       let layout = UICollectionViewFlowLayout()
       layout.scrollDirection = .vertical
@@ -26,6 +28,7 @@ final class HomeViewController: UIViewController {
    }()
    
    //MARK: - Lifecycle
+   
    override func viewDidLoad() {
       super.viewDidLoad()
       setupViews()
@@ -35,12 +38,13 @@ final class HomeViewController: UIViewController {
    }
    
    //MARK: - Private Functions
+   
 }
 
 //MARK: - Helpers
 
-
 //MARK: - UICollectionViewDataSource
+
 extension HomeViewController: UICollectionViewDataSource {
    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
       return 5
@@ -55,11 +59,13 @@ extension HomeViewController: UICollectionViewDataSource {
 }
 
 //MARK: - UICollectionViewDelegate
+
 extension HomeViewController: UICollectionViewDelegate {
    
 }
 
 //MARK: - UICollectionViewDelegateFlowLayout
+
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
       let width = view.bounds.width
@@ -69,6 +75,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 }
 
 //MARK: - Appearance & Theming
+
 private extension HomeViewController {
    func updateColors() {
       view.backgroundColor = ThemeManager.backgroundPrimaryColor
@@ -76,6 +83,7 @@ private extension HomeViewController {
 }
 
 //MARK: - Layout & Constraints
+
 private extension HomeViewController {
    func setupViews() {
       view.addSubview(collectionView)
@@ -90,6 +98,7 @@ private extension HomeViewController {
 }
 
 //MARK: - Constants
+
 private extension HomeViewController {
    enum Constants {
       static let homeCell = "HomeCell"

@@ -10,9 +10,11 @@ import UIKit
 final class LoginViewController: UIViewController {
    
    //MARK: - Properties
+   
    private var viewModel = LoginViewModel()
    
    //MARK: - Subviews
+   
    private let logoImageView: UIImageView = {
       let imageView = UIImageView(image: UIImage(named: Constants.logoImageName))
       imageView.contentMode = .scaleAspectFill
@@ -69,6 +71,7 @@ final class LoginViewController: UIViewController {
    }()
    
    //MARK: - Lifecycle
+   
    override func viewDidLoad() {
       super.viewDidLoad()
       setupViews()
@@ -80,6 +83,7 @@ final class LoginViewController: UIViewController {
    //MARK: - Public Functions
    
    //MARK: - Private Functions
+   
    private func showRegistrationController() {
       let controller = RegistrationViewController()
       navigationController?.pushViewController(controller, animated: true)
@@ -87,6 +91,7 @@ final class LoginViewController: UIViewController {
    
    
    //MARK: - Actions
+   
    @objc private func signUpButtonPressed(sender: UIButton) {
       showRegistrationController()
    }
@@ -115,6 +120,7 @@ final class LoginViewController: UIViewController {
 }
 
 //MARK: - Appearance & Theming
+
 private extension LoginViewController {
    func updateColors() {
       setGradientBackground(startColor: ThemeManager.accentSecondaryColor, endColor: ThemeManager.accentPrimaryColor)
@@ -122,6 +128,7 @@ private extension LoginViewController {
 }
 
 //MARK: - Layout & Constraints
+
 private extension LoginViewController {
    func setupViews() {
       view.addSubview(logoImageView)
@@ -172,6 +179,7 @@ private extension LoginViewController {
 }
 
 //MARK: - Constants
+
 private extension LoginViewController {
    enum Constants {
       static let logoTintColor = UIColor.white
