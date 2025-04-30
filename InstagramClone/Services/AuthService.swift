@@ -10,6 +10,25 @@ import FirebaseAuth
 import FirebaseDatabase
 
 struct AuthService {
+   
+   typealias AuthDataResultCallback = (AuthDataResult?, Error?) -> Void
+   
+   static var isUserLoggedOut: Bool {
+      return Auth.auth().currentUser == nil
+   }
+   
+   static func logout() {
+      do {
+         try Auth.auth().signOut()
+      } catch {
+         print("DEBUG: Error while signing out")
+      }
+   }
+   
+   static func login(withEmail email: String, password: String, completion: AuthDataResultCallback?) {
+      Auth.auth().signIn(withEmail: email, password: password, completion: completion)
+   }
+   
    static func register(user: AuthEntity, completion: @escaping (Error?) -> Void) {
       
       var user = user
@@ -24,7 +43,7 @@ struct AuthService {
             print("DEBUG: Error while generating UID")
             return
          }
-      
+         
          user.userId = uid
          let userPath = DatabaseEndpoint.user(uid: uid).path
          let ref = Database.database().reference().child(userPath)
@@ -34,7 +53,8 @@ struct AuthService {
             return
          }
       })
-   
+      
    }
+   
 }
 

@@ -112,6 +112,8 @@ final class RegistrationViewController: UIViewController {
       present(imagePicker, animated: true)
    }
    
+   //MARK: Networking
+   
    private func register(user: AuthEntity) {
        AuthService.register(user: user) { error in
            if let error {
@@ -119,7 +121,7 @@ final class RegistrationViewController: UIViewController {
                return
            }
 
-           print("DEBUG: Successfully registered user \(user)")
+          self.dismiss(animated: true)
        }
    }
    
@@ -132,6 +134,8 @@ final class RegistrationViewController: UIViewController {
          fullname: viewModel.fullName,
          username: viewModel.username
       )
+      
+      //MARK: ImageUploaderService
       
       if let profileImage {
          ImageUploaderService.uploadProfileImage(image: profileImage, completion: { downloadURL in

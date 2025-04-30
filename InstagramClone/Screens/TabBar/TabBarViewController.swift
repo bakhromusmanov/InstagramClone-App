@@ -17,6 +17,11 @@ final class TabBarViewController: UITabBarController {
       setupTabBarControllers()
    }
    
+   override func viewDidAppear(_ animated: Bool) {
+      super.viewDidAppear(animated)
+      checkIfUserIsLoggedIn()
+   }
+   
    override func viewSafeAreaInsetsDidChange() {
        super.viewSafeAreaInsetsDidChange()
        if let customTabBar = self.tabBar as? CustomTabBar {
@@ -75,12 +80,8 @@ final class TabBarViewController: UITabBarController {
          notificationsNavigationController,
          profileNavigationController]
    }
-}
-
-//MARK: - Helpers
-
-private extension TabBarViewController {
-   func makeNavigationController(selectedImage: UIImage, unselectedImage: UIImage, rootViewController: UIViewController) -> UINavigationController {
+   
+   private func makeNavigationController(selectedImage: UIImage, unselectedImage: UIImage, rootViewController: UIViewController) -> UINavigationController {
       let navigationController = UINavigationController(rootViewController: rootViewController)
       navigationController.tabBarItem.selectedImage = selectedImage
       navigationController.tabBarItem.image = unselectedImage
@@ -88,10 +89,17 @@ private extension TabBarViewController {
    }
 }
 
-//MARK: - Constants
+
+//MARK: - Networking
 
 private extension TabBarViewController {
-   enum Constants {
-
+   func checkIfUserIsLoggedIn() {
+      if AuthService.isUserLoggedOut {
+         let loginVC = LoginViewController()
+         let loginNav = UINavigationController(rootViewController: loginVC)
+         loginNav.modalPresentationStyle = .fullScreen
+         self.present(loginNav, animated: false)
+      }
    }
 }
+

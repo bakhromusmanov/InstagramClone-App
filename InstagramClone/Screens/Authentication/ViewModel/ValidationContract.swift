@@ -1,5 +1,5 @@
 //
-//  AuthContract.swift
+//  ValidationContract.swift
 //  InstagramClone
 //
 //  Created by Bakhrom Usmanov on 21/04/25.

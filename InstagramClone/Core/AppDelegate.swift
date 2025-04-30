@@ -13,21 +13,21 @@ import FirebaseCore
 class AppDelegate: UIResponder, UIApplicationDelegate {
    
    //MARK: - Properties
+   
    var window: UIWindow?
 
    //MARK: - DidFinishLaunchingWithOptions
+   
    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+      
+      FirebaseApp.configure()
       
       let tabViewController = TabBarViewController()
       
-      let loginViewController = LoginViewController()
-      let loginNavigationController = UINavigationController(rootViewController: loginViewController)
-      
       window = UIWindow(frame: UIScreen.main.bounds)
-      window?.rootViewController = loginNavigationController
+      window?.rootViewController = tabViewController
       window?.makeKeyAndVisible()
       
-      FirebaseApp.configure()
       return true
    }
 }

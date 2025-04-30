@@ -9,8 +9,6 @@ import UIKit
 
 final class HomeViewController: UIViewController {
    
-   //MARK: - Properties
-   
    //MARK: Subviews
    
    private lazy var collectionView: UICollectionView = {
@@ -34,14 +32,30 @@ final class HomeViewController: UIViewController {
       setupViews()
       setupConstraints()
       updateColors()
-      navigationBar(isHidden: true)
+      setUpNavigationBar()
    }
    
    //MARK: - Private Functions
    
+   private func setUpNavigationBar() {
+      navigationItem.leftBarButtonItem = UIBarButtonItem(
+         title: Constants.logoutTitle,
+         style: .done,
+         target: self,
+         action: #selector(logoutButtonPressed))
+      navigationItem.leftBarButtonItem?.tintColor = ThemeManager.textPrimaryColor
+   }
+   
+   //MARK: - Actions
+   
+   @objc private func logoutButtonPressed() {
+      AuthService.logout()
+      let loginVC = LoginViewController()
+      let loginNav = UINavigationController(rootViewController: loginVC)
+      loginNav.modalPresentationStyle = .fullScreen
+      present(loginNav, animated: false)
+   }
 }
-
-//MARK: - Helpers
 
 //MARK: - UICollectionViewDataSource
 
@@ -102,6 +116,7 @@ private extension HomeViewController {
 private extension HomeViewController {
    enum Constants {
       static let homeCell = "HomeCell"
+      static let logoutTitle = "Logout"
       static let cellToCellSpacing: CGFloat = 8
    }
 }

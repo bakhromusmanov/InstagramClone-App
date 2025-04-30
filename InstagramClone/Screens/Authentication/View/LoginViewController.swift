@@ -50,7 +50,7 @@ final class LoginViewController: UIViewController {
       let button = CustomButton(type: .system)
       button.updateStyle(isValid: false)
       button.setTitle(Constants.loginButtonTitle, for: .normal)
-      button.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
+      button.addTarget(self, action: #selector(logInButtonPressed), for: .touchUpInside)
       return button
    }()
    
@@ -100,8 +100,17 @@ final class LoginViewController: UIViewController {
 
    }
    
-   @objc private func loginButtonPressed(sender: UIButton) {
-      
+   //MARK: Networking
+   
+   @objc private func logInButtonPressed(sender: UIButton) {
+      AuthService.login(withEmail: viewModel.email, password: viewModel.password) { result, error in
+         if let error {
+            print("DEBUG: Error while logging in user: \(error.localizedDescription)")
+            return
+         }
+         
+         self.dismiss(animated: true)
+      }
    }
    
    @objc private func textDidChange(sender: UITextField) {
