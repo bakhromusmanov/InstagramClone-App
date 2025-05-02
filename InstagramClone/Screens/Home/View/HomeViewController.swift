@@ -106,7 +106,7 @@ private extension HomeViewController {
    func setupConstraints() {
       collectionView.snp.makeConstraints { make in
          make.bottom.leading.trailing.equalToSuperview()
-         make.top.equalTo(view.snp.topMargin)
+         make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
       }
    }
 }

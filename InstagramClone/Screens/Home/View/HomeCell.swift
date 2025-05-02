@@ -263,14 +263,18 @@ private extension HomeCell {
 
 private extension HomeCell {
    enum Constants {
+      
+      //Namings
       static let usernameButtonTitle = "user"
       static let likeCountButtonTitle = "1 like"
       static let captionLabelTitle = "Some test caption for now"
       static let timestampLabelTitle = "2 days ago"
       
-      //Spacings & Sizes
+      //Spacings
       static let avatarImageViewSize: CGFloat = 40
       static let avatarCornerRadius: CGFloat = avatarImageViewSize / 2
+      
+      //Sizes
       static let containerEdgesInset: CGFloat = 8
       static let labelToLabelOffset: CGFloat = 8
       

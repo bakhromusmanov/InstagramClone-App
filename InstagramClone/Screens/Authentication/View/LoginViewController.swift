@@ -152,7 +152,7 @@ private extension LoginViewController {
    
    func setupConstraints() {
       logoImageView.snp.makeConstraints { make in
-         make.top.equalTo(view.snp.topMargin).inset(Constants.contentTopInset)
+         make.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(Constants.contentTopInset)
          make.centerX.equalToSuperview()
          make.width.equalTo(Constants.logoImageViewWidth)
          make.height.equalTo(Constants.logoImageViewHeight)

@@ -230,7 +230,7 @@ private extension RegistrationViewController {
    
    func setupConstraints() {
       addPhotoButton.snp.makeConstraints { make in
-         make.top.equalTo(view.snp.topMargin).inset(Constants.contentTopInset)
+         make.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(Constants.contentTopInset)
          make.centerX.equalToSuperview()
          make.height.equalTo(Constants.addPhotoButtonHeight)
          make.width.equalTo(Constants.addPhotoButtonWidth)
