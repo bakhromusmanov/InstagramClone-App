@@ -30,7 +30,8 @@ final class ProfileStatsButton: UIButton {
    
    override init(frame: CGRect) {
       super.init(frame: frame)
-      
+      setupViews()
+      setupConstraints()
    }
    
    required init?(coder: NSCoder) {
@@ -56,13 +57,13 @@ private extension ProfileStatsButton {
    
    func setupConstraints() {
       
-      label.snp.makeConstraints { make in
+      countLabel.snp.makeConstraints { make in
          make.top.equalToSuperview()
          make.centerX.equalToSuperview()
       }
       
-      countLabel.snp.makeConstraints { make in
-         make.top.equalTo(label.snp.bottom).offset(Constants.labelToLabelSpacing)
+      label.snp.makeConstraints { make in
+         make.top.equalTo(countLabel.snp.bottom).offset(Constants.labelToLabelSpacing)
          make.bottom.equalToSuperview()
          make.centerX.equalToSuperview()
       }
