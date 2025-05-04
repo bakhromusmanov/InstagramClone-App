@@ -136,14 +136,14 @@ private extension ProfileHeaderView {
       static let defaultCountText = "0"
 
       //Spacings
-      static let containerEdgesInset: CGFloat = 8
-      static let imageToLabelOffset: CGFloat = 8
+      static let containerEdgesInset: CGFloat = 12
+      static let imageToLabelOffset: CGFloat = 16
       
       //Sizes
       static let profileImageSize: CGFloat = 80
       static let editProfileButtonHeight: CGFloat = 20
       static let profileImageCornerRadius: CGFloat = profileImageSize / 2
       static let editButtonCornerRadius: CGFloat = 5
-      static let editButtonBorderWidth: CGFloat = 2
+      static let editButtonBorderWidth: CGFloat = 0.5
    }
 }

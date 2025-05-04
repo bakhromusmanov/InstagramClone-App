@@ -15,6 +15,7 @@ final class HomeViewController: UIViewController {
       let layout = UICollectionViewFlowLayout()
       layout.scrollDirection = .vertical
       layout.minimumLineSpacing = Constants.cellToCellSpacing
+      layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
       
       let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
       collectionView.dataSource = self
@@ -76,16 +77,6 @@ extension HomeViewController: UICollectionViewDataSource {
 
 extension HomeViewController: UICollectionViewDelegate {
    
-}
-
-//MARK: - UICollectionViewDelegateFlowLayout
-
-extension HomeViewController: UICollectionViewDelegateFlowLayout {
-   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-      let width = view.bounds.width
-      let height = HomeCell.calculateHeight(for: width)
-      return CGSize(width: width, height: height)
-   }
 }
 
 //MARK: - Appearance & Theming

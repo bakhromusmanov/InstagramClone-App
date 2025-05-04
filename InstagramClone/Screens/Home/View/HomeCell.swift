@@ -134,19 +134,6 @@ final class HomeCell: UICollectionViewCell {
    
    //MARK: - Public Functions
    
-   static func calculateHeight(for width: CGFloat) -> CGFloat {
-      let avatarSectionHeight = Constants.avatarImageViewSize + 2 * Constants.containerEdgesInset
-      let mediaHeight = width
-      let actionsSectionHeight = ThemeManager.actionButtonSize + 2 * Constants.containerEdgesInset
-      let footerSectionHeight =
-      ceil(Constants.likesCountLabelFont.lineHeight) +
-      ceil(Constants.captionLabelFont.lineHeight) +
-      ceil(Constants.timestampLabelFont.lineHeight) +
-      2 * Constants.containerEdgesInset
-
-      return avatarSectionHeight + mediaHeight + actionsSectionHeight + footerSectionHeight
-   }
-   
    //MARK: - Private Functions
    
 }
@@ -195,6 +182,11 @@ private extension HomeCell {
    }
    
    func setupConstraints() {
+      
+      contentView.snp.makeConstraints { make in
+          make.width.equalTo(UIScreen.main.bounds.width)
+      }
+      
       headerView.snp.makeConstraints { make in
          make.top.leading.trailing.equalToSuperview()
       }
@@ -208,11 +200,11 @@ private extension HomeCell {
          make.leading.equalTo(avatarImageView.snp.trailing).offset(Constants.labelToLabelOffset)
          make.centerY.equalTo(avatarImageView.snp.centerY)
       }
-      
+
       mediaImageView.snp.makeConstraints { make in
          make.top.equalTo(headerView.snp.bottom)
          make.leading.trailing.equalToSuperview()
-         make.height.equalTo(contentView.snp.width)
+         make.height.equalTo(mediaImageView.snp.width)
       }
       
       actionsContainerView.snp.makeConstraints { make in
@@ -239,6 +231,7 @@ private extension HomeCell {
       footerView.snp.makeConstraints { make in
          make.top.equalTo(actionsContainerView.snp.bottom)
          make.leading.trailing.equalToSuperview()
+         make.bottom.equalToSuperview()
       }
       
       likeCountLabel.snp.makeConstraints { make in

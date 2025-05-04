@@ -11,9 +11,8 @@ final class ThemeManager {
    
    private init() { }
    
-   //MARK: - Style
-   
    //MARK: - Fonts
+   
    static let titleBold = UIFont.systemFont(ofSize: 14, weight: .bold)
    static let titleRegular = UIFont.systemFont(ofSize: 14, weight: .regular)
    static let subtitle = UIFont.systemFont(ofSize: 13, weight: .regular)
@@ -22,6 +21,7 @@ final class ThemeManager {
    static let inputFieldBoldFont = UIFont.systemFont(ofSize: 16, weight: .bold)
    
    //MARK: - Colors
+   
    static let backgroundPrimaryColor = UIColor.backgroundPrimary
    static let backgroundSecondaryColor = UIColor.backgroundSecondary
    static let backgroundInputField = UIColor.white.withAlphaComponent(0.1)
@@ -38,11 +38,13 @@ final class ThemeManager {
    static let accentPrimaryColor = UIColor.accentPrimary
    static let accentSecondaryColor = UIColor.accentSecondary
 
-   
    //MARK: - Icons
+   
+   //Sizes
    static let actionButtonSize: CGFloat = 24
    static let config = UIImage.SymbolConfiguration(pointSize: actionButtonSize, weight: .regular)
    
+   //Namings
    static let avatarImageName = "thumbnail"
    static let mediaImageName = "placeholder"
    static let homeSelectedImageName = "house.fill"
