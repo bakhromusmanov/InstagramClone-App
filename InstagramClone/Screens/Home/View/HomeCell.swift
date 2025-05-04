@@ -30,12 +30,12 @@ final class HomeCell: UICollectionViewCell {
       stackView.distribution = .fill
       stackView.axis = .horizontal
       stackView.alignment = .center
-      stackView.spacing = Constants.labelToLabelOffset
+      stackView.spacing = Constants.spacingS
       return stackView
    }()
    
    private let avatarImageView: UIImageView = {
-      let imageView = UIImageView(image: UIImage(named: ThemeManager.avatarImageName))
+      let imageView = UIImageView(image: UIImage(named: ThemeManager.thumbnailImageName))
       imageView.contentMode = .scaleAspectFill
       imageView.clipsToBounds = true
       imageView.layer.cornerRadius = Constants.avatarCornerRadius
@@ -43,7 +43,7 @@ final class HomeCell: UICollectionViewCell {
    }()
    
    private let mediaImageView: UIImageView = {
-      let imageView = UIImageView(image: UIImage(named: ThemeManager.mediaImageName))
+      let imageView = UIImageView(image: UIImage(named: ThemeManager.placeholderImageName))
       imageView.contentMode = .scaleAspectFill
       return imageView
    }()
@@ -182,9 +182,10 @@ private extension HomeCell {
    }
    
    func setupConstraints() {
-      
+
       contentView.snp.makeConstraints { make in
-          make.width.equalTo(UIScreen.main.bounds.width)
+         make.edges.equalToSuperview()
+         make.width.equalTo(UIScreen.main.bounds.width)
       }
       
       headerView.snp.makeConstraints { make in
@@ -192,12 +193,13 @@ private extension HomeCell {
       }
       
       avatarImageView.snp.makeConstraints { make in
-         make.top.leading.bottom.equalToSuperview().inset(Constants.containerEdgesInset)
+         make.top.bottom.equalToSuperview().inset(Constants.defaultVerticalPadding)
+         make.leading.equalToSuperview().inset(Constants.defaultVerticalPadding)
          make.size.equalTo(Constants.avatarImageViewSize)
       }
       
       usernameButton.snp.makeConstraints { make in
-         make.leading.equalTo(avatarImageView.snp.trailing).offset(Constants.labelToLabelOffset)
+         make.leading.equalTo(avatarImageView.snp.trailing).offset(Constants.spacingS)
          make.centerY.equalTo(avatarImageView.snp.centerY)
       }
 
@@ -213,7 +215,7 @@ private extension HomeCell {
       }
       
       actionsStackView.snp.makeConstraints { make in
-         make.leading.top.bottom.equalToSuperview().inset(Constants.containerEdgesInset)
+         make.leading.top.bottom.equalToSuperview().inset(Constants.defaultHorizontalPadding)
       }
       
       likeButton.snp.makeConstraints { make in
@@ -236,17 +238,17 @@ private extension HomeCell {
       
       likeCountLabel.snp.makeConstraints { make in
          make.top.equalToSuperview()
-         make.leading.equalToSuperview().inset(Constants.containerEdgesInset)
+         make.leading.equalToSuperview().inset(Constants.defaultHorizontalPadding)
       }
       
       captionLabel.snp.makeConstraints { make in
-         make.top.equalTo(likeCountLabel.snp.bottom).offset(Constants.containerEdgesInset)
-         make.leading.equalToSuperview().inset(Constants.containerEdgesInset)
+         make.top.equalTo(likeCountLabel.snp.bottom).offset(Constants.spacingS)
+         make.leading.equalToSuperview().inset(Constants.defaultHorizontalPadding)
       }
       
       timestampLabel.snp.makeConstraints { make in
-         make.top.equalTo(captionLabel.snp.bottom).offset(Constants.containerEdgesInset)
-         make.leading.equalToSuperview().inset(Constants.containerEdgesInset)
+         make.top.equalTo(captionLabel.snp.bottom).offset(Constants.spacingS)
+         make.leading.equalToSuperview().inset(Constants.defaultHorizontalPadding)
          make.bottom.equalToSuperview()
       }
    }
@@ -263,13 +265,14 @@ private extension HomeCell {
       static let captionLabelTitle = "Some test caption for now"
       static let timestampLabelTitle = "2 days ago"
       
-      //Spacings
+      //Sizes
       static let avatarImageViewSize: CGFloat = 40
       static let avatarCornerRadius: CGFloat = avatarImageViewSize / 2
       
       //Sizes
-      static let containerEdgesInset: CGFloat = 8
-      static let labelToLabelOffset: CGFloat = 8
+      static let spacingS: CGFloat = 8
+      static let defaultHorizontalPadding = spacingS
+      static let defaultVerticalPadding = spacingS
       
       //Fonts
       static let usernameButtonFont: UIFont = ThemeManager.titleBold

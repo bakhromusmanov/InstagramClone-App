@@ -66,6 +66,7 @@ final class CustomTabBar: UITabBar {
 private extension CustomTabBar {
    enum Constants {
       static let tabBarHeight: CGFloat = 64
+      static let tabBarBorderWidth: CGFloat = 2
       static let tabBarCornerRadius: CGFloat = 24
       static let tabBarTitleOffsetY: CGFloat = -10
    }

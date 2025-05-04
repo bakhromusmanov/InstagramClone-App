@@ -14,7 +14,7 @@ final class HomeViewController: UIViewController {
    private lazy var collectionView: UICollectionView = {
       let layout = UICollectionViewFlowLayout()
       layout.scrollDirection = .vertical
-      layout.minimumLineSpacing = Constants.cellToCellSpacing
+      layout.minimumLineSpacing = Constants.spacingS
       layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
       
       let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -38,14 +38,7 @@ final class HomeViewController: UIViewController {
    
    //MARK: - Private Functions
    
-   private func setUpNavigationBar() {
-      navigationItem.leftBarButtonItem = UIBarButtonItem(
-         title: Constants.logoutTitle,
-         style: .done,
-         target: self,
-         action: #selector(logoutButtonPressed))
-      navigationItem.leftBarButtonItem?.tintColor = ThemeManager.textPrimaryColor
-   }
+   
    
    //MARK: - Actions
    
@@ -62,13 +55,15 @@ final class HomeViewController: UIViewController {
 
 extension HomeViewController: UICollectionViewDataSource {
    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-      return 5
+      return Constants.defaultNumberOfItems
    }
    
    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+      
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.homeCell, for: indexPath)
       
       guard let cell = cell as? HomeCell else { return cell }
+      
       return cell
    }
 }
@@ -82,8 +77,19 @@ extension HomeViewController: UICollectionViewDelegate {
 //MARK: - Appearance & Theming
 
 private extension HomeViewController {
+   
+   func setUpNavigationBar() {
+      navigationItem.leftBarButtonItem = UIBarButtonItem(
+         title: Constants.logoutTitle,
+         style: .done,
+         target: self,
+         action: #selector(logoutButtonPressed))
+      navigationItem.leftBarButtonItem?.tintColor = ThemeManager.textPrimaryColor
+   }
+   
    func updateColors() {
-      view.backgroundColor = ThemeManager.backgroundPrimaryColor
+      view.backgroundColor = ThemeManager.backgroundSecondaryColor
+      navigationController?.navigationBar.backgroundColor = ThemeManager.backgroundSecondaryColor
    }
 }
 
@@ -108,6 +114,7 @@ private extension HomeViewController {
    enum Constants {
       static let homeCell = "HomeCell"
       static let logoutTitle = "Logout"
-      static let cellToCellSpacing: CGFloat = 8
+      static let spacingS: CGFloat = 8
+      static let defaultNumberOfItems = 6
    }
 }

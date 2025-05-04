@@ -11,20 +11,18 @@ final class ProfileViewController: UIViewController {
    
    //MARK: - Properties
    
-   
-   
    //MARK: Subviews
    
    private lazy var collectionView: UICollectionView = {
       let layout = UICollectionViewFlowLayout()
       layout.scrollDirection = .vertical
-      layout.minimumLineSpacing = Constants.cellToCellSpacing
-      layout.minimumInteritemSpacing = Constants.cellToCellSpacing
-      print(layout.sectionHeadersPinToVisibleBounds)
+      layout.minimumLineSpacing = Constants.gridSpacing
+      layout.minimumInteritemSpacing = Constants.gridSpacing
       
       let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
       collectionView.dataSource = self
       collectionView.delegate = self
+      collectionView.alwaysBounceVertical = true
       collectionView.register(ProfilePostCell.self, forCellWithReuseIdentifier: Constants.cellIdentifier)
       collectionView.register(ProfileHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.headerIdentifier)
       return collectionView
@@ -34,10 +32,10 @@ final class ProfileViewController: UIViewController {
    
    override func viewDidLoad() {
       super.viewDidLoad()
+      setUpNavigationBar()
       setupViews()
       setupConstraints()
       updateColors()
-      collectionView.backgroundColor = .purple
    }
 }
 
@@ -78,15 +76,15 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
    
    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
       
-      let collectionWidth = collectionView.frame.width - (Constants.numberOfItemsInRow - 1) * Constants.cellToCellSpacing
+      let collectionWidth = collectionView.frame.width - (Constants.numberOfItemsInRow - 1) * Constants.gridSpacing
       let itemWidth = collectionWidth / Constants.numberOfItemsInRow
-
+      
       return CGSize(width: itemWidth, height: itemWidth)
    }
    
    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-      
-      return CGSize(width: collectionView.frame.width, height: 240)
+      let height = ProfileHeaderView.calculateHeight()
+      return CGSize(width: collectionView.frame.width, height: height)
    }
    
 }
@@ -95,8 +93,15 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
 
 private extension ProfileViewController {
    
+   func setUpNavigationBar() {
+      navigationController?.navigationBar.titleTextAttributes = [
+         .foregroundColor : ThemeManager.textPrimaryColor]
+      navigationItem.title = Constants.usernameTitle
+   }
+   
    func updateColors() {
-      view.backgroundColor = ThemeManager.backgroundPrimaryColor
+      view.backgroundColor = ThemeManager.backgroundSecondaryColor
+      navigationController?.navigationBar.backgroundColor = ThemeManager.backgroundSecondaryColor
    }
    
 }
@@ -124,9 +129,10 @@ private extension ProfileViewController {
       //Namings
       static let cellIdentifier = "ProfileImageCell"
       static let headerIdentifier = "ProfileHeaderView"
+      static let usernameTitle = "Username"
       
       //Spacings
-      static let cellToCellSpacing: CGFloat = 2
+      static let gridSpacing: CGFloat = 2
       
       //Sizes
       static let profileHeaderHeight: CGFloat = 240

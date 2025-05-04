@@ -26,6 +26,9 @@ final class ThemeManager {
    static let backgroundSecondaryColor = UIColor.backgroundSecondary
    static let backgroundInputField = UIColor.white.withAlphaComponent(0.1)
    
+   static let accentPrimaryColor = UIColor.accentPrimary
+   static let accentSecondaryColor = UIColor.accentSecondary
+   
    static let textPrimaryColor = UIColor.textPrimary
    static let textSecondaryColor = UIColor.textSecondary
    
@@ -35,8 +38,13 @@ final class ThemeManager {
    static let buttonEnabledColor = UIColor.accentPrimary.withAlphaComponent(0.75)
    static let buttonDisabledColor = UIColor.accentSecondary.withAlphaComponent(0.5)
    
-   static let accentPrimaryColor = UIColor.accentPrimary
-   static let accentSecondaryColor = UIColor.accentSecondary
+   //MARK: - Spacings
+   
+   static let spacingXS: CGFloat = 4
+   static let spacingS: CGFloat = 8
+   static let spacingM: CGFloat = 12
+   static let spacingL: CGFloat = 16
+   static let spacingXL: CGFloat = 20
 
    //MARK: - Icons
    
@@ -45,8 +53,8 @@ final class ThemeManager {
    static let config = UIImage.SymbolConfiguration(pointSize: actionButtonSize, weight: .regular)
    
    //Namings
-   static let avatarImageName = "thumbnail"
-   static let mediaImageName = "placeholder"
+   static let thumbnailImageName = "thumbnail"
+   static let placeholderImageName = "placeholder"
    static let homeSelectedImageName = "house.fill"
    static let homeUnselectedImageName = "house"
    static let searchSelectedImageName = "magnifyingglass"

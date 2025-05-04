@@ -40,9 +40,9 @@ final class ProfileStatsButton: UIButton {
    
    //MARK: - Public Functions
    
-   func setupButton(title: String, count: String) {
+   func setupStats(title: String, value: Int) {
       label.text = title
-      countLabel.text = count
+      countLabel.text = "\(value)"
    }
 }
 
