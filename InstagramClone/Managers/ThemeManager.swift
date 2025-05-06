@@ -45,29 +45,9 @@ final class ThemeManager {
    static let spacingM: CGFloat = 12
    static let spacingL: CGFloat = 16
    static let spacingXL: CGFloat = 20
-
-   //MARK: - Icons
    
-   //Sizes
-   static let actionButtonSize: CGFloat = 24
-   static let config = UIImage.SymbolConfiguration(pointSize: actionButtonSize, weight: .regular)
+   //MARK: - Sizes
+   static let separatorLineHeight: CGFloat = 2
    
-   //Namings
-   static let thumbnailImageName = "thumbnail"
-   static let placeholderImageName = "placeholder"
-   static let homeSelectedImageName = "house.fill"
-   static let homeUnselectedImageName = "house"
-   static let searchSelectedImageName = "magnifyingglass"
-   static let searchUnselectedImageName = "magnifyingglass"
-   static let likeSelectedImageName = "heart.fill"
-   static let likeUnselectedImageName = "heart"
-   static let profileSelectedImageName = "person.fill"
-   static let profileUnselectedImageName = "person"
-   static let plusSelectedImageName = "plus.app.fill"
-   static let plusUnselectedImageName = "plus.app"
-   static let commentSelectedImageName = "message.fill"
-   static let commentUnselectedImageName = "message"
-   static let shareSelectedImageName = "paperplane.fill"
-   static let shareUnselectedImageName = "paperplane"
 }
 

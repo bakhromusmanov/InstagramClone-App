@@ -12,9 +12,21 @@ final class ProfileHeaderView: UICollectionReusableView {
    
    //MARK: - Subviews
    
+   private let topSeparatorView: UIView = {
+      let view = UIView()
+      view.backgroundColor = ThemeManager.textSecondaryColor
+      return view
+   }()
+   
+   private let bottomSeparatorView: UIView = {
+      let view = UIView()
+      view.backgroundColor = ThemeManager.textSecondaryColor
+      return view
+   }()
+   
    private let profileImageView: UIImageView = {
       let imageView = UIImageView(
-         image: UIImage(named: ThemeManager.thumbnailImageName)
+         image: UIImage(named: Constants.thumbnailImageName)
       )
       imageView.contentMode = .scaleAspectFill
       imageView.layer.cornerRadius = Constants.profileImageCornerRadius
@@ -26,7 +38,7 @@ final class ProfileHeaderView: UICollectionReusableView {
       let label = UILabel()
       label.text = Constants.defaultFullNameText
       label.textColor = ThemeManager.textPrimaryColor
-      label.font = ThemeManager.titleBold
+      label.font = Constants.fullNameLabelFont
       return label
    }()
    
@@ -68,6 +80,39 @@ final class ProfileHeaderView: UICollectionReusableView {
       return button
    }()
    
+   private let segmentStackView: UIStackView = {
+      let stackView = UIStackView()
+      stackView.axis = .horizontal
+      stackView.distribution = .fillEqually
+      stackView.alignment = .center
+      stackView.backgroundColor = ThemeManager.backgroundSecondaryColor
+      return stackView
+   }()
+   
+   private lazy var gridButton: UIButton = {
+      let button = UIButton(type: .system)
+      button.setImage(UIImage(systemName: Constants.gridImageName), for: .normal)
+      button.imageView?.contentMode = .scaleAspectFit
+      button.tintColor = ThemeManager.buttonEnabledColor
+      return button
+   }()
+   
+   private lazy var listButton: UIButton = {
+      let button = UIButton(type: .system)
+      button.setImage(UIImage(systemName: Constants.listImageName), for: .normal)
+      button.imageView?.contentMode = .scaleAspectFit
+      button.tintColor = ThemeManager.textSecondaryColor
+      return button
+   }()
+   
+   private lazy var bookmarkButton: UIButton = {
+      let button = UIButton(type: .system)
+      button.setImage(UIImage(systemName: Constants.bookmarkImageName), for: .normal)
+      button.imageView?.contentMode = .scaleAspectFit
+      button.tintColor = ThemeManager.textSecondaryColor
+      return button
+   }()
+   
    //MARK: - Initialization
    
    override init(frame: CGRect) {
@@ -84,7 +129,7 @@ final class ProfileHeaderView: UICollectionReusableView {
    //MARK: - Public Functions
    
    static func calculateHeight() -> CGFloat {
-      let height = Constants.defaultVerticalPadding * 2 + Constants.profileImageSize + Constants.spacingM  + ThemeManager.titleBold.lineHeight + Constants.spacingL + Constants.editProfileButtonHeight
+      let height = ThemeManager.separatorLineHeight + Constants.defaultVerticalPadding * 3 + Constants.profileImageSize + Constants.spacingM  + Constants.fullNameLabelFont.lineHeight + Constants.spacingXL + Constants.editProfileButtonHeight + Constants.segmentStackViewHeight
       return height
    }
 }
@@ -102,6 +147,7 @@ private extension ProfileHeaderView {
          fullNameLabel.backgroundColor = .red
          statsStackView.backgroundColor = .purple
          editProfileButton.backgroundColor = .orange
+         segmentStackView.backgroundColor = .systemPink
       }
    }
 }
@@ -111,6 +157,7 @@ private extension ProfileHeaderView {
 private extension ProfileHeaderView {
    
    func setupViews() {
+      addSubview(topSeparatorView)
       addSubview(profileImageView)
       addSubview(fullNameLabel)
       
@@ -120,6 +167,11 @@ private extension ProfileHeaderView {
       statsStackView.addArrangedSubview(followingsButton)
       
       addSubview(editProfileButton)
+      addSubview(segmentStackView)
+      segmentStackView.addArrangedSubview(gridButton)
+      segmentStackView.addArrangedSubview(listButton)
+      segmentStackView.addArrangedSubview(bookmarkButton)
+      addSubview(bottomSeparatorView)
    }
    
    func setupConstraints() {
@@ -142,11 +194,34 @@ private extension ProfileHeaderView {
       }
       
       editProfileButton.snp.makeConstraints { make in
-         make.top.equalTo(fullNameLabel.snp.bottom).offset(Constants.spacingL)
+         make.top.equalTo(fullNameLabel.snp.bottom).offset(Constants.spacingXL)
          make.leading.trailing.equalToSuperview().inset(Constants.defaultHorizontalPadding)
-         make.bottom.equalToSuperview().inset(Constants.defaultVerticalPadding)
+         make.height.equalTo(Constants.editProfileButtonHeight)
       }
       
+      bottomSeparatorView.snp.makeConstraints { make in
+         make.top.equalTo(editProfileButton.snp.bottom).offset(Constants.defaultVerticalPadding)
+         make.leading.trailing.equalToSuperview()
+         make.height.equalTo(ThemeManager.separatorLineHeight)
+      }
+      
+      segmentStackView.snp.makeConstraints { make in
+         make.top.equalTo(bottomSeparatorView.snp.bottom)
+         make.leading.trailing.bottom.equalToSuperview()
+         make.height.equalTo(Constants.segmentStackViewHeight)
+      }
+      
+      gridButton.snp.makeConstraints { make in
+         make.height.equalTo(Constants.segmentButtonSize)
+      }
+      
+      listButton.snp.makeConstraints { make in
+         make.height.equalTo(Constants.segmentButtonSize)
+      }
+      
+      bookmarkButton.snp.makeConstraints { make in
+         make.height.equalTo(Constants.segmentButtonSize)
+      }
    }
 }
 
@@ -155,13 +230,22 @@ private extension ProfileHeaderView {
 private extension ProfileHeaderView {
    enum Constants {
       
-      //Namings
+      //Fonts
+      static let fullNameLabelFont = ThemeManager.titleBold
+      
+      //Texts
       static let postsLabelText = "posts"
       static let followersLabelText = "followers"
       static let followingLabelText = "following"
       static let editProfileButtonText = "Edit Profile"
       static let defaultFullNameText = "Username"
       static let defaultStatsCount: Int = 0
+      
+      //Icons
+      static let thumbnailImageName = "thumbnail"
+      static let gridImageName = "square.grid.3x3.fill"
+      static let listImageName = "list.triangle"
+      static let bookmarkImageName = "bookmark"
       
       //Spacings
       static let spacingXS: CGFloat = 4
@@ -170,11 +254,13 @@ private extension ProfileHeaderView {
       static let spacingL: CGFloat = 16
       static let spacingXL: CGFloat = 20
       static let defaultHorizontalPadding = spacingM
-      static let defaultVerticalPadding = spacingL
+      static let defaultVerticalPadding = spacingM
       
       //Sizes
       static let profileImageSize: CGFloat = 80
-      static let editProfileButtonHeight: CGFloat = 48
+      static let segmentButtonSize: CGFloat = 24
+      static let segmentStackViewHeight: CGFloat = segmentButtonSize + spacingS * 2
+      static let editProfileButtonHeight: CGFloat = 30
       static let profileImageCornerRadius: CGFloat = profileImageSize / 2
       static let editButtonCornerRadius: CGFloat = 5
       static let editButtonBorderWidth: CGFloat = 1

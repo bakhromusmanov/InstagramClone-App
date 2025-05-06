@@ -27,7 +27,7 @@ final class HomeCell: UICollectionViewCell {
    
    private let actionsStackView: UIStackView = {
       let stackView = UIStackView()
-      stackView.distribution = .fill
+      stackView.distribution = .fillEqually
       stackView.axis = .horizontal
       stackView.alignment = .center
       stackView.spacing = Constants.spacingS
@@ -35,7 +35,7 @@ final class HomeCell: UICollectionViewCell {
    }()
    
    private let avatarImageView: UIImageView = {
-      let imageView = UIImageView(image: UIImage(named: ThemeManager.thumbnailImageName))
+      let imageView = UIImageView(image: UIImage(named: Constants.thumbnailImageName))
       imageView.contentMode = .scaleAspectFill
       imageView.clipsToBounds = true
       imageView.layer.cornerRadius = Constants.avatarCornerRadius
@@ -43,7 +43,7 @@ final class HomeCell: UICollectionViewCell {
    }()
    
    private let mediaImageView: UIImageView = {
-      let imageView = UIImageView(image: UIImage(named: ThemeManager.placeholderImageName))
+      let imageView = UIImageView(image: UIImage(named: Constants.placeholderImageName))
       imageView.contentMode = .scaleAspectFill
       return imageView
    }()
@@ -58,30 +58,27 @@ final class HomeCell: UICollectionViewCell {
    
    private lazy var likeButton: UIButton = {
       let button = UIButton(type: .system)
-      button.contentMode = .scaleAspectFill
-      button.setBackgroundImage(UIImage(systemName: ThemeManager.likeUnselectedImageName, withConfiguration: ThemeManager.config), for: .normal)
-      button.setBackgroundImage(UIImage(systemName: ThemeManager.likeSelectedImageName, withConfiguration: ThemeManager.config), for: .selected)
-      button.imageView?.contentMode = .scaleAspectFit
+      button.setImage(UIImage(systemName: Constants.likeUnselectedImageName), for: .normal)
+      button.setImage(UIImage(systemName: Constants.likeSelectedImageName), for: .selected)
+      button.imageView?.contentMode = .scaleAspectFill
       button.tintColor = ThemeManager.textPrimaryColor
       return button
    }()
    
    private lazy var commentButton: UIButton = {
       let button = UIButton(type: .system)
-      button.contentMode = .scaleAspectFill
-      button.setBackgroundImage(UIImage(systemName: ThemeManager.commentUnselectedImageName, withConfiguration: ThemeManager.config), for: .normal)
-      button.setBackgroundImage(UIImage(systemName: ThemeManager.commentSelectedImageName, withConfiguration: ThemeManager.config), for: .selected)
-      button.imageView?.contentMode = .scaleAspectFit
+      button.setImage(UIImage(systemName: Constants.commentUnselectedImageName), for: .normal)
+      button.setImage(UIImage(systemName: Constants.commentSelectedImageName), for: .selected)
+      button.imageView?.contentMode = .scaleAspectFill
       button.tintColor = ThemeManager.textPrimaryColor
       return button
    }()
    
    private lazy var shareButton: UIButton = {
       let button = UIButton(type: .system)
-      button.contentMode = .scaleAspectFill
-      button.setBackgroundImage(UIImage(systemName: ThemeManager.shareUnselectedImageName, withConfiguration: ThemeManager.config), for: .normal)
-      button.setBackgroundImage(UIImage(systemName: ThemeManager.shareSelectedImageName, withConfiguration: ThemeManager.config), for: .selected)
-      button.imageView?.contentMode = .scaleAspectFit
+      button.setImage(UIImage(systemName: Constants.shareUnselectedImageName), for: .normal)
+      button.setImage(UIImage(systemName: Constants.shareSelectedImageName), for: .selected)
+      button.imageView?.contentMode = .scaleAspectFill
       button.tintColor = ThemeManager.textPrimaryColor
       return button
    }()
@@ -219,15 +216,15 @@ private extension HomeCell {
       }
       
       likeButton.snp.makeConstraints { make in
-         make.size.equalTo(ThemeManager.actionButtonSize)
+         make.size.equalTo(Constants.actionButtonSize)
       }
       
       commentButton.snp.makeConstraints { make in
-         make.size.equalTo(ThemeManager.actionButtonSize)
+         make.size.equalTo(Constants.actionButtonSize)
       }
       
       shareButton.snp.makeConstraints { make in
-         make.size.equalTo(ThemeManager.actionButtonSize)
+         make.size.equalTo(Constants.actionButtonSize)
       }
       
       footerView.snp.makeConstraints { make in
@@ -259,17 +256,28 @@ private extension HomeCell {
 private extension HomeCell {
    enum Constants {
       
-      //Namings
+      //Texts
       static let usernameButtonTitle = "user"
       static let likeCountButtonTitle = "1 like"
       static let captionLabelTitle = "Some test caption for now"
       static let timestampLabelTitle = "2 days ago"
       
+      //Icons
+      static let thumbnailImageName = "thumbnail"
+      static let placeholderImageName = "placeholder"
+      static let likeSelectedImageName = "heart.fill"
+      static let likeUnselectedImageName = "heart"
+      static let commentSelectedImageName = "message.fill"
+      static let commentUnselectedImageName = "message"
+      static let shareSelectedImageName = "paperplane.fill"
+      static let shareUnselectedImageName = "paperplane"
+      
       //Sizes
+      static let actionButtonSize: CGFloat = 24
       static let avatarImageViewSize: CGFloat = 40
       static let avatarCornerRadius: CGFloat = avatarImageViewSize / 2
       
-      //Sizes
+      //Spacings
       static let spacingS: CGFloat = 8
       static let defaultHorizontalPadding = spacingS
       static let defaultVerticalPadding = spacingS

@@ -11,6 +11,12 @@ final class HomeViewController: UIViewController {
    
    //MARK: Subviews
    
+   private let topSeparatorView: UIView = {
+      let view = UIView()
+      view.backgroundColor = ThemeManager.textSecondaryColor
+      return view
+   }()
+   
    private lazy var collectionView: UICollectionView = {
       let layout = UICollectionViewFlowLayout()
       layout.scrollDirection = .vertical
@@ -97,13 +103,21 @@ private extension HomeViewController {
 
 private extension HomeViewController {
    func setupViews() {
+      view.addSubview(topSeparatorView)
       view.addSubview(collectionView)
    }
    
    func setupConstraints() {
-      collectionView.snp.makeConstraints { make in
-         make.bottom.leading.trailing.equalToSuperview()
+      
+      topSeparatorView.snp.makeConstraints { make in
          make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+         make.leading.trailing.equalToSuperview()
+         make.height.equalTo(ThemeManager.separatorLineHeight)
+      }
+      
+      collectionView.snp.makeConstraints { make in
+         make.top.equalTo(topSeparatorView.snp.bottom)
+         make.bottom.leading.trailing.equalToSuperview()
       }
    }
 }

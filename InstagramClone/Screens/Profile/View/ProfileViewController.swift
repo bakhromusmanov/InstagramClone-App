@@ -13,6 +13,12 @@ final class ProfileViewController: UIViewController {
    
    //MARK: Subviews
    
+   private let topSeparatorView: UIView = {
+      let view = UIView()
+      view.backgroundColor = ThemeManager.textSecondaryColor
+      return view
+   }()
+   
    private lazy var collectionView: UICollectionView = {
       let layout = UICollectionViewFlowLayout()
       layout.scrollDirection = .vertical
@@ -110,12 +116,19 @@ private extension ProfileViewController {
 
 private extension ProfileViewController {
    func setupViews() {
+      view.addSubview(topSeparatorView)
       view.addSubview(collectionView)
    }
    
    func setupConstraints() {
-      collectionView.snp.makeConstraints { make in
+      topSeparatorView.snp.makeConstraints { make in
          make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+         make.leading.trailing.equalToSuperview()
+         make.height.equalTo(ThemeManager.separatorLineHeight)
+      }
+      
+      collectionView.snp.makeConstraints { make in
+         make.top.equalTo(topSeparatorView.snp.bottom)
          make.leading.trailing.bottom.equalToSuperview()
       }
    }
@@ -126,7 +139,7 @@ private extension ProfileViewController {
 private extension ProfileViewController {
    enum Constants {
       
-      //Namings
+      //Texts
       static let cellIdentifier = "ProfileImageCell"
       static let headerIdentifier = "ProfileHeaderView"
       static let usernameTitle = "Username"

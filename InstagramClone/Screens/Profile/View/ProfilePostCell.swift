@@ -50,6 +50,8 @@ private extension ProfilePostCell {
 
 private extension ProfilePostCell {
    enum Constants {
+      
+      //Icons
       static let postImageName = "placeholder"
    }
 }
