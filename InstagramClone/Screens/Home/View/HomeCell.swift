@@ -51,7 +51,7 @@ final class HomeCell: UICollectionViewCell {
    private lazy var usernameButton: UIButton = {
       let button = UIButton(type: .system)
       button.setTitle(Constants.usernameButtonTitle, for: .normal)
-      button.setTitleColor(ThemeManager.textPrimaryColor, for: .normal)
+      button.setTitleColor(ThemeManager.colors.textPrimary, for: .normal)
       button.titleLabel?.font = Constants.usernameButtonFont
       return button
    }()
@@ -61,7 +61,7 @@ final class HomeCell: UICollectionViewCell {
       button.setImage(UIImage(systemName: Constants.likeUnselectedImageName), for: .normal)
       button.setImage(UIImage(systemName: Constants.likeSelectedImageName), for: .selected)
       button.imageView?.contentMode = .scaleAspectFill
-      button.tintColor = ThemeManager.textPrimaryColor
+      button.tintColor = ThemeManager.colors.textPrimary
       return button
    }()
    
@@ -70,7 +70,7 @@ final class HomeCell: UICollectionViewCell {
       button.setImage(UIImage(systemName: Constants.commentUnselectedImageName), for: .normal)
       button.setImage(UIImage(systemName: Constants.commentSelectedImageName), for: .selected)
       button.imageView?.contentMode = .scaleAspectFill
-      button.tintColor = ThemeManager.textPrimaryColor
+      button.tintColor = ThemeManager.colors.textPrimary
       return button
    }()
    
@@ -79,7 +79,7 @@ final class HomeCell: UICollectionViewCell {
       button.setImage(UIImage(systemName: Constants.shareUnselectedImageName), for: .normal)
       button.setImage(UIImage(systemName: Constants.shareSelectedImageName), for: .selected)
       button.imageView?.contentMode = .scaleAspectFill
-      button.tintColor = ThemeManager.textPrimaryColor
+      button.tintColor = ThemeManager.colors.textPrimary
       return button
    }()
    
@@ -94,7 +94,7 @@ final class HomeCell: UICollectionViewCell {
       label.text = Constants.likeCountButtonTitle
       label.font = Constants.likesCountLabelFont
       label.textAlignment = .left
-      label.textColor = ThemeManager.textPrimaryColor
+      label.textColor = ThemeManager.colors.textPrimary
       return label
    }()
    
@@ -103,7 +103,7 @@ final class HomeCell: UICollectionViewCell {
       label.text = Constants.captionLabelTitle
       label.font = Constants.captionLabelFont
       label.textAlignment = .left
-      label.textColor = ThemeManager.textPrimaryColor
+      label.textColor = ThemeManager.colors.textPrimary
       return label
    }()
    
@@ -112,7 +112,7 @@ final class HomeCell: UICollectionViewCell {
       label.text = Constants.timestampLabelTitle
       label.font = Constants.timestampLabelFont
       label.textAlignment = .left
-      label.textColor = ThemeManager.textSecondaryColor
+      label.textColor = ThemeManager.colors.textSecondary
       return label
    }()
    
@@ -283,9 +283,9 @@ private extension HomeCell {
       static let defaultVerticalPadding = spacingS
       
       //Fonts
-      static let usernameButtonFont: UIFont = ThemeManager.titleBold
-      static let likesCountLabelFont: UIFont = ThemeManager.titleBold
-      static let captionLabelFont: UIFont = ThemeManager.titleRegular
-      static let timestampLabelFont: UIFont = ThemeManager.caption
+      static let usernameButtonFont: UIFont = ThemeManager.fonts.bodyMediumBold
+      static let likesCountLabelFont: UIFont = ThemeManager.fonts.bodyMediumBold
+      static let captionLabelFont: UIFont = ThemeManager.fonts.bodyMediumRegular
+      static let timestampLabelFont: UIFont = ThemeManager.fonts.bodySmallRegular
    }
 }

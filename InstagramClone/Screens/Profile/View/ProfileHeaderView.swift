@@ -14,13 +14,13 @@ final class ProfileHeaderView: UICollectionReusableView {
    
    private let topSeparatorView: UIView = {
       let view = UIView()
-      view.backgroundColor = ThemeManager.textSecondaryColor
+      view.backgroundColor = ThemeManager.colors.textSecondary
       return view
    }()
    
    private let bottomSeparatorView: UIView = {
       let view = UIView()
-      view.backgroundColor = ThemeManager.textSecondaryColor
+      view.backgroundColor = ThemeManager.colors.textSecondary
       return view
    }()
    
@@ -37,7 +37,7 @@ final class ProfileHeaderView: UICollectionReusableView {
    private let fullNameLabel: UILabel = {
       let label = UILabel()
       label.text = Constants.defaultFullNameText
-      label.textColor = ThemeManager.textPrimaryColor
+      label.textColor = ThemeManager.colors.textPrimary
       label.font = Constants.fullNameLabelFont
       return label
    }()
@@ -71,11 +71,11 @@ final class ProfileHeaderView: UICollectionReusableView {
    private lazy var editProfileButton: UIButton = {
       let button = UIButton(type: .system)
       button.setTitle(Constants.editProfileButtonText, for: .normal)
-      button.setTitleColor(ThemeManager.textPrimaryColor, for: .normal)
-      button.titleLabel?.font = ThemeManager.titleBold
-      button.backgroundColor = ThemeManager.backgroundInputField
+      button.setTitleColor(ThemeManager.colors.textPrimary, for: .normal)
+      button.titleLabel?.font = ThemeManager.fonts.bodyMediumBold
+      button.backgroundColor = ThemeManager.colors.whiteOpacity10
       button.layer.cornerRadius = Constants.editButtonCornerRadius
-      button.layer.borderColor = ThemeManager.textSecondaryColor.cgColor
+      button.layer.borderColor = ThemeManager.colors.border.cgColor
       button.layer.borderWidth = Constants.editButtonBorderWidth
       return button
    }()
@@ -85,7 +85,7 @@ final class ProfileHeaderView: UICollectionReusableView {
       stackView.axis = .horizontal
       stackView.distribution = .fillEqually
       stackView.alignment = .center
-      stackView.backgroundColor = ThemeManager.backgroundSecondaryColor
+      stackView.backgroundColor = ThemeManager.colors.backgroundSecondary
       return stackView
    }()
    
@@ -93,7 +93,7 @@ final class ProfileHeaderView: UICollectionReusableView {
       let button = UIButton(type: .system)
       button.setImage(UIImage(systemName: Constants.gridImageName), for: .normal)
       button.imageView?.contentMode = .scaleAspectFit
-      button.tintColor = ThemeManager.buttonEnabledColor
+      button.tintColor = ThemeManager.colors.enabledButton
       return button
    }()
    
@@ -101,7 +101,7 @@ final class ProfileHeaderView: UICollectionReusableView {
       let button = UIButton(type: .system)
       button.setImage(UIImage(systemName: Constants.listImageName), for: .normal)
       button.imageView?.contentMode = .scaleAspectFit
-      button.tintColor = ThemeManager.textSecondaryColor
+      button.tintColor = ThemeManager.colors.textSecondary
       return button
    }()
    
@@ -109,7 +109,7 @@ final class ProfileHeaderView: UICollectionReusableView {
       let button = UIButton(type: .system)
       button.setImage(UIImage(systemName: Constants.bookmarkImageName), for: .normal)
       button.imageView?.contentMode = .scaleAspectFit
-      button.tintColor = ThemeManager.textSecondaryColor
+      button.tintColor = ThemeManager.colors.textSecondary
       return button
    }()
    
@@ -129,7 +129,7 @@ final class ProfileHeaderView: UICollectionReusableView {
    //MARK: - Public Functions
    
    static func calculateHeight() -> CGFloat {
-      let height = ThemeManager.separatorLineHeight + Constants.defaultVerticalPadding * 3 + Constants.profileImageSize + Constants.spacingM  + Constants.fullNameLabelFont.lineHeight + Constants.spacingXL + Constants.editProfileButtonHeight + Constants.segmentStackViewHeight
+      let height = ThemeManager.spacings.separatorLineHeight + Constants.defaultVerticalPadding * 3 + Constants.profileImageSize + Constants.spacingM  + Constants.fullNameLabelFont.lineHeight + Constants.spacingXL + Constants.editProfileButtonHeight + Constants.segmentStackViewHeight
       return height
    }
 }
@@ -138,7 +138,7 @@ final class ProfileHeaderView: UICollectionReusableView {
 
 private extension ProfileHeaderView {
    func updateColors() {
-      backgroundColor = ThemeManager.backgroundPrimaryColor
+      backgroundColor = ThemeManager.colors.backgroundPrimary
    }
    
    func showLayoutColors(_ isEnabled: Bool) {
@@ -202,7 +202,7 @@ private extension ProfileHeaderView {
       bottomSeparatorView.snp.makeConstraints { make in
          make.top.equalTo(editProfileButton.snp.bottom).offset(Constants.defaultVerticalPadding)
          make.leading.trailing.equalToSuperview()
-         make.height.equalTo(ThemeManager.separatorLineHeight)
+         make.height.equalTo(ThemeManager.spacings.separatorLineHeight)
       }
       
       segmentStackView.snp.makeConstraints { make in
@@ -231,7 +231,7 @@ private extension ProfileHeaderView {
    enum Constants {
       
       //Fonts
-      static let fullNameLabelFont = ThemeManager.titleBold
+      static let fullNameLabelFont = ThemeManager.fonts.bodyMediumBold
       
       //Texts
       static let postsLabelText = "posts"
@@ -248,11 +248,11 @@ private extension ProfileHeaderView {
       static let bookmarkImageName = "bookmark"
       
       //Spacings
-      static let spacingXS: CGFloat = 4
-      static let spacingS: CGFloat = 8
-      static let spacingM: CGFloat = 12
-      static let spacingL: CGFloat = 16
-      static let spacingXL: CGFloat = 20
+      static let spacingXS: CGFloat = ThemeManager.spacings.spacingXS
+      static let spacingS: CGFloat = ThemeManager.spacings.spacingS
+      static let spacingM: CGFloat = ThemeManager.spacings.spacingM
+      static let spacingL: CGFloat = ThemeManager.spacings.spacingL
+      static let spacingXL: CGFloat = ThemeManager.spacings.spacingXL
       static let defaultHorizontalPadding = spacingM
       static let defaultVerticalPadding = spacingM
       

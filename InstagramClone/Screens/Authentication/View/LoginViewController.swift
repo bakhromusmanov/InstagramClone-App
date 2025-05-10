@@ -56,7 +56,7 @@ final class LoginViewController: UIViewController {
    
    private lazy var forgotPasswordButton: UIButton = {
       let button = UIButton(type: .system)
-      button.setTitleColor(ThemeManager.inputFieldDisabledTextColor, for: .normal)
+      button.setTitleColor(ThemeManager.colors.disabled, for: .normal)
       button.setDualTitle(regularText: Constants.forgotPasswordTitle, boldText: Constants.getHelpTitle)
       button.addTarget(self, action: #selector(forgotPasswordButtonPressed), for: .touchUpInside)
       return button
@@ -64,7 +64,7 @@ final class LoginViewController: UIViewController {
    
    private lazy var signUpButton: UIButton = {
       let button = UIButton(type: .system)
-      button.setTitleColor(ThemeManager.inputFieldDisabledTextColor, for: .normal)
+      button.setTitleColor(ThemeManager.colors.disabled, for: .normal)
       button.setDualTitle(regularText: Constants.dontHaveAccountTitle, boldText: Constants.signUpTitle)
       button.addTarget(self, action: #selector(signUpButtonPressed), for: .touchUpInside)
       return button
@@ -132,7 +132,7 @@ final class LoginViewController: UIViewController {
 
 private extension LoginViewController {
    func updateColors() {
-      setGradientBackground(startColor: ThemeManager.accentSecondaryColor, endColor: ThemeManager.accentPrimaryColor)
+      setGradientBackground(startColor: ThemeManager.colors.secondary, endColor: ThemeManager.colors.primary)
    }
 }
 

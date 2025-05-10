@@ -14,15 +14,15 @@ final class ProfileStatsButton: UIButton {
    
    private let countLabel: UILabel = {
       let label = UILabel()
-      label.textColor = ThemeManager.textPrimaryColor
-      label.font = ThemeManager.titleBold
+      label.textColor = ThemeManager.colors.textPrimary
+      label.font = ThemeManager.fonts.bodyMediumBold
       return label
    }()
    
    private let label: UILabel = {
       let label = UILabel()
-      label.textColor = ThemeManager.textSecondaryColor
-      label.font = ThemeManager.titleRegular
+      label.textColor = ThemeManager.colors.textSecondary
+      label.font = ThemeManager.fonts.bodyMediumRegular
       return label
    }()
    

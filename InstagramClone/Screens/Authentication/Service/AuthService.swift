@@ -45,7 +45,7 @@ struct AuthService {
          }
          
          user.userId = uid
-         let userPath = DatabaseEndpoint.user(uid: uid).path
+         let userPath = UserEndpoint.user(uid: uid).path
          let ref = Database.database().reference().child(userPath)
          
          ref.setValue(user.toDictionary()) { error, _ in

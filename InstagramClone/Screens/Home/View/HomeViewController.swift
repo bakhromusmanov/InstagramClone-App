@@ -13,7 +13,7 @@ final class HomeViewController: UIViewController {
    
    private let topSeparatorView: UIView = {
       let view = UIView()
-      view.backgroundColor = ThemeManager.textSecondaryColor
+      view.backgroundColor = ThemeManager.colors.textSecondary
       return view
    }()
    
@@ -90,12 +90,12 @@ private extension HomeViewController {
          style: .done,
          target: self,
          action: #selector(logoutButtonPressed))
-      navigationItem.leftBarButtonItem?.tintColor = ThemeManager.textPrimaryColor
+      navigationItem.leftBarButtonItem?.tintColor = ThemeManager.colors.textPrimary
    }
    
    func updateColors() {
-      view.backgroundColor = ThemeManager.backgroundSecondaryColor
-      navigationController?.navigationBar.backgroundColor = ThemeManager.backgroundSecondaryColor
+      view.backgroundColor = ThemeManager.colors.backgroundSecondary
+      navigationController?.navigationBar.backgroundColor = ThemeManager.colors.backgroundSecondary
    }
 }
 
@@ -112,7 +112,7 @@ private extension HomeViewController {
       topSeparatorView.snp.makeConstraints { make in
          make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
          make.leading.trailing.equalToSuperview()
-         make.height.equalTo(ThemeManager.separatorLineHeight)
+         make.height.equalTo(ThemeManager.spacings.separatorLineHeight)
       }
       
       collectionView.snp.makeConstraints { make in

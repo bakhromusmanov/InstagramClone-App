@@ -15,14 +15,14 @@ final class ImageUploaderService {
    //MARK: - uploadPostImage
    
    static func uploadPostImage(image: UIImage, completion: @escaping (String) -> Void) {
-      let path = StorageEndpoint.postImage.path
+      let path = UserEndpoint.postImage.path
       upload(image: image, path: path, completion: completion)
    }
    
    //MARK: - uploadProfileImage
    
    static func uploadProfileImage(image: UIImage, completion: @escaping (String) -> Void) {
-      let path = StorageEndpoint.profileImage.path
+      let path = UserEndpoint.profileImage.path
       upload(image: image, path: path, completion: completion)
    }
    
