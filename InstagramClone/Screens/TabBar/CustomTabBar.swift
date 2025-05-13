@@ -31,11 +31,11 @@ final class CustomTabBar: UITabBar {
       
       //Setting tab bar opaque background
       appearance.configureWithOpaqueBackground()
-      appearance.backgroundColor = ThemeManager.backgroundSecondaryColor
+      appearance.backgroundColor = ThemeManager.colors.backgroundSecondary
       
       //Set icon normal and selected colors
-      appearance.stackedLayoutAppearance.selected.iconColor = ThemeManager.textPrimaryColor
-      appearance.stackedLayoutAppearance.normal.iconColor = ThemeManager.textSecondaryColor
+      appearance.stackedLayoutAppearance.selected.iconColor = ThemeManager.colors.textPrimary
+      appearance.stackedLayoutAppearance.normal.iconColor = ThemeManager.colors.textSecondary
       
       // Adjust image position
       appearance.stackedLayoutAppearance.normal.badgePositionAdjustment = UIOffset(horizontal: 0, vertical: Constants.tabBarTitleOffsetY)

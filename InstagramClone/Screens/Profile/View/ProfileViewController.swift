@@ -17,7 +17,7 @@ final class ProfileViewController: UIViewController {
    
    private let topSeparatorView: UIView = {
       let view = UIView()
-      view.backgroundColor = ThemeManager.textSecondaryColor
+      view.backgroundColor = ThemeManager.colors.textSecondary
       return view
    }()
    
@@ -127,13 +127,13 @@ private extension ProfileViewController {
    
    func setUpNavigationBar() {
       navigationController?.navigationBar.titleTextAttributes = [
-         .foregroundColor : ThemeManager.textPrimaryColor]
+         .foregroundColor : ThemeManager.colors.textPrimary]
       navigationItem.title = Constants.usernameTitle
    }
    
    func updateColors() {
-      view.backgroundColor = ThemeManager.backgroundSecondaryColor
-      navigationController?.navigationBar.backgroundColor = ThemeManager.backgroundSecondaryColor
+      view.backgroundColor = ThemeManager.colors.backgroundPrimary
+      navigationController?.navigationBar.backgroundColor = ThemeManager.colors.backgroundSecondary
    }
    
    func updateViewWithUser() {
@@ -153,7 +153,7 @@ private extension ProfileViewController {
       topSeparatorView.snp.makeConstraints { make in
          make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
          make.leading.trailing.equalToSuperview()
-         make.height.equalTo(ThemeManager.separatorLineHeight)
+         make.height.equalTo(ThemeManager.spacings.separatorLineHeight)
       }
       
       collectionView.snp.makeConstraints { make in

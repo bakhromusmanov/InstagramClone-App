@@ -22,7 +22,7 @@ final class NotificationsViewController: UIViewController {
 //MARK: - Appearance & Theming
 private extension NotificationsViewController {
    func updateColors() {
-      view.backgroundColor = ThemeManager.backgroundPrimaryColor
+      view.backgroundColor = ThemeManager.colors.backgroundPrimary
    }
 }
 

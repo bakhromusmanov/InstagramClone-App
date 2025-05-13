@@ -22,7 +22,7 @@ final class SearchViewController: UIViewController {
 //MARK: - Appearance & Theming
 private extension SearchViewController {
    func updateColors() {
-      view.backgroundColor = ThemeManager.backgroundPrimaryColor
+      view.backgroundColor = ThemeManager.colors.backgroundPrimary
    }
 }
 

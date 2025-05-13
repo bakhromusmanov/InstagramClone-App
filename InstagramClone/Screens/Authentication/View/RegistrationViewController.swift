@@ -74,7 +74,7 @@ final class RegistrationViewController: UIViewController {
    
    private lazy var haveAccountButton: UIButton = {
       let button = UIButton(type: .system)
-      button.setTitleColor(ThemeManager.inputFieldDisabledTextColor, for: .normal)
+      button.setTitleColor(ThemeManager.colors.disabled, for: .normal)
       button.setDualTitle(regularText: Constants.haveAccountTitle, boldText: Constants.loginTitle)
       button.addTarget(self, action: #selector(haveAccountButtonPressed), for: .touchUpInside)
       return button
@@ -205,7 +205,7 @@ extension RegistrationViewController: UIImagePickerControllerDelegate, UINavigat
 
 private extension RegistrationViewController {
    func updateColors() {
-      setGradientBackground(startColor: ThemeManager.accentSecondaryColor, endColor: ThemeManager.accentPrimaryColor)
+      setGradientBackground(startColor: ThemeManager.colors.secondary, endColor: ThemeManager.colors.primary)
    }
    
    func updateSignUpButton(isEnabled: Bool) {

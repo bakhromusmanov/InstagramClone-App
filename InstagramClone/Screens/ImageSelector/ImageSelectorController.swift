@@ -22,7 +22,7 @@ final class ImageSelectorController: UIViewController {
 //MARK: - Appearance & Theming
 private extension ImageSelectorController {
    func updateColors() {
-      view.backgroundColor = ThemeManager.backgroundPrimaryColor
+      view.backgroundColor = ThemeManager.colors.backgroundPrimary
    }
 }
 
