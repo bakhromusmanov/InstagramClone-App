@@ -1,5 +1,5 @@
 //
-//  StorageEndpoint.swift
+//  ImageEndpoint.swift
 //  InstagramClone
 //
 //  Created by Bakhrom Usmanov on 30/04/25.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum StorageEndpoint {
+enum ImageEndpoint {
    case profileImage
    case postImage
    

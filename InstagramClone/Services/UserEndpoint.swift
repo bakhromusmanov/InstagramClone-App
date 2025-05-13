@@ -1,5 +1,5 @@
 //
-//  DatabaseEndpoint.swift
+//  UserEndpoint.swift
 //  InstagramClone
 //
 //  Created by Bakhrom Usmanov on 30/04/25.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum DatabaseEndpoint {
+enum UserEndpoint {
    case user(uid: String)
    
    var path: String {

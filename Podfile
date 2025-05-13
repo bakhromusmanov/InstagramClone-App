@@ -6,7 +6,7 @@ target 'InstagramClone' do
   use_frameworks!
 
 # Pods for InstagramClone
-# Pods for Snapkit
+# Pods for SnapKit
 pod 'SnapKit'
 
 # Pods for Firebase

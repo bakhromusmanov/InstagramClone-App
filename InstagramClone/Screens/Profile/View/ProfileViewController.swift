@@ -11,6 +11,8 @@ final class ProfileViewController: UIViewController {
    
    //MARK: - Properties
    
+   private var user: UserEntity?
+   
    //MARK: Subviews
    
    private let topSeparatorView: UIView = {
@@ -38,10 +40,34 @@ final class ProfileViewController: UIViewController {
    
    override func viewDidLoad() {
       super.viewDidLoad()
+      fetchUser()
+      
       setUpNavigationBar()
       setupViews()
       setupConstraints()
       updateColors()
+   }
+}
+
+//MARK: - Public Functions
+
+extension ProfileViewController {
+
+}
+
+//MARK: - Networking
+
+private extension ProfileViewController {
+   func fetchUser() {
+      UserService.fetchUser { user in
+         guard let user else {
+            print("DEBUG: Error while fetching user from Firebase. User is nil")
+            return
+         }
+         
+         self.user = user
+         self.updateViewWithUser()
+      }
    }
 }
 
@@ -110,6 +136,9 @@ private extension ProfileViewController {
       navigationController?.navigationBar.backgroundColor = ThemeManager.backgroundSecondaryColor
    }
    
+   func updateViewWithUser() {
+      navigationItem.title = user?.username
+   }
 }
 
 //MARK: - Layout & Constraints

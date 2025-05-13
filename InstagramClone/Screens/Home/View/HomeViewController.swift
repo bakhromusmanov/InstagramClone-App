@@ -53,7 +53,7 @@ final class HomeViewController: UIViewController {
       let loginVC = LoginViewController()
       let loginNav = UINavigationController(rootViewController: loginVC)
       loginNav.modalPresentationStyle = .fullScreen
-      present(loginNav, animated: false)
+      present(loginNav, animated: true)
    }
 }
 

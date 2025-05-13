@@ -98,7 +98,7 @@ private extension TabBarViewController {
          let loginVC = LoginViewController()
          let loginNav = UINavigationController(rootViewController: loginVC)
          loginNav.modalPresentationStyle = .fullScreen
-         self.present(loginNav, animated: false)
+         present(loginNav, animated: false)
       }
    }
 }
