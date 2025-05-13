@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3F7435E491FB4D3D8BD8ADF5 /* Pods_InstagramClone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFE27019D1AD07D4E88C5A5 /* Pods_InstagramClone.framework */; };
 		A41F2E122DC0B96100AC975A /* AuthEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41F2E112DC0B96100AC975A /* AuthEntity.swift */; };
-		A41F2E142DC0E6EF00AC975A /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41F2E132DC0E6EF00AC975A /* AuthService.swift */; };
 		A41F2E162DC1EBBC00AC975A /* UserEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41F2E152DC1EBBC00AC975A /* UserEndpoint.swift */; };
 		A41F2E182DC1ECBA00AC975A /* ImageEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41F2E172DC1ECBA00AC975A /* ImageEndpoint.swift */; };
 		A41F2E1B2DC49AD100AC975A /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41F2E1A2DC49AD100AC975A /* ProfileHeaderView.swift */; };
@@ -25,6 +24,7 @@
 		A48F69272DB2806700523B56 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48F69262DB2806700523B56 /* LoginViewModel.swift */; };
 		A49ED5CA2DD3233F0032E53A /* UserEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49ED5C92DD3233F0032E53A /* UserEntity.swift */; };
 		A49ED5CC2DD326F60032E53A /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49ED5CB2DD326F60032E53A /* UserService.swift */; };
+		A49ED5D02DD36D040032E53A /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49ED5CF2DD36D040032E53A /* AuthService.swift */; };
 		A4A195982DA92A2F000C77CA /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A195972DA92A2F000C77CA /* ThemeManager.swift */; };
 		A4A1959A2DA9309B000C77CA /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A195992DA9309B000C77CA /* CustomTabBar.swift */; };
 		A4CCF55B2DACC8A900F73878 /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CCF55A2DACC8A900F73878 /* HomeCell.swift */; };
@@ -50,7 +50,6 @@
 /* Begin PBXFileReference section */
 		39C49211B62A878F5ED4A342 /* Pods-InstagramClone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramClone.debug.xcconfig"; path = "Target Support Files/Pods-InstagramClone/Pods-InstagramClone.debug.xcconfig"; sourceTree = "<group>"; };
 		A41F2E112DC0B96100AC975A /* AuthEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthEntity.swift; sourceTree = "<group>"; };
-		A41F2E132DC0E6EF00AC975A /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		A41F2E152DC1EBBC00AC975A /* UserEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEndpoint.swift; sourceTree = "<group>"; };
 		A41F2E172DC1ECBA00AC975A /* ImageEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEndpoint.swift; sourceTree = "<group>"; };
 		A41F2E1A2DC49AD100AC975A /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
@@ -66,6 +65,7 @@
 		A48F69262DB2806700523B56 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		A49ED5C92DD3233F0032E53A /* UserEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntity.swift; sourceTree = "<group>"; };
 		A49ED5CB2DD326F60032E53A /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		A49ED5CF2DD36D040032E53A /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		A4A195972DA92A2F000C77CA /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		A4A195992DA9309B000C77CA /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		A4CCF55A2DACC8A900F73878 /* HomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
@@ -271,11 +271,11 @@
 			isa = PBXGroup;
 			children = (
 				A49ED5CE2DD34B190032E53A /* Model */,
-				A41F2E132DC0E6EF00AC975A /* AuthService.swift */,
 				D0192ACF2DBD04250005171A /* ImageUploaderService.swift */,
 				A41F2E172DC1ECBA00AC975A /* ImageEndpoint.swift */,
 				A49ED5CB2DD326F60032E53A /* UserService.swift */,
 				A41F2E152DC1EBBC00AC975A /* UserEndpoint.swift */,
+				A49ED5CF2DD36D040032E53A /* AuthService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -498,8 +498,8 @@
 				A41F2E182DC1ECBA00AC975A /* ImageEndpoint.swift in Sources */,
 				A4A1959A2DA9309B000C77CA /* CustomTabBar.swift in Sources */,
 				D0192AD02DBD04250005171A /* ImageUploaderService.swift in Sources */,
-				A41F2E142DC0E6EF00AC975A /* AuthService.swift in Sources */,
 				A470D5FA2DAFBA390062A804 /* UIButton+AttributedTitle.swift in Sources */,
+				A49ED5D02DD36D040032E53A /* AuthService.swift in Sources */,
 				D0E261422D15E2EE003D6C71 /* ProfileViewController.swift in Sources */,
 				D0E2613A2D15E2A3003D6C71 /* HomeViewController.swift in Sources */,
 				A48F69272DB2806700523B56 /* LoginViewModel.swift in Sources */,
