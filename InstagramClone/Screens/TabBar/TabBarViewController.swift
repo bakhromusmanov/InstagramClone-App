@@ -9,12 +9,20 @@ import UIKit
 
 final class TabBarViewController: UITabBarController {
    
+   //MARK: - Properties
+   
+   private var user: UserEntity? {
+      didSet {
+         setupTabBarControllers()
+      }
+   }
+   
    //MARK: - Lifecycle
    
    override func viewDidLoad() {
       super.viewDidLoad()
       setValue(CustomTabBar(), forKey: "tabBar")
-      setupTabBarControllers()
+      fetchUser()
    }
    
    override func viewDidAppear(_ animated: Bool) {
@@ -32,6 +40,7 @@ final class TabBarViewController: UITabBarController {
    //MARK: - Private Functions
    
    private func setupTabBarControllers() {
+      guard let user else { return }
       
       //MARK: Make HomeModule
       
@@ -67,7 +76,7 @@ final class TabBarViewController: UITabBarController {
       
       //MARK: Make ProfileModule
       
-      let profileViewController = ProfileViewController()
+      let profileViewController = ProfileViewController(user: user)
       let profileNavigationController = makeNavigationController(
          selectedImage: UIImage(systemName: Constants.profileSelectedImageName) ?? UIImage(),
          unselectedImage: UIImage(systemName: Constants.profileUnselectedImageName) ?? UIImage(),
@@ -93,15 +102,36 @@ final class TabBarViewController: UITabBarController {
 //MARK: - Networking
 
 private extension TabBarViewController {
+   func fetchUser() {
+      UserService.fetchUser { user in
+         guard let user else {
+            print("DEBUG: Error while fetching user from Firebase. User is nil")
+            return
+         }
+         
+         self.user = user
+      }
+   }
+   
    func checkIfUserIsLoggedIn() {
       if AuthService.isUserLoggedOut {
          let loginVC = LoginViewController()
+         loginVC.setDelegate(self)
          let loginNav = UINavigationController(rootViewController: loginVC)
          loginNav.modalPresentationStyle = .fullScreen
          present(loginNav, animated: false)
       }
    }
 }
+
+//MARK: - AuthDelegate
+
+extension TabBarViewController: AuthDelegate {
+   func authDidComplete() {
+      fetchUser()
+   }
+}
+
 
 //MARK: - Constants
 

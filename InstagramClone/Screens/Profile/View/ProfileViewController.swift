@@ -11,7 +11,7 @@ final class ProfileViewController: UIViewController {
    
    //MARK: - Properties
    
-   private var user: UserEntity?
+   private var user: UserEntity
    
    //MARK: Subviews
    
@@ -38,10 +38,17 @@ final class ProfileViewController: UIViewController {
    
    //MARK: - Lifecycle
    
+   init(user: UserEntity) {
+      self.user = user
+      super.init(nibName: nil, bundle: nil)
+   }
+   
+   required init?(coder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
+   }
+   
    override func viewDidLoad() {
       super.viewDidLoad()
-      fetchUser()
-      
       setUpNavigationBar()
       setupViews()
       setupConstraints()
@@ -53,22 +60,6 @@ final class ProfileViewController: UIViewController {
 
 extension ProfileViewController {
 
-}
-
-//MARK: - Networking
-
-private extension ProfileViewController {
-   func fetchUser() {
-      UserService.fetchUser { user in
-         guard let user else {
-            print("DEBUG: Error while fetching user from Firebase. User is nil")
-            return
-         }
-         
-         self.user = user
-         self.updateViewWithUser()
-      }
-   }
 }
 
 //MARK: - UICollectionViewDataSource
@@ -92,6 +83,8 @@ extension ProfileViewController: UICollectionViewDataSource {
       let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.headerIdentifier, for: indexPath)
       
       guard let headerView = headerView as? ProfileHeaderView else { return headerView }
+      let viewModel = ProfileHeaderViewModel(user: user)
+      headerView.setViewModel(viewModel)
       return headerView
    }
 }
@@ -128,16 +121,12 @@ private extension ProfileViewController {
    func setUpNavigationBar() {
       navigationController?.navigationBar.titleTextAttributes = [
          .foregroundColor : ThemeManager.colors.textPrimary]
-      navigationItem.title = Constants.usernameTitle
+      navigationItem.title = user.username
    }
    
    func updateColors() {
       view.backgroundColor = ThemeManager.colors.backgroundPrimary
       navigationController?.navigationBar.backgroundColor = ThemeManager.colors.backgroundSecondary
-   }
-   
-   func updateViewWithUser() {
-      navigationItem.title = user?.username
    }
 }
 
@@ -171,7 +160,6 @@ private extension ProfileViewController {
       //Texts
       static let cellIdentifier = "ProfileImageCell"
       static let headerIdentifier = "ProfileHeaderView"
-      static let usernameTitle = "Username"
       
       //Spacings
       static let gridSpacing: CGFloat = 2

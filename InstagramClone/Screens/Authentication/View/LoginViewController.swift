@@ -12,6 +12,7 @@ final class LoginViewController: UIViewController {
    //MARK: - Properties
    
    private var viewModel = LoginViewModel()
+   private weak var delegate: AuthDelegate?
    
    //MARK: - Subviews
    
@@ -82,10 +83,15 @@ final class LoginViewController: UIViewController {
    
    //MARK: - Public Functions
    
+   func setDelegate(_ delegate: AuthDelegate) {
+      self.delegate = delegate
+   }
+   
    //MARK: - Private Functions
    
    private func showRegistrationController() {
       let controller = RegistrationViewController()
+      controller.setDelegate(delegate)
       navigationController?.pushViewController(controller, animated: true)
    }
    
@@ -100,19 +106,6 @@ final class LoginViewController: UIViewController {
 
    }
    
-   //MARK: Networking
-   
-   @objc private func logInButtonPressed(sender: UIButton) {
-      AuthService.login(withEmail: viewModel.email, password: viewModel.password) { result, error in
-         if let error {
-            print("DEBUG: Error while logging in user: \(error.localizedDescription)")
-            return
-         }
-         
-         self.dismiss(animated: true)
-      }
-   }
-   
    @objc private func textDidChange(sender: UITextField) {
       guard let text = sender.text else { return }
       
@@ -125,6 +118,22 @@ final class LoginViewController: UIViewController {
       }
       
       loginButton.updateStyle(isValid: viewModel.isValid)
+   }
+}
+
+//MARK: Networking
+
+private extension LoginViewController {
+   @objc private func logInButtonPressed(sender: UIButton) {
+      AuthService.login(withEmail: viewModel.email, password: viewModel.password) { result, error in
+         if let error {
+            print("DEBUG: Error while logging in user: \(error.localizedDescription)")
+            return
+         }
+         
+         self.delegate?.authDidComplete()
+         self.dismiss(animated: true)
+      }
    }
 }
 

@@ -10,6 +10,14 @@ import UIKit
 
 final class ProfileHeaderView: UICollectionReusableView {
    
+   //MARK: - Properties
+   
+   private var viewModel: ProfileHeaderViewModel? {
+      didSet {
+         updateView()
+      }
+   }
+   
    //MARK: - Subviews
    
    private let topSeparatorView: UIView = {
@@ -126,11 +134,41 @@ final class ProfileHeaderView: UICollectionReusableView {
       fatalError("init(coder:) has not been implemented")
    }
    
+   deinit {
+      ImageDownloaderService.shared.cancel()
+   }
+   
    //MARK: - Public Functions
+   
+   func setViewModel(_ viewModel: ProfileHeaderViewModel) {
+      self.viewModel = viewModel
+   }
    
    static func calculateHeight() -> CGFloat {
       let height = ThemeManager.spacings.separatorLineHeight + Constants.defaultVerticalPadding * 3 + Constants.profileImageSize + Constants.spacingM  + Constants.fullNameLabelFont.lineHeight + Constants.spacingXL + Constants.editProfileButtonHeight + Constants.segmentStackViewHeight
       return height
+   }
+}
+
+//MARK: - Private Functions
+
+private extension ProfileHeaderView {
+   
+   func updateView() {
+      fullNameLabel.text = viewModel?.fullname
+      updateProfileImage()
+   }
+   
+   func updateProfileImage() {
+      guard let imageURL = viewModel?.profileImageURL else { return }
+      ImageDownloaderService.shared.loadImage(from: imageURL) { image in
+         guard let image = image else {
+            print("DEBUG: Error while loading image, image is nil.")
+            return
+         }
+         
+         self.profileImageView.image = image
+      }
    }
 }
 

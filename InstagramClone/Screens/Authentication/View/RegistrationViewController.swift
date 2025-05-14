@@ -12,6 +12,7 @@ final class RegistrationViewController: UIViewController {
    //MARK: - Properties
    
    private var viewModel = RegistrationViewModel()
+   private weak var delegate: AuthDelegate?
    private var profileImage: UIImage?
    
    //MARK: - Subviews
@@ -90,6 +91,12 @@ final class RegistrationViewController: UIViewController {
       navigationBar(isHidden: true)
    }
    
+   //MARK: - Public Functions
+   
+   func setDelegate(_ delegate: AuthDelegate?) {
+      self.delegate = delegate
+   }
+   
    //MARK: - Private Functions
    
    private func showLoginController() {
@@ -112,19 +119,6 @@ final class RegistrationViewController: UIViewController {
       present(imagePicker, animated: true)
    }
    
-   //MARK: Networking
-   
-   private func register(user: AuthEntity) {
-       AuthService.register(user: user) { error in
-           if let error {
-               print("DEBUG: Error while registering user: \(error.localizedDescription)")
-               return
-           }
-
-          self.dismiss(animated: true)
-       }
-   }
-   
    //MARK: - Actions
    
    @objc private func signUpButtonPressed(sender: UIButton) {
@@ -138,7 +132,7 @@ final class RegistrationViewController: UIViewController {
       //MARK: ImageUploaderService
       
       if let profileImage {
-         ImageUploaderService.uploadProfileImage(image: profileImage, completion: { downloadURL in
+         ImageUploaderService.uploadProfileImage(username: user.username, image: profileImage, completion: { downloadURL in
             user.profileImageURL = downloadURL
             self.register(user: user)
          })
@@ -180,6 +174,23 @@ final class RegistrationViewController: UIViewController {
       }
       
       signUpButton.updateStyle(isValid: viewModel.isValid)
+   }
+}
+
+//MARK: Networking
+
+private extension RegistrationViewController {
+   
+   func register(user: AuthEntity) {
+       AuthService.register(user: user) { error in
+           if let error {
+               print("DEBUG: Error while registering user: \(error.localizedDescription)")
+               return
+           }
+
+          self.delegate?.authDidComplete()
+          self.dismiss(animated: true)
+       }
    }
 }
 

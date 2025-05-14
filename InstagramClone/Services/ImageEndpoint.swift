@@ -7,18 +7,16 @@
 import Foundation
 
 enum ImageEndpoint {
-   case profileImage
-   case postImage
+   case profileImage(username: String)
+   case postImage(username: String)
    
    var path: String {
       switch self {
-      case .profileImage:
-         let userId = "userId"
-         return "/users\(userId)/images/profile_image.jpg"
-      case .postImage:
-         let userId = "userId"
+      case .profileImage(let username):
+         return "/users/\(username)/images/profile_image.jpg"
+      case .postImage(let username):
          let fileName = UUID().uuidString
-         return "/users\(userId)/images/post_images/\(fileName).jpg"
+         return "/users/\(username)/images/post_images/\(fileName).jpg"
       }
    }
 }

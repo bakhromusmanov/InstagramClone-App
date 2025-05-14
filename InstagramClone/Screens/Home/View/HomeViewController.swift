@@ -51,6 +51,8 @@ final class HomeViewController: UIViewController {
    @objc private func logoutButtonPressed() {
       AuthService.logout()
       let loginVC = LoginViewController()
+      guard let controller = tabBarController as? TabBarViewController else { return }
+      loginVC.setDelegate(controller)
       let loginNav = UINavigationController(rootViewController: loginVC)
       loginNav.modalPresentationStyle = .fullScreen
       present(loginNav, animated: true)
