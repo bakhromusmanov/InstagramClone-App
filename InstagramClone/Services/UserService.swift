@@ -18,6 +18,7 @@ final class UserService {
       let ref = Database.database().reference().child(path)
       
       ref.getData { error, snapshot in
+         
          if error != nil {
             completion(nil)
             return

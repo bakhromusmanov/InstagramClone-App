@@ -22,6 +22,7 @@ final class TabBarViewController: UITabBarController {
    override func viewDidLoad() {
       super.viewDidLoad()
       setValue(CustomTabBar(), forKey: "tabBar")
+      setupShimmerView()
       fetchUser()
    }
    
@@ -31,16 +32,24 @@ final class TabBarViewController: UITabBarController {
    }
    
    override func viewSafeAreaInsetsDidChange() {
-       super.viewSafeAreaInsetsDidChange()
-       if let customTabBar = self.tabBar as? CustomTabBar {
-           customTabBar.safeAreaBottomInset = view.safeAreaInsets.bottom
-       }
+      super.viewSafeAreaInsetsDidChange()
+      if let customTabBar = self.tabBar as? CustomTabBar {
+         customTabBar.safeAreaBottomInset = view.safeAreaInsets.bottom
+      }
+   }
+}
+
+//MARK: - Private Functions
+
+private extension TabBarViewController {
+   
+   func setupShimmerView() {
+      viewControllers = [ShimmerViewController()]
    }
    
-   //MARK: - Private Functions
-   
-   private func setupTabBarControllers() {
-      guard let user else { return }
+   func setupTabBarControllers() {
+      
+      guard let user = user else { return }
       
       //MARK: Make HomeModule
       
@@ -90,7 +99,7 @@ final class TabBarViewController: UITabBarController {
          profileNavigationController]
    }
    
-   private func makeNavigationController(selectedImage: UIImage, unselectedImage: UIImage, rootViewController: UIViewController) -> UINavigationController {
+   func makeNavigationController(selectedImage: UIImage, unselectedImage: UIImage, rootViewController: UIViewController) -> UINavigationController {
       let navigationController = UINavigationController(rootViewController: rootViewController)
       navigationController.tabBarItem.selectedImage = selectedImage
       navigationController.tabBarItem.image = unselectedImage
@@ -98,17 +107,17 @@ final class TabBarViewController: UITabBarController {
    }
 }
 
-
 //MARK: - Networking
 
 private extension TabBarViewController {
    func fetchUser() {
-      UserService.fetchUser { user in
+      UserService.fetchUser { [weak self] user in
          guard let user else {
             print("DEBUG: Error while fetching user from Firebase. User is nil")
             return
          }
          
+         guard let self else { return }
          self.user = user
       }
    }

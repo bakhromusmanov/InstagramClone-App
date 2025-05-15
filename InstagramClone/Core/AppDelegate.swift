@@ -22,13 +22,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       
       FirebaseApp.configure()
       
-      let tabViewController = TabBarViewController()
-      
       window = UIWindow(frame: UIScreen.main.bounds)
-      window?.rootViewController = tabViewController
+      window?.rootViewController = TabBarViewController()
       window?.makeKeyAndVisible()
       
       return true
    }
 }
+
+
 

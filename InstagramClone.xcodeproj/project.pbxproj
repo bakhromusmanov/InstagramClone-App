@@ -28,6 +28,8 @@
 		A49ED5D32DD452760032E53A /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49ED5D22DD452760032E53A /* ProfileHeaderViewModel.swift */; };
 		A49ED5D52DD4556F0032E53A /* ImageDownloaderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49ED5D42DD4556F0032E53A /* ImageDownloaderService.swift */; };
 		A49ED5D72DD473DF0032E53A /* AuthContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49ED5D62DD473DF0032E53A /* AuthContracts.swift */; };
+		A49ED5D92DD5BB000032E53A /* UIView+Shimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49ED5D82DD5BB000032E53A /* UIView+Shimmer.swift */; };
+		A49ED5DB2DD5CFD80032E53A /* ShimmerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49ED5DA2DD5CFD80032E53A /* ShimmerViewController.swift */; };
 		A4A195982DA92A2F000C77CA /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A195972DA92A2F000C77CA /* ThemeManager.swift */; };
 		A4A1959A2DA9309B000C77CA /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A195992DA9309B000C77CA /* CustomTabBar.swift */; };
 		A4CCF55B2DACC8A900F73878 /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CCF55A2DACC8A900F73878 /* HomeCell.swift */; };
@@ -72,6 +74,8 @@
 		A49ED5D22DD452760032E53A /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
 		A49ED5D42DD4556F0032E53A /* ImageDownloaderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloaderService.swift; sourceTree = "<group>"; };
 		A49ED5D62DD473DF0032E53A /* AuthContracts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthContracts.swift; sourceTree = "<group>"; };
+		A49ED5D82DD5BB000032E53A /* UIView+Shimmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shimmer.swift"; sourceTree = "<group>"; };
+		A49ED5DA2DD5CFD80032E53A /* ShimmerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerViewController.swift; sourceTree = "<group>"; };
 		A4A195972DA92A2F000C77CA /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		A4A195992DA9309B000C77CA /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		A4CCF55A2DACC8A900F73878 /* HomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
@@ -188,6 +192,7 @@
 		A470D5F82DAFB5B10062A804 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				A49ED5DA2DD5CFD80032E53A /* ShimmerViewController.swift */,
 				A470D5F62DAFB5A00062A804 /* CustomTextField.swift */,
 				A470D5FF2DAFCF8F0062A804 /* CustomButton.swift */,
 			);
@@ -270,6 +275,7 @@
 				A470D5FB2DAFC0700062A804 /* UIViewController+Gradient.swift */,
 				A470D5FD2DAFC6870062A804 /* UIVIewController+NavigationBar.swift */,
 				A4F090872DB64F2C00F989A4 /* UIViewController+Alert.swift */,
+				A49ED5D82DD5BB000032E53A /* UIView+Shimmer.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -491,6 +497,7 @@
 			files = (
 				A470D5FC2DAFC0700062A804 /* UIViewController+Gradient.swift in Sources */,
 				A470D5F72DAFB5A00062A804 /* CustomTextField.swift in Sources */,
+				A49ED5DB2DD5CFD80032E53A /* ShimmerViewController.swift in Sources */,
 				A470D6002DAFCF8F0062A804 /* CustomButton.swift in Sources */,
 				A4DF48A72DAE5C9C0031D04B /* LoginViewController.swift in Sources */,
 				D0E2613E2D15E2CC003D6C71 /* ImageSelectorController.swift in Sources */,
@@ -521,6 +528,7 @@
 				A49ED5D32DD452760032E53A /* ProfileHeaderViewModel.swift in Sources */,
 				A49ED5D02DD36D040032E53A /* AuthService.swift in Sources */,
 				D0E261422D15E2EE003D6C71 /* ProfileViewController.swift in Sources */,
+				A49ED5D92DD5BB000032E53A /* UIView+Shimmer.swift in Sources */,
 				D0E2613A2D15E2A3003D6C71 /* HomeViewController.swift in Sources */,
 				A48F69272DB2806700523B56 /* LoginViewModel.swift in Sources */,
 				A4F090862DB6112D00F989A4 /* SettingsManager.swift in Sources */,

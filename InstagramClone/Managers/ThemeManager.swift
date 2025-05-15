@@ -29,6 +29,8 @@ enum AppColors {
    /// Secondary color .withAlphaComponent(0.5)
    static let secondaryOpacity50 = primary.withAlphaComponent(0.5)
    
+   static let grey100 = UIColor.grey100
+   
    /// White color: #FFFFFF
    static let white = UIColor.white
    
