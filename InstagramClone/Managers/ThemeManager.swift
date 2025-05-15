@@ -175,5 +175,5 @@ enum AppSpacing {
    static let spacingXL: CGFloat = 20
    
    //MARK: - Sizes
-   static let separatorLineHeight: CGFloat = 2
+   static let separatorLineHeight: CGFloat = 1
 }
