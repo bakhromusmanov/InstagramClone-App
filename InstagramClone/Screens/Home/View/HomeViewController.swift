@@ -21,7 +21,6 @@ final class HomeViewController: UIViewController {
       let layout = UICollectionViewFlowLayout()
       layout.scrollDirection = .vertical
       layout.minimumLineSpacing = Constants.spacingS
-      layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
       
       let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
       collectionView.dataSource = self
@@ -39,7 +38,7 @@ final class HomeViewController: UIViewController {
       setupViews()
       setupConstraints()
       updateColors()
-      setUpNavigationBar()
+      setupNavigationBar()
    }
    
    //MARK: - Private Functions
@@ -71,8 +70,22 @@ extension HomeViewController: UICollectionViewDataSource {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.homeCell, for: indexPath)
       
       guard let cell = cell as? HomeCell else { return cell }
+      cell.setMediaHeight(view.bounds.width)
       
       return cell
+   }
+}
+
+//MARK: - UICollectionViewDelegateFlowLayout
+
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+      
+      let cellWidth = collectionView.bounds.width
+      let mediaHeight = cellWidth
+      
+      let cellHeight = HomeCell.baseContentHeight + mediaHeight
+      return CGSize(width: cellWidth, height: cellHeight)
    }
 }
 
@@ -86,7 +99,7 @@ extension HomeViewController: UICollectionViewDelegate {
 
 private extension HomeViewController {
    
-   func setUpNavigationBar() {
+   func setupNavigationBar() {
       navigationItem.leftBarButtonItem = UIBarButtonItem(
          title: Constants.logoutTitle,
          style: .done,
@@ -110,7 +123,6 @@ private extension HomeViewController {
    }
    
    func setupConstraints() {
-      
       topSeparatorView.snp.makeConstraints { make in
          make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
          make.leading.trailing.equalToSuperview()
@@ -130,7 +142,7 @@ private extension HomeViewController {
    enum Constants {
       static let homeCell = "HomeCell"
       static let logoutTitle = "Logout"
-      static let spacingS: CGFloat = 8
+      static let spacingS: CGFloat = ThemeManager.spacings.spacingS
       static let defaultNumberOfItems = 6
    }
 }

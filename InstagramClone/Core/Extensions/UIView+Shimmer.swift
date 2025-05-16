@@ -18,10 +18,20 @@ extension UIView {
       gradientLayer.add(animation, forKey: animation.keyPath)
    }
    
+   func stopShimmering() {
+      layer.sublayers?.forEach {
+         if $0.name == Constants.shimmerLayerName {
+            $0.removeAllAnimations()
+            $0.removeFromSuperlayer()
+         }
+      }
+   }
+   
    //MARK: - Private Functions
    
    private func addGradientLayer() -> CAGradientLayer {
       let gradientLayer = CAGradientLayer()
+      gradientLayer.name = Constants.shimmerLayerName
       gradientLayer.frame = bounds
       gradientLayer.startPoint = CGPoint(x: 0, y: 1)
       gradientLayer.endPoint = CGPoint(x: 1, y: 1)
@@ -48,6 +58,7 @@ extension UIView {
 
 private extension UIView {
    enum Constants {
+      static let shimmerLayerName = "shimmerLayer"
       static let primaryGradientColor = ThemeManager.colors.backgroundPrimary.cgColor
       static let secondaryGradientColor = ThemeManager.colors.grey100.cgColor
    }

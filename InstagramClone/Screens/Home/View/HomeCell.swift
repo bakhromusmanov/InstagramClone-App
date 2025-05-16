@@ -11,6 +11,8 @@ final class HomeCell: UICollectionViewCell {
    
    //MARK: - Properties
    
+   private var mediaHeight: CGFloat = 0
+   
    //MARK: - Subviews
    
    private let headerView: UIView = {
@@ -34,11 +36,11 @@ final class HomeCell: UICollectionViewCell {
       return stackView
    }()
    
-   private let avatarImageView: UIImageView = {
+   private let profileImageView: UIImageView = {
       let imageView = UIImageView(image: UIImage(named: Constants.thumbnailImageName))
       imageView.contentMode = .scaleAspectFill
       imageView.clipsToBounds = true
-      imageView.layer.cornerRadius = Constants.avatarCornerRadius
+      imageView.layer.cornerRadius = Constants.profileImageCornerRadius
       return imageView
    }()
    
@@ -129,18 +131,32 @@ final class HomeCell: UICollectionViewCell {
       fatalError("init(coder:) has not been implemented")
    }
    
-   //MARK: - Public Functions
-   
-   //MARK: - Private Functions
-   
 }
+
+//MARK: - Public Functions
+
+extension HomeCell {
+
+   static var baseContentHeight: CGFloat {
+      let height: CGFloat = Constants.profileImageViewSize + Constants.defaultVerticalPadding * 4 + Constants.actionButtonSize + Constants.likesCountLabelFont.lineHeight + Constants.captionLabelFont.lineHeight + Constants.timestampLabelFont.lineHeight
+      return height
+   }
+   
+   func setMediaHeight(_ mediaHeight: CGFloat) {
+      self.mediaHeight = mediaHeight
+      updateHeightConstraint()
+   }
+
+}
+
+//MARK: - Private Functions
 
 //MARK: - Appearance & Theming
 
 private extension HomeCell {
    func showLayoutColors(_ isEnabled: Bool) {
       guard isEnabled else { return }
-      avatarImageView.backgroundColor = .red
+      profileImageView.backgroundColor = .red
       usernameButton.backgroundColor = .green
       headerView.backgroundColor = .blue
       mediaImageView.backgroundColor = .brown
@@ -159,13 +175,19 @@ private extension HomeCell {
 //MARK: - Layout & Constraints
 
 private extension HomeCell {
+   func updateHeightConstraint() {
+      mediaImageView.snp.updateConstraints { update in
+         update.height.equalTo(mediaHeight)
+      }
+   }
+   
    func setupViews() {
       contentView.addSubview(headerView)
       contentView.addSubview(mediaImageView)
       contentView.addSubview(actionsContainerView)
       contentView.addSubview(footerView)
       
-      headerView.addSubview(avatarImageView)
+      headerView.addSubview(profileImageView)
       headerView.addSubview(usernameButton)
       
       actionsContainerView.addSubview(actionsStackView)
@@ -179,31 +201,26 @@ private extension HomeCell {
    }
    
    func setupConstraints() {
-
-      contentView.snp.makeConstraints { make in
-         make.edges.equalToSuperview()
-         make.width.equalTo(UIScreen.main.bounds.width)
-      }
       
       headerView.snp.makeConstraints { make in
          make.top.leading.trailing.equalToSuperview()
       }
-      
-      avatarImageView.snp.makeConstraints { make in
+
+      profileImageView.snp.makeConstraints { make in
          make.top.bottom.equalToSuperview().inset(Constants.defaultVerticalPadding)
          make.leading.equalToSuperview().inset(Constants.defaultVerticalPadding)
-         make.size.equalTo(Constants.avatarImageViewSize)
+         make.size.equalTo(Constants.profileImageViewSize)
       }
-      
+
       usernameButton.snp.makeConstraints { make in
-         make.leading.equalTo(avatarImageView.snp.trailing).offset(Constants.spacingS)
-         make.centerY.equalTo(avatarImageView.snp.centerY)
+         make.leading.equalTo(profileImageView.snp.trailing).offset(Constants.spacingS)
+         make.centerY.equalTo(profileImageView.snp.centerY)
       }
 
       mediaImageView.snp.makeConstraints { make in
          make.top.equalTo(headerView.snp.bottom)
          make.leading.trailing.equalToSuperview()
-         make.height.equalTo(mediaImageView.snp.width)
+         make.height.equalTo(mediaHeight)
       }
       
       actionsContainerView.snp.makeConstraints { make in
@@ -212,9 +229,10 @@ private extension HomeCell {
       }
       
       actionsStackView.snp.makeConstraints { make in
-         make.leading.top.bottom.equalToSuperview().inset(Constants.defaultHorizontalPadding)
+         make.top.bottom.equalToSuperview().inset(Constants.defaultVerticalPadding)
+         make.leading.equalToSuperview().inset(Constants.defaultHorizontalPadding)
       }
-      
+
       likeButton.snp.makeConstraints { make in
          make.size.equalTo(Constants.actionButtonSize)
       }
@@ -232,7 +250,7 @@ private extension HomeCell {
          make.leading.trailing.equalToSuperview()
          make.bottom.equalToSuperview()
       }
-      
+
       likeCountLabel.snp.makeConstraints { make in
          make.top.equalToSuperview()
          make.leading.equalToSuperview().inset(Constants.defaultHorizontalPadding)
@@ -274,13 +292,13 @@ private extension HomeCell {
       
       //Sizes
       static let actionButtonSize: CGFloat = 24
-      static let avatarImageViewSize: CGFloat = 40
-      static let avatarCornerRadius: CGFloat = avatarImageViewSize / 2
+      static let profileImageViewSize: CGFloat = 50
+      static let profileImageCornerRadius: CGFloat = profileImageViewSize / 2
       
       //Spacings
-      static let spacingS: CGFloat = 8
-      static let defaultHorizontalPadding = spacingS
-      static let defaultVerticalPadding = spacingS
+      static let spacingS: CGFloat = ThemeManager.spacings.spacingS
+      static let defaultHorizontalPadding = ThemeManager.spacings.spacingM
+      static let defaultVerticalPadding = ThemeManager.spacings.spacingM
       
       //Fonts
       static let usernameButtonFont: UIFont = ThemeManager.fonts.bodyMediumBold

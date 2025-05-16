@@ -103,7 +103,7 @@ final class LoginViewController: UIViewController {
    }
    
    @objc private func forgotPasswordButtonPressed(sender: UIButton) {
-
+      
    }
    
    @objc private func textDidChange(sender: UITextField) {
@@ -161,7 +161,7 @@ private extension LoginViewController {
    
    func setupConstraints() {
       logoImageView.snp.makeConstraints { make in
-         make.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(Constants.contentTopInset)
+         make.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(Constants.defaultTopPadding)
          make.centerX.equalToSuperview()
          make.width.equalTo(Constants.logoImageViewWidth)
          make.height.equalTo(Constants.logoImageViewHeight)
@@ -169,7 +169,7 @@ private extension LoginViewController {
       
       inputFieldsStackView.snp.makeConstraints { make in
          make.top.equalTo(logoImageView.snp.bottom).offset(Constants.logoToInputFieldSpacing)
-         make.leading.trailing.equalToSuperview().inset(Constants.contentLeftRightInset)
+         make.leading.trailing.equalToSuperview().inset(Constants.defaultHorizontalPadding)
       }
       
       emailTextField.snp.makeConstraints { make in
@@ -189,7 +189,7 @@ private extension LoginViewController {
       }
       
       signUpButton.snp.makeConstraints { make in
-         make.bottom.equalTo(view.snp.bottomMargin).inset(Constants.contentBottomInset)
+         make.bottom.equalTo(view.snp.bottomMargin).inset(Constants.defaultBottomPadding)
          make.centerX.equalToSuperview()
          make.height.equalTo(forgotPasswordButton.titleLabel?.font.lineHeight.rounded(.up) ?? Constants.inputFieldHeight)
       }
@@ -215,9 +215,9 @@ private extension LoginViewController {
       static let logoImageViewWidth: CGFloat = 120
       static let inputFieldHeight: CGFloat = 50
       
-      static let contentTopInset: CGFloat = 32
-      static let contentLeftRightInset: CGFloat = 32
-      static let contentBottomInset: CGFloat = 8
+      static let defaultTopPadding: CGFloat = 32
+      static let defaultHorizontalPadding: CGFloat = 32
+      static let defaultBottomPadding: CGFloat = ThemeManager.spacings.spacingS
       static let logoToInputFieldSpacing: CGFloat = 32
       static let fieldToFieldSpacing: CGFloat = 20
    }

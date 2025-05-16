@@ -49,7 +49,7 @@ final class ProfileViewController: UIViewController {
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      setUpNavigationBar()
+      setupNavigationBar()
       setupViews()
       setupConstraints()
       updateColors()
@@ -118,7 +118,7 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
 
 private extension ProfileViewController {
    
-   func setUpNavigationBar() {
+   func setupNavigationBar() {
       navigationController?.navigationBar.titleTextAttributes = [
          .foregroundColor : ThemeManager.colors.textPrimary]
       navigationItem.title = user.username
@@ -162,7 +162,7 @@ private extension ProfileViewController {
       static let headerIdentifier = "ProfileHeaderView"
       
       //Spacings
-      static let gridSpacing: CGFloat = 2
+      static let gridSpacing: CGFloat = 1
       
       //Sizes
       static let profileHeaderHeight: CGFloat = 240

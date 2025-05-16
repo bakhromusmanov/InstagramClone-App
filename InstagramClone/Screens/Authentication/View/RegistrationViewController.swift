@@ -125,7 +125,7 @@ final class RegistrationViewController: UIViewController {
       var user = AuthEntity(
          email: viewModel.email,
          password: viewModel.password,
-         fullname: viewModel.fullName,
+         fullName: viewModel.fullName,
          username: viewModel.username
       )
       
@@ -241,7 +241,7 @@ private extension RegistrationViewController {
    
    func setupConstraints() {
       addPhotoButton.snp.makeConstraints { make in
-         make.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(Constants.contentTopInset)
+         make.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(Constants.defaultTopPadding)
          make.centerX.equalToSuperview()
          make.height.equalTo(Constants.addPhotoButtonHeight)
          make.width.equalTo(Constants.addPhotoButtonWidth)
@@ -249,7 +249,7 @@ private extension RegistrationViewController {
       
       inputFieldsStackView.snp.makeConstraints { make in
          make.top.equalTo(addPhotoButton.snp.bottom).offset(Constants.addPhotoToInputFieldSpacing)
-         make.leading.trailing.equalToSuperview().inset(Constants.contentLeftRightInset)
+         make.leading.trailing.equalToSuperview().inset(Constants.defaultHorizontalPadding)
       }
       
       emailTextField.snp.makeConstraints { make in
@@ -273,7 +273,7 @@ private extension RegistrationViewController {
       }
       
       haveAccountButton.snp.makeConstraints { make in
-         make.bottom.equalTo(view.snp.bottomMargin).inset(Constants.contentBottomInset)
+         make.bottom.equalTo(view.snp.bottomMargin).inset(Constants.defaultBottomPadding)
          make.centerX.equalToSuperview()
          make.height.equalTo(haveAccountButton.titleLabel?.font.lineHeight.rounded(.up) ?? Constants.inputFieldHeight)
       }
@@ -302,9 +302,9 @@ private extension RegistrationViewController {
       static let addPhotoButtonBorderWidth: CGFloat = 3
       static let inputFieldHeight: CGFloat = 50
       
-      static let contentTopInset: CGFloat = 32
-      static let contentLeftRightInset: CGFloat = 32
-      static let contentBottomInset: CGFloat = 8
+      static let defaultTopPadding: CGFloat = 32
+      static let defaultHorizontalPadding: CGFloat = 32
+      static let defaultBottomPadding: CGFloat = ThemeManager.spacings.spacingS
       static let addPhotoToInputFieldSpacing: CGFloat = 32
       static let fieldToFieldSpacing: CGFloat = 20
    }

@@ -155,18 +155,13 @@ final class ProfileHeaderView: UICollectionReusableView {
 private extension ProfileHeaderView {
    
    func updateView() {
-      fullNameLabel.text = viewModel?.fullname
+      fullNameLabel.text = viewModel?.fullName
       updateProfileImage()
    }
    
    func updateProfileImage() {
       guard let imageURL = viewModel?.profileImageURL else { return }
       ImageDownloaderService.shared.loadImage(from: imageURL) { image in
-         guard let image = image else {
-            print("DEBUG: Error while loading image, image is nil.")
-            return
-         }
-         
          self.profileImageView.image = image
       }
    }

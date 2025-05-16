@@ -168,12 +168,23 @@ enum AppFonts {
 
 enum AppSpacing {
 
+   /// Extra Small Spacing: 4pt
    static let spacingXS: CGFloat = 4
+   
+   /// Small Spacing: 8pt
    static let spacingS: CGFloat = 8
+   
+   /// Medium Spacing: 12pt
    static let spacingM: CGFloat = 12
+   
+   /// Large Spacing: 16pt
    static let spacingL: CGFloat = 16
+   
+   /// Extra Large Spacing: 20pt
    static let spacingXL: CGFloat = 20
    
    //MARK: - Sizes
+   
+   /// Separator Line Height: 1pt
    static let separatorLineHeight: CGFloat = 1
 }

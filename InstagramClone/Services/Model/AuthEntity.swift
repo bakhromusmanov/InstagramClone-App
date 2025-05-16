@@ -10,7 +10,7 @@ import Foundation
 struct AuthEntity: Codable {
    var email: String
    var password: String
-   var fullname: String
+   var fullName: String
    var username: String
    var userId: String?
    var profileImageURL: String?

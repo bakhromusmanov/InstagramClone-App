@@ -112,11 +112,6 @@ private extension TabBarViewController {
 private extension TabBarViewController {
    func fetchUser() {
       UserService.fetchUser { [weak self] user in
-         guard let user else {
-            print("DEBUG: Error while fetching user from Firebase. User is nil")
-            return
-         }
-         
          guard let self else { return }
          self.user = user
       }
