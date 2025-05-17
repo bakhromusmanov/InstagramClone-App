@@ -29,7 +29,7 @@ final class CustomButton: UIButton {
    private func setupButton() {
       titleLabel?.font = ThemeManager.fonts.bodyLargeBold
       layer.cornerRadius = Constants.cornerRadius
-      setTitleColor(ThemeManager.colors.inputFieldTextEnabled, for: .normal)
+      setTitleColor(ThemeManager.colors.textPrimaryLight, for: .normal)
       backgroundColor = ThemeManager.colors.enabledButton
    }
 }

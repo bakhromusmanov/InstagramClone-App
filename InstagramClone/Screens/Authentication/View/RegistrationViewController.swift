@@ -87,41 +87,16 @@ final class RegistrationViewController: UIViewController {
       super.viewDidLoad()
       setupViews()
       setupConstraints()
+      setupNavigationBar()
       updateColors()
-      navigationBar(isHidden: true)
    }
-   
-   //MARK: - Public Functions
-   
-   func setDelegate(_ delegate: AuthDelegate?) {
-      self.delegate = delegate
-   }
-   
-   //MARK: - Private Functions
-   
-   private func showLoginController() {
-      navigationController?.popViewController(animated: true)
-   }
-   
-   private func takePhotoWithCamera() {
-      let imagePicker = UIImagePickerController()
-      imagePicker.delegate = self
-      imagePicker.sourceType = .camera
-      imagePicker.allowsEditing = true
-      present(imagePicker, animated: true)
-   }
-   
-   private func choosePhotoFromLibrary() {
-      let imagePicker = UIImagePickerController()
-      imagePicker.delegate = self
-      imagePicker.sourceType = .photoLibrary
-      imagePicker.allowsEditing = true
-      present(imagePicker, animated: true)
-   }
-   
-   //MARK: - Actions
-   
-   @objc private func signUpButtonPressed(sender: UIButton) {
+}
+
+//MARK: - Actions
+
+@objc
+private extension RegistrationViewController {
+   func signUpButtonPressed(sender: UIButton) {
       var user = AuthEntity(
          email: viewModel.email,
          password: viewModel.password,
@@ -141,11 +116,11 @@ final class RegistrationViewController: UIViewController {
       }
    }
    
-   @objc private func haveAccountButtonPressed(sender: UIButton) {
+   func haveAccountButtonPressed(sender: UIButton) {
       showLoginController()
    }
    
-   @objc private func addPhotoButtonPressed(sender: UIButton) {
+   func addPhotoButtonPressed(sender: UIButton) {
       if UIImagePickerController.isSourceTypeAvailable(.camera) {
          showPhotoPicker(
             onCameraTap: { [weak self] in
@@ -158,7 +133,7 @@ final class RegistrationViewController: UIViewController {
       }
    }
    
-   @objc private func textDidChange(sender: UITextField) {
+   func textDidChange(sender: UITextField) {
       guard let text = sender.text else { return }
       
       switch sender {
@@ -177,38 +152,39 @@ final class RegistrationViewController: UIViewController {
    }
 }
 
-//MARK: Networking
+//MARK: - Public Functions
 
-private extension RegistrationViewController {
-   
-   func register(user: AuthEntity) {
-       AuthService.register(user: user) { error in
-           if let error {
-               print("DEBUG: Error while registering user: \(error.localizedDescription)")
-               return
-           }
-
-          self.delegate?.authDidComplete()
-          self.dismiss(animated: true)
-       }
+extension RegistrationViewController {
+   func setDelegate(_ delegate: AuthDelegate?) {
+      self.delegate = delegate
    }
 }
 
-//MARK: - UIImagePickerControllerDelegate
+//MARK: - Private Functions
 
-extension RegistrationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-      guard let selectedImage = info[.editedImage] as? UIImage else { return }
-      profileImage = selectedImage
-      addPhotoButton.setBackgroundImage(profileImage, for: .normal)
-      addPhotoButton.layer.cornerRadius = Constants.addPhotoButtonCornerRadius
-      addPhotoButton.layer.borderWidth = Constants.addPhotoButtonBorderWidth
-      addPhotoButton.layer.borderColor = Constants.addPhotoButtonBorderColor
-      dismiss(animated: true)
+private extension RegistrationViewController {
+   func setupNavigationBar() {
+      navigationBar(isHidden: true)
    }
    
-   func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-      dismiss(animated: true)
+   func showLoginController() {
+      navigationController?.popViewController(animated: true)
+   }
+   
+   func takePhotoWithCamera() {
+      let imagePicker = UIImagePickerController()
+      imagePicker.delegate = self
+      imagePicker.sourceType = .camera
+      imagePicker.allowsEditing = true
+      present(imagePicker, animated: true)
+   }
+   
+   func choosePhotoFromLibrary() {
+      let imagePicker = UIImagePickerController()
+      imagePicker.delegate = self
+      imagePicker.sourceType = .photoLibrary
+      imagePicker.allowsEditing = true
+      present(imagePicker, animated: true)
    }
 }
 
@@ -280,6 +256,40 @@ private extension RegistrationViewController {
    }
 }
 
+//MARK: Networking
+
+private extension RegistrationViewController {
+   func register(user: AuthEntity) {
+      AuthService.register(user: user) { error in
+         if let error {
+            print("DEBUG: Error while registering user: \(error.localizedDescription)")
+            return
+         }
+         
+         self.delegate?.authDidComplete()
+         self.dismiss(animated: true)
+      }
+   }
+}
+
+//MARK: - UIImagePickerControllerDelegate
+
+extension RegistrationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+      guard let selectedImage = info[.editedImage] as? UIImage else { return }
+      profileImage = selectedImage
+      addPhotoButton.setBackgroundImage(profileImage, for: .normal)
+      addPhotoButton.layer.cornerRadius = Constants.addPhotoButtonCornerRadius
+      addPhotoButton.layer.borderWidth = Constants.addPhotoButtonBorderWidth
+      addPhotoButton.layer.borderColor = Constants.addPhotoButtonBorderColor
+      dismiss(animated: true)
+   }
+   
+   func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+      dismiss(animated: true)
+   }
+}
+
 //MARK: - Constants
 
 private extension RegistrationViewController {
@@ -300,7 +310,7 @@ private extension RegistrationViewController {
       static let addPhotoButtonWidth: CGFloat = 140
       static let addPhotoButtonCornerRadius: CGFloat = addPhotoButtonWidth / 2
       static let addPhotoButtonBorderWidth: CGFloat = 3
-      static let inputFieldHeight: CGFloat = 50
+      static let inputFieldHeight: CGFloat = ThemeManager.sizes.defaultTextFieldHeight
       
       static let defaultTopPadding: CGFloat = 32
       static let defaultHorizontalPadding: CGFloat = 32

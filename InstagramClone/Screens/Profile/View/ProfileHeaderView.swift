@@ -22,13 +22,13 @@ final class ProfileHeaderView: UICollectionReusableView {
    
    private let topSeparatorView: UIView = {
       let view = UIView()
-      view.backgroundColor = ThemeManager.colors.textSecondary
+      view.backgroundColor = ThemeManager.colors.textSecondaryDark
       return view
    }()
    
    private let bottomSeparatorView: UIView = {
       let view = UIView()
-      view.backgroundColor = ThemeManager.colors.textSecondary
+      view.backgroundColor = ThemeManager.colors.textSecondaryDark
       return view
    }()
    
@@ -45,7 +45,7 @@ final class ProfileHeaderView: UICollectionReusableView {
    private let fullNameLabel: UILabel = {
       let label = UILabel()
       label.text = Constants.defaultFullNameText
-      label.textColor = ThemeManager.colors.textPrimary
+      label.textColor = ThemeManager.colors.textPrimaryDark
       label.font = Constants.fullNameLabelFont
       return label
    }()
@@ -79,7 +79,7 @@ final class ProfileHeaderView: UICollectionReusableView {
    private lazy var editProfileButton: UIButton = {
       let button = UIButton(type: .system)
       button.setTitle(Constants.editProfileButtonText, for: .normal)
-      button.setTitleColor(ThemeManager.colors.textPrimary, for: .normal)
+      button.setTitleColor(ThemeManager.colors.textPrimaryDark, for: .normal)
       button.titleLabel?.font = ThemeManager.fonts.bodyMediumBold
       button.backgroundColor = ThemeManager.colors.whiteOpacity10
       button.layer.cornerRadius = Constants.editButtonCornerRadius
@@ -109,7 +109,7 @@ final class ProfileHeaderView: UICollectionReusableView {
       let button = UIButton(type: .system)
       button.setImage(UIImage(systemName: Constants.listImageName), for: .normal)
       button.imageView?.contentMode = .scaleAspectFit
-      button.tintColor = ThemeManager.colors.textSecondary
+      button.tintColor = ThemeManager.colors.textSecondaryDark
       return button
    }()
    
@@ -117,7 +117,7 @@ final class ProfileHeaderView: UICollectionReusableView {
       let button = UIButton(type: .system)
       button.setImage(UIImage(systemName: Constants.bookmarkImageName), for: .normal)
       button.imageView?.contentMode = .scaleAspectFit
-      button.tintColor = ThemeManager.colors.textSecondary
+      button.tintColor = ThemeManager.colors.textSecondaryDark
       return button
    }()
    
@@ -137,15 +137,17 @@ final class ProfileHeaderView: UICollectionReusableView {
    deinit {
       ImageDownloaderService.shared.cancel()
    }
-   
-   //MARK: - Public Functions
-   
+}
+
+//MARK: - Public Functions
+
+extension ProfileHeaderView {
    func setViewModel(_ viewModel: ProfileHeaderViewModel) {
       self.viewModel = viewModel
    }
    
    static func calculateHeight() -> CGFloat {
-      let height = ThemeManager.spacings.separatorLineHeight + Constants.defaultVerticalPadding * 3 + Constants.profileImageSize + Constants.spacingM  + Constants.fullNameLabelFont.lineHeight + Constants.spacingXL + Constants.editProfileButtonHeight + Constants.segmentStackViewHeight
+      let height = ThemeManager.sizes.separatorLineHeight + Constants.defaultVerticalPadding * 3 + Constants.profileImageSize + Constants.spacingM  + Constants.fullNameLabelFont.lineHeight + Constants.spacingXL + Constants.editProfileButtonHeight + Constants.segmentStackViewHeight
       return height
    }
 }
@@ -153,7 +155,6 @@ final class ProfileHeaderView: UICollectionReusableView {
 //MARK: - Private Functions
 
 private extension ProfileHeaderView {
-   
    func updateView() {
       fullNameLabel.text = viewModel?.fullName
       updateProfileImage()
@@ -188,7 +189,6 @@ private extension ProfileHeaderView {
 //MARK: - Layout & Constraints
 
 private extension ProfileHeaderView {
-   
    func setupViews() {
       addSubview(topSeparatorView)
       addSubview(profileImageView)
@@ -235,7 +235,7 @@ private extension ProfileHeaderView {
       bottomSeparatorView.snp.makeConstraints { make in
          make.top.equalTo(editProfileButton.snp.bottom).offset(Constants.defaultVerticalPadding)
          make.leading.trailing.equalToSuperview()
-         make.height.equalTo(ThemeManager.spacings.separatorLineHeight)
+         make.height.equalTo(ThemeManager.sizes.separatorLineHeight)
       }
       
       segmentStackView.snp.makeConstraints { make in
@@ -262,7 +262,7 @@ private extension ProfileHeaderView {
 
 private extension ProfileHeaderView {
    enum Constants {
-      
+
       //Fonts
       static let fullNameLabelFont = ThemeManager.fonts.bodyMediumBold
       

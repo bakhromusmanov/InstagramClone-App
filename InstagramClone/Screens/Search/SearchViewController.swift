@@ -21,12 +21,22 @@ final class SearchViewController: UIViewController {
    
    //MARK: - Subviews
    
-   private lazy var searchController: UISearchController = {
-      let searchController = UISearchController(searchResultsController: nil)
-      searchController.searchResultsUpdater = self
-      searchController.searchBar.placeholder = Constants.searchPlaceholder
-      searchController.searchBar.showsCancelButton = false
-      return searchController
+   private lazy var searchBar: UISearchBar = {
+      let searchBar = UISearchBar()
+      searchBar.barTintColor = ThemeManager.colors.backgroundSecondary
+      searchBar.keyboardType = .asciiCapable
+      searchBar.returnKeyType = .search
+      
+      //Setup TextField
+      searchBar.searchTextField.font = ThemeManager.fonts.bodyMediumMedium
+      searchBar.searchTextField.textColor = ThemeManager.colors.textPrimaryDark
+      searchBar.searchTextField.borderStyle = .roundedRect
+      searchBar.searchTextField.placeholder = Constants.searchPlaceholder
+      searchBar.searchTextField.layer.cornerRadius = Constants.searchBarCornerRadius
+      searchBar.searchTextField.clipsToBounds = true
+      
+      searchBar.delegate = self
+      return searchBar
    }()
    
    private lazy var tableView: UITableView = {
@@ -45,7 +55,8 @@ final class SearchViewController: UIViewController {
       super.viewDidLoad()
       fetchUsers()
       setupViews()
-      navigationBar(isHidden: false)
+      setupConstraints()
+      navigationBar(isHidden: true)
       updateColors()
    }
 }
@@ -80,23 +91,38 @@ private extension SearchViewController {
 
 private extension SearchViewController {
    func setupViews() {
+      view.addSubview(searchBar)
       view.addSubview(tableView)
-      //view.addSubview(searchController)
    }
    
    func setupConstraints() {
-      tableView.snp.makeConstraints { make in
+      searchBar.snp.makeConstraints { make in
          make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+         make.leading.trailing.equalToSuperview()
+      }
+      
+      searchBar.searchTextField.snp.makeConstraints { make in
+         make.top.bottom.equalToSuperview().inset(Constants.verticalPadding)
+         make.leading.trailing.equalToSuperview().inset(Constants.horizontalPadding)
+         make.height.equalTo(Constants.searchBarHeight)
+      }
+      
+      tableView.snp.makeConstraints { make in
+         make.top.equalTo(searchBar.snp.bottom)
          make.leading.trailing.bottom.equalToSuperview()
       }
    }
 }
 
-//MARK: - UISearchResultsUpdating
+//MARK: - UISearchBarDelegate
 
-extension SearchViewController: UISearchResultsUpdating {
-   func updateSearchResults(for searchController: UISearchController) {
-      
+extension SearchViewController: UISearchBarDelegate {
+   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+      print("DEBUG: Text did change \(searchText)")
+   }
+   
+   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+      print(searchBar.isFirstResponder)
    }
 }
 
@@ -137,6 +163,14 @@ private extension SearchViewController {
    enum Constants {
       static let searchCellIdentifier = "SearchViewCell"
       static let searchPlaceholder = "Search"
-      static let defaultNumberOfCells: Int = 12
+      static let defaultNumberOfCells: Int = 8
+      
+      //Sizes
+      static let searchBarHeight: CGFloat = ThemeManager.sizes.defaultSearchBarHeight
+      static let searchBarCornerRadius = Constants.searchBarHeight / 3
+      
+      //Spacings
+      static let verticalPadding: CGFloat = ThemeManager.spacings.spacingM
+      static let horizontalPadding: CGFloat = ThemeManager.spacings.spacingM
    }
 }

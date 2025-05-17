@@ -34,8 +34,8 @@ final class CustomTabBar: UITabBar {
       appearance.backgroundColor = ThemeManager.colors.backgroundSecondary
       
       //Set icon normal and selected colors
-      appearance.stackedLayoutAppearance.selected.iconColor = ThemeManager.colors.textPrimary
-      appearance.stackedLayoutAppearance.normal.iconColor = ThemeManager.colors.textSecondary
+      appearance.stackedLayoutAppearance.selected.iconColor = ThemeManager.colors.textPrimaryDark
+      appearance.stackedLayoutAppearance.normal.iconColor = ThemeManager.colors.textSecondaryDark
       
       // Adjust image position
       appearance.stackedLayoutAppearance.normal.badgePositionAdjustment = UIOffset(horizontal: 0, vertical: Constants.tabBarTitleOffsetY)

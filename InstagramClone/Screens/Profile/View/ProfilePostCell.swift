@@ -34,7 +34,6 @@ final class ProfilePostCell: UICollectionViewCell {
 //MARK: - Layout & Constraints
 
 private extension ProfilePostCell {
-   
    func setupViews() {
       contentView.addSubview(postImageView)
    }

@@ -11,6 +11,7 @@ enum ThemeManager {
    static let colors = AppColors.self
    static let fonts = AppFonts.self
    static let spacings = AppSpacing.self
+   static let sizes = AppSizes.self
 }
 
 //MARK: - App Colors
@@ -18,13 +19,13 @@ enum ThemeManager {
 enum AppColors {
    
    /// Primary color: #246BFD
-   static let primary = UIColor.primary
+   static let primary = UIColor.accentPrimary
    
    /// Primary color .withAlphaComponent(0.75)
    static let primaryOpacity75 = primary.withAlphaComponent(0.75)
    
    /// Secondary color: #FFD300
-   static let secondary = UIColor.secondary
+   static let secondary = UIColor.accentSecondary
    
    /// Secondary color .withAlphaComponent(0.5)
    static let secondaryOpacity50 = primary.withAlphaComponent(0.5)
@@ -46,7 +47,7 @@ enum AppColors {
    static let error = UIColor.error
    
    /// Border color: textSecondary
-   static let border = textSecondary
+   static let border = textSecondaryDark
    
    /// Disabled color: whiteOpacity50
    static let disabled = whiteOpacity50
@@ -57,19 +58,19 @@ enum AppColors {
    /// Enabled button color same as primary color: primaryOpacity75
    static let enabledButton = primaryOpacity75
    
-   //MARK: - Defaults
+   //MARK: Defaults
    
    static let backgroundPrimary = UIColor.backgroundPrimary
    static let backgroundSecondary = UIColor.backgroundSecondary
    
-   static let textPrimary = UIColor.textPrimary
-   static let textSecondary = UIColor.textSecondary
+   static let textPrimaryDark = UIColor.textPrimary
+   static let textSecondaryDark = UIColor.textSecondary
    
-   /// Enabled text field's text color: white
-   static let inputFieldTextEnabled = white
+   /// Primary text field's text color: white
+   static let textPrimaryLight = white
    
-   /// Disabled text field's text color: whiteOpacity50
-   static let inputFieldTextDisabled = whiteOpacity50
+   /// Secondary text field's text color: whiteOpacity50
+   static let textSecondaryLight = whiteOpacity50
 }
 
 //MARK: - App Fonts
@@ -183,8 +184,42 @@ enum AppSpacing {
    /// Extra Large Spacing: 20pt
    static let spacingXL: CGFloat = 20
    
-   //MARK: - Sizes
+   //MARK: - Defaults
+   
+   /// Medium Spacing: 12pt spacingM
+   static let defaultVerticalPadding = spacingM
+   
+   /// Medium Spacing: 12pt spacingM
+   static let defaultHorizontalPadding = spacingM
+}
+
+//MARK: - Sizes
+
+enum AppSizes {
+   
+   /// Small Size: 36pt
+   static let componentHeightS: CGFloat = 36
+   
+   /// Medium Size: 44pt
+   static let componentHeightM: CGFloat = 44
+   
+   /// Large Size: 48pt
+   static let componentHeightL: CGFloat = 48
+   
+   /// Extra Large Size: 56pt
+   static let componentHeightXL: CGFloat = 56
    
    /// Separator Line Height: 1pt
    static let separatorLineHeight: CGFloat = 1
+   
+   //MARK: - Defaults
+   
+   /// Large Size: 48pt componentHeightL
+   static let defaultSearchBarHeight: CGFloat = componentHeightL
+   
+   /// Medium Size: 44pt componentHeightM
+   static let defaultButtonHeight: CGFloat = componentHeightM
+   
+   /// Large Size: 48pt componentHeightL
+   static let defaultTextFieldHeight: CGFloat = componentHeightL
 }

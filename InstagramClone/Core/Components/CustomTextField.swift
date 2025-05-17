@@ -16,11 +16,11 @@ final class CustomTextField: UITextField {
       
       borderStyle = .roundedRect
       backgroundColor = ThemeManager.colors.whiteOpacity10
-      textColor = ThemeManager.colors.inputFieldTextEnabled
+      textColor = ThemeManager.colors.textPrimaryLight
       font = ThemeManager.fonts.bodyLargeRegular
       
       let placeholderAttributes: [NSAttributedString.Key: Any] = [
-         .foregroundColor : ThemeManager.colors.inputFieldTextEnabled,
+         .foregroundColor : ThemeManager.colors.textPrimaryLight,
          .font : ThemeManager.fonts.bodyLargeRegular]
       attributedPlaceholder = NSAttributedString(string: placeholder, attributes: placeholderAttributes)
    }

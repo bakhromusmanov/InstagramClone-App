@@ -14,14 +14,14 @@ final class ProfileStatsButton: UIButton {
    
    private let countLabel: UILabel = {
       let label = UILabel()
-      label.textColor = ThemeManager.colors.textPrimary
+      label.textColor = ThemeManager.colors.textPrimaryDark
       label.font = ThemeManager.fonts.bodyMediumBold
       return label
    }()
    
    private let label: UILabel = {
       let label = UILabel()
-      label.textColor = ThemeManager.colors.textSecondary
+      label.textColor = ThemeManager.colors.textSecondaryDark
       label.font = ThemeManager.fonts.bodyMediumRegular
       return label
    }()
@@ -37,9 +37,11 @@ final class ProfileStatsButton: UIButton {
    required init?(coder: NSCoder) {
       fatalError("init(coder:) has not been implemented")
    }
-   
-   //MARK: - Public Functions
-   
+}
+
+//MARK: - Public Functions
+
+extension ProfileStatsButton {
    func setupStats(title: String, value: Int) {
       label.text = title
       countLabel.text = "\(value)"

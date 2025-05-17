@@ -77,36 +77,24 @@ final class LoginViewController: UIViewController {
       super.viewDidLoad()
       setupViews()
       setupConstraints()
+      setupNavigationBar()
       updateColors()
-      navigationBar(isHidden: true)
    }
-   
-   //MARK: - Public Functions
-   
-   func setDelegate(_ delegate: AuthDelegate) {
-      self.delegate = delegate
-   }
-   
-   //MARK: - Private Functions
-   
-   private func showRegistrationController() {
-      let controller = RegistrationViewController()
-      controller.setDelegate(delegate)
-      navigationController?.pushViewController(controller, animated: true)
-   }
-   
-   
-   //MARK: - Actions
-   
-   @objc private func signUpButtonPressed(sender: UIButton) {
+}
+
+//MARK: - Actions
+
+@objc
+private extension LoginViewController {
+   func signUpButtonPressed(sender: UIButton) {
       showRegistrationController()
    }
    
-   @objc private func forgotPasswordButtonPressed(sender: UIButton) {
+   func forgotPasswordButtonPressed(sender: UIButton) {
       
    }
    
-   @objc private func textDidChange(sender: UITextField) {
+   func textDidChange(sender: UITextField) {
       guard let text = sender.text else { return }
       
       switch sender {
@@ -118,6 +106,28 @@ final class LoginViewController: UIViewController {
       }
       
       loginButton.updateStyle(isValid: viewModel.isValid)
+   }
+}
+
+//MARK: - Public Functions
+
+extension LoginViewController {
+   func setDelegate(_ delegate: AuthDelegate) {
+      self.delegate = delegate
+   }
+}
+
+//MARK: - Private Functions
+
+private extension LoginViewController {
+   func setupNavigationBar() {
+      navigationBar(isHidden: true)
+   }
+   
+   func showRegistrationController() {
+      let controller = RegistrationViewController()
+      controller.setDelegate(delegate)
+      navigationController?.pushViewController(controller, animated: true)
    }
 }
 
@@ -213,7 +223,7 @@ private extension LoginViewController {
       
       static let logoImageViewHeight: CGFloat = 80
       static let logoImageViewWidth: CGFloat = 120
-      static let inputFieldHeight: CGFloat = 50
+      static let inputFieldHeight: CGFloat = ThemeManager.sizes.defaultTextFieldHeight
       
       static let defaultTopPadding: CGFloat = 32
       static let defaultHorizontalPadding: CGFloat = 32

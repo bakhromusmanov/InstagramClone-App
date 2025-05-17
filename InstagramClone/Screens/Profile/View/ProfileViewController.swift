@@ -17,7 +17,7 @@ final class ProfileViewController: UIViewController {
    
    private let topSeparatorView: UIView = {
       let view = UIView()
-      view.backgroundColor = ThemeManager.colors.textSecondary
+      view.backgroundColor = ThemeManager.colors.textSecondaryDark
       return view
    }()
    
@@ -60,6 +60,47 @@ final class ProfileViewController: UIViewController {
 
 extension ProfileViewController {
 
+}
+
+//MARK: - Private Functions
+
+private extension ProfileViewController {
+   func setupNavigationBar() {
+      navigationController?.navigationBar.titleTextAttributes = [
+         .foregroundColor : ThemeManager.colors.textPrimaryDark]
+      navigationItem.title = user.username
+   }
+}
+
+//MARK: - Appearance & Theming
+
+private extension ProfileViewController {
+   func updateColors() {
+      view.backgroundColor = ThemeManager.colors.backgroundPrimary
+      navigationController?.navigationBar.backgroundColor = ThemeManager.colors.backgroundSecondary
+   }
+}
+
+//MARK: - Layout & Constraints
+
+private extension ProfileViewController {
+   func setupViews() {
+      view.addSubview(topSeparatorView)
+      view.addSubview(collectionView)
+   }
+   
+   func setupConstraints() {
+      topSeparatorView.snp.makeConstraints { make in
+         make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+         make.leading.trailing.equalToSuperview()
+         make.height.equalTo(ThemeManager.sizes.separatorLineHeight)
+      }
+      
+      collectionView.snp.makeConstraints { make in
+         make.top.equalTo(topSeparatorView.snp.bottom)
+         make.leading.trailing.bottom.equalToSuperview()
+      }
+   }
 }
 
 //MARK: - UICollectionViewDataSource
@@ -112,44 +153,6 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
       return CGSize(width: collectionView.frame.width, height: height)
    }
    
-}
-
-//MARK: - Appearance & Theming
-
-private extension ProfileViewController {
-   
-   func setupNavigationBar() {
-      navigationController?.navigationBar.titleTextAttributes = [
-         .foregroundColor : ThemeManager.colors.textPrimary]
-      navigationItem.title = user.username
-   }
-   
-   func updateColors() {
-      view.backgroundColor = ThemeManager.colors.backgroundPrimary
-      navigationController?.navigationBar.backgroundColor = ThemeManager.colors.backgroundSecondary
-   }
-}
-
-//MARK: - Layout & Constraints
-
-private extension ProfileViewController {
-   func setupViews() {
-      view.addSubview(topSeparatorView)
-      view.addSubview(collectionView)
-   }
-   
-   func setupConstraints() {
-      topSeparatorView.snp.makeConstraints { make in
-         make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-         make.leading.trailing.equalToSuperview()
-         make.height.equalTo(ThemeManager.spacings.separatorLineHeight)
-      }
-      
-      collectionView.snp.makeConstraints { make in
-         make.top.equalTo(topSeparatorView.snp.bottom)
-         make.leading.trailing.bottom.equalToSuperview()
-      }
-   }
 }
 
 //MARK: - Constants

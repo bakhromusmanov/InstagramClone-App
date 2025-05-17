@@ -53,7 +53,7 @@ final class HomeCell: UICollectionViewCell {
    private lazy var usernameButton: UIButton = {
       let button = UIButton(type: .system)
       button.setTitle(Constants.usernameButtonTitle, for: .normal)
-      button.setTitleColor(ThemeManager.colors.textPrimary, for: .normal)
+      button.setTitleColor(ThemeManager.colors.textPrimaryDark, for: .normal)
       button.titleLabel?.font = Constants.usernameButtonFont
       return button
    }()
@@ -63,7 +63,7 @@ final class HomeCell: UICollectionViewCell {
       button.setImage(UIImage(systemName: Constants.likeUnselectedImageName), for: .normal)
       button.setImage(UIImage(systemName: Constants.likeSelectedImageName), for: .selected)
       button.imageView?.contentMode = .scaleAspectFill
-      button.tintColor = ThemeManager.colors.textPrimary
+      button.tintColor = ThemeManager.colors.textPrimaryDark
       return button
    }()
    
@@ -72,7 +72,7 @@ final class HomeCell: UICollectionViewCell {
       button.setImage(UIImage(systemName: Constants.commentUnselectedImageName), for: .normal)
       button.setImage(UIImage(systemName: Constants.commentSelectedImageName), for: .selected)
       button.imageView?.contentMode = .scaleAspectFill
-      button.tintColor = ThemeManager.colors.textPrimary
+      button.tintColor = ThemeManager.colors.textPrimaryDark
       return button
    }()
    
@@ -81,7 +81,7 @@ final class HomeCell: UICollectionViewCell {
       button.setImage(UIImage(systemName: Constants.shareUnselectedImageName), for: .normal)
       button.setImage(UIImage(systemName: Constants.shareSelectedImageName), for: .selected)
       button.imageView?.contentMode = .scaleAspectFill
-      button.tintColor = ThemeManager.colors.textPrimary
+      button.tintColor = ThemeManager.colors.textPrimaryDark
       return button
    }()
    
@@ -96,7 +96,7 @@ final class HomeCell: UICollectionViewCell {
       label.text = Constants.likeCountButtonTitle
       label.font = Constants.likesCountLabelFont
       label.textAlignment = .left
-      label.textColor = ThemeManager.colors.textPrimary
+      label.textColor = ThemeManager.colors.textPrimaryDark
       return label
    }()
    
@@ -105,7 +105,7 @@ final class HomeCell: UICollectionViewCell {
       label.text = Constants.captionLabelTitle
       label.font = Constants.captionLabelFont
       label.textAlignment = .left
-      label.textColor = ThemeManager.colors.textPrimary
+      label.textColor = ThemeManager.colors.textPrimaryDark
       return label
    }()
    
@@ -114,7 +114,7 @@ final class HomeCell: UICollectionViewCell {
       label.text = Constants.timestampLabelTitle
       label.font = Constants.timestampLabelFont
       label.textAlignment = .left
-      label.textColor = ThemeManager.colors.textSecondary
+      label.textColor = ThemeManager.colors.textSecondaryDark
       return label
    }()
    

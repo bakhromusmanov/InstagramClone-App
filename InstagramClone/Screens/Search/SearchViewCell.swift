@@ -30,14 +30,14 @@ final class SearchViewCell: UITableViewCell {
    private let usernameLabel: UILabel = {
       let label = UILabel()
       label.font = ThemeManager.fonts.bodyMediumBold
-      label.textColor = ThemeManager.colors.textPrimary
+      label.textColor = ThemeManager.colors.textPrimaryDark
       return label
    }()
    
    private let fullNameLabel: UILabel = {
       let label = UILabel()
       label.font = ThemeManager.fonts.bodyMediumMedium
-      label.textColor = ThemeManager.colors.textSecondary
+      label.textColor = ThemeManager.colors.textSecondaryDark
       return label
    }()
    

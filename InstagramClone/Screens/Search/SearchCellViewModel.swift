@@ -8,7 +8,6 @@
 import Foundation
 
 struct SearchCellViewModel {
-   
    var username: String
    var fullName: String
    var profileImageURL: URL?
@@ -20,6 +19,5 @@ struct SearchCellViewModel {
       guard let url = user.profileImageURL else { return }
       profileImageURL = URL(string: url)
    }
-   
 }
 

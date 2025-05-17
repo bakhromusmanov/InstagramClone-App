@@ -13,14 +13,14 @@ final class HomeViewController: UIViewController {
    
    private let topSeparatorView: UIView = {
       let view = UIView()
-      view.backgroundColor = ThemeManager.colors.textSecondary
+      view.backgroundColor = ThemeManager.colors.textSecondaryDark
       return view
    }()
    
    private lazy var collectionView: UICollectionView = {
       let layout = UICollectionViewFlowLayout()
       layout.scrollDirection = .vertical
-      layout.minimumLineSpacing = Constants.spacingS
+      layout.minimumLineSpacing = Constants.cellToCellSpacing
       
       let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
       collectionView.dataSource = self
@@ -37,17 +37,16 @@ final class HomeViewController: UIViewController {
       super.viewDidLoad()
       setupViews()
       setupConstraints()
-      updateColors()
       setupNavigationBar()
+      updateColors()
    }
-   
-   //MARK: - Private Functions
-   
-   
-   
-   //MARK: - Actions
-   
-   @objc private func logoutButtonPressed() {
+}
+
+//MARK: - Actions
+
+@objc
+private extension HomeViewController {
+   func logoutButtonPressed() {
       AuthService.logout()
       let loginVC = LoginViewController()
       guard let controller = tabBarController as? TabBarViewController else { return }
@@ -55,6 +54,50 @@ final class HomeViewController: UIViewController {
       let loginNav = UINavigationController(rootViewController: loginVC)
       loginNav.modalPresentationStyle = .fullScreen
       present(loginNav, animated: true)
+   }
+}
+
+//MARK: - Private Functions
+
+private extension HomeViewController {
+   func setupNavigationBar() {
+      navigationItem.leftBarButtonItem = UIBarButtonItem(
+         title: Constants.logoutTitle,
+         style: .done,
+         target: self,
+         action: #selector(logoutButtonPressed))
+      navigationItem.leftBarButtonItem?.tintColor = ThemeManager.colors.textPrimaryDark
+   }
+}
+
+//MARK: - Appearance & Theming
+
+private extension HomeViewController {
+   func updateColors() {
+      view.backgroundColor = ThemeManager.colors.backgroundSecondary
+      navigationController?.navigationBar.backgroundColor = ThemeManager.colors.backgroundSecondary
+   }
+}
+
+//MARK: - Layout & Constraints
+
+private extension HomeViewController {
+   func setupViews() {
+      view.addSubview(topSeparatorView)
+      view.addSubview(collectionView)
+   }
+   
+   func setupConstraints() {
+      topSeparatorView.snp.makeConstraints { make in
+         make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+         make.leading.trailing.equalToSuperview()
+         make.height.equalTo(Constants.separatorLineHeight)
+      }
+      
+      collectionView.snp.makeConstraints { make in
+         make.top.equalTo(topSeparatorView.snp.bottom)
+         make.bottom.leading.trailing.equalToSuperview()
+      }
    }
 }
 
@@ -95,54 +138,16 @@ extension HomeViewController: UICollectionViewDelegate {
    
 }
 
-//MARK: - Appearance & Theming
-
-private extension HomeViewController {
-   
-   func setupNavigationBar() {
-      navigationItem.leftBarButtonItem = UIBarButtonItem(
-         title: Constants.logoutTitle,
-         style: .done,
-         target: self,
-         action: #selector(logoutButtonPressed))
-      navigationItem.leftBarButtonItem?.tintColor = ThemeManager.colors.textPrimary
-   }
-   
-   func updateColors() {
-      view.backgroundColor = ThemeManager.colors.backgroundSecondary
-      navigationController?.navigationBar.backgroundColor = ThemeManager.colors.backgroundSecondary
-   }
-}
-
-//MARK: - Layout & Constraints
-
-private extension HomeViewController {
-   func setupViews() {
-      view.addSubview(topSeparatorView)
-      view.addSubview(collectionView)
-   }
-   
-   func setupConstraints() {
-      topSeparatorView.snp.makeConstraints { make in
-         make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-         make.leading.trailing.equalToSuperview()
-         make.height.equalTo(ThemeManager.spacings.separatorLineHeight)
-      }
-      
-      collectionView.snp.makeConstraints { make in
-         make.top.equalTo(topSeparatorView.snp.bottom)
-         make.bottom.leading.trailing.equalToSuperview()
-      }
-   }
-}
-
 //MARK: - Constants
 
 private extension HomeViewController {
    enum Constants {
       static let homeCell = "HomeCell"
       static let logoutTitle = "Logout"
-      static let spacingS: CGFloat = ThemeManager.spacings.spacingS
+      
       static let defaultNumberOfItems = 6
+      
+      static let cellToCellSpacing: CGFloat = ThemeManager.spacings.spacingS
+      static let separatorLineHeight: CGFloat = ThemeManager.sizes.separatorLineHeight
    }
 }
