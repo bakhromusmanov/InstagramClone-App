@@ -7,18 +7,25 @@
 
 import UIKit
 
+private enum SearchViewState {
+   /// Fetching users from Firebase. Show shimmering effect.
+   case loadingUsers
+   
+   /// Initial State shows all fetched users.
+   case initial
+   
+   /// SearchBar is active and searches users. Show filtered users.
+   case searchingUsers
+}
+
 final class SearchViewController: UIViewController {
    
    //MARK: - Properties
    
-   private var users = [UserEntity]() {
-      didSet {
-         updateView()
-      }
-   }
-   
-   private var searchedUsers = [UserEntity]()
-   
+   private var state: SearchViewState = .loadingUsers
+   private var users = [UserEntity]()
+   private var filteredUsers = [UserEntity]()
+      
    //MARK: - Subviews
    
    private lazy var searchBar: UISearchBar = {
@@ -26,14 +33,13 @@ final class SearchViewController: UIViewController {
       searchBar.barTintColor = ThemeManager.colors.backgroundSecondary
       searchBar.keyboardType = .asciiCapable
       searchBar.returnKeyType = .search
+      searchBar.tintColor = ThemeManager.colors.textPrimaryDark
       
       //Setup TextField
       searchBar.searchTextField.font = ThemeManager.fonts.bodyMediumMedium
       searchBar.searchTextField.textColor = ThemeManager.colors.textPrimaryDark
       searchBar.searchTextField.borderStyle = .roundedRect
       searchBar.searchTextField.placeholder = Constants.searchPlaceholder
-      searchBar.searchTextField.layer.cornerRadius = Constants.searchBarCornerRadius
-      searchBar.searchTextField.clipsToBounds = true
       
       searchBar.delegate = self
       return searchBar
@@ -53,10 +59,10 @@ final class SearchViewController: UIViewController {
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      fetchUsers()
+      updateView(for: .loadingUsers)
       setupViews()
       setupConstraints()
-      navigationBar(isHidden: true)
+      setupNavigationBar()
       updateColors()
    }
 }
@@ -64,8 +70,22 @@ final class SearchViewController: UIViewController {
 //MARK: - Private Functions
 
 private extension SearchViewController {
-   func updateView() {
-      tableView.reloadData()
+   func setupNavigationBar() {
+      navigationBar(isHidden: true)
+   }
+   
+   func updateView(for state: SearchViewState) {
+      switch state {
+      case .loadingUsers:
+         self.state = .loadingUsers
+         fetchUsers()
+      case .initial:
+         self.state = .initial
+         tableView.reloadData()
+      case .searchingUsers:
+         self.state = .searchingUsers
+         tableView.reloadData()
+      }
    }
 }
 
@@ -75,6 +95,7 @@ private extension SearchViewController {
    func fetchUsers() {
       UserService.fetchUsers { users in
          self.users = users
+         self.updateView(for: .initial)
       }
    }
 }
@@ -99,11 +120,6 @@ private extension SearchViewController {
       searchBar.snp.makeConstraints { make in
          make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
          make.leading.trailing.equalToSuperview()
-      }
-      
-      searchBar.searchTextField.snp.makeConstraints { make in
-         make.top.bottom.equalToSuperview().inset(Constants.verticalPadding)
-         make.leading.trailing.equalToSuperview().inset(Constants.horizontalPadding)
          make.height.equalTo(Constants.searchBarHeight)
       }
       
@@ -118,11 +134,21 @@ private extension SearchViewController {
 
 extension SearchViewController: UISearchBarDelegate {
    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-      print("DEBUG: Text did change \(searchText)")
+      guard !searchText.isEmpty else {
+         updateView(for: .initial)
+         return
+      }
+      
+      let searchText = searchText.lowercased()
+      filteredUsers = users.filter {
+         $0.fullName.lowercased().contains(searchText) || $0.username.lowercased().contains(searchText)
+      }
+      
+      updateView(for: .searchingUsers)
    }
    
-   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-      print(searchBar.isFirstResponder)
+   func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+      print("searchBarCancelButtonClicked")
    }
 }
 
@@ -130,18 +156,38 @@ extension SearchViewController: UISearchBarDelegate {
 
 extension SearchViewController: UITableViewDataSource {
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return users.isEmpty ? Constants.defaultNumberOfCells : users.count
+      
+      let numberOfRows: Int
+      switch state {
+      case .loadingUsers:
+         numberOfRows = Constants.defaultNumberOfCells
+      case .initial:
+         numberOfRows = users.count
+      case .searchingUsers:
+         numberOfRows = filteredUsers.count
+      }
+      
+      return numberOfRows
    }
    
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       
       let cell = tableView.dequeueReusableCell(withIdentifier: Constants.searchCellIdentifier, for: indexPath)
-      cell.startShimmering()
+      guard let cell = cell as? SearchViewCell else { return cell }
       
-      guard let cell = cell as? SearchViewCell, !users.isEmpty else { return cell }
-      cell.stopShimmering()
-      let viewModel = SearchCellViewModel(user: users[indexPath.row])
-      cell.setViewModel(viewModel)
+      switch state {
+      case .loadingUsers:
+         cell.startShimmering()
+         
+      case .initial:
+         cell.stopShimmering()
+         let viewModel = SearchCellViewModel(user: users[indexPath.row])
+         cell.setViewModel(viewModel)
+         
+      case .searchingUsers:
+         let viewModel = SearchCellViewModel(user: filteredUsers[indexPath.row])
+         cell.setViewModel(viewModel)
+      }
       
       return cell
    }
@@ -161,16 +207,16 @@ extension SearchViewController: UITableViewDelegate {
 
 private extension SearchViewController {
    enum Constants {
+      
+      //Namings
       static let searchCellIdentifier = "SearchViewCell"
       static let searchPlaceholder = "Search"
       static let defaultNumberOfCells: Int = 8
       
       //Sizes
-      static let searchBarHeight: CGFloat = ThemeManager.sizes.defaultSearchBarHeight
-      static let searchBarCornerRadius = Constants.searchBarHeight / 3
+      static let searchBarHeight: CGFloat = ThemeManager.sizes.defaultSearchBarHeight + verticalPadding * 2
       
       //Spacings
-      static let verticalPadding: CGFloat = ThemeManager.spacings.spacingM
-      static let horizontalPadding: CGFloat = ThemeManager.spacings.spacingM
+      static let verticalPadding: CGFloat = ThemeManager.spacings.spacingS
    }
 }

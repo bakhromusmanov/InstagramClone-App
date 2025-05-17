@@ -8,6 +8,7 @@ target 'InstagramClone' do
 # Pods for InstagramClone
 # Pods for SnapKit
 pod 'SnapKit'
+pod 'netfox'
 
 # Pods for Firebase
 pod 'Firebase/Core'

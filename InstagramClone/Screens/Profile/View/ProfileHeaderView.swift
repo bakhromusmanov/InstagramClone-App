@@ -135,7 +135,7 @@ final class ProfileHeaderView: UICollectionReusableView {
    }
    
    deinit {
-      ImageDownloaderService.shared.cancel()
+      ImageDownloaderService.shared.cancelLoading()
    }
 }
 
