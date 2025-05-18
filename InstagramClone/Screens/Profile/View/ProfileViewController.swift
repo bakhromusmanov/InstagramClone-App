@@ -49,9 +49,9 @@ final class ProfileViewController: UIViewController {
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      setupNavigationBar()
       setupViews()
       setupConstraints()
+      setupNavigationBar()
       updateColors()
    }
 }
@@ -69,6 +69,7 @@ private extension ProfileViewController {
       navigationController?.navigationBar.titleTextAttributes = [
          .foregroundColor : ThemeManager.colors.textPrimaryDark]
       navigationItem.title = user.username
+      navigationController?.navigationBar.backgroundColor = ThemeManager.colors.backgroundSecondary
    }
 }
 
@@ -76,8 +77,8 @@ private extension ProfileViewController {
 
 private extension ProfileViewController {
    func updateColors() {
-      view.backgroundColor = ThemeManager.colors.backgroundPrimary
-      navigationController?.navigationBar.backgroundColor = ThemeManager.colors.backgroundSecondary
+      collectionView.backgroundColor = ThemeManager.colors.backgroundPrimary
+      view.backgroundColor = ThemeManager.colors.backgroundSecondary
    }
 }
 

@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       FirebaseApp.configure()
       
       #if DEBUG
-      NFX.sharedInstance().start()
+      //NFX.sharedInstance().start()
       #endif
    }
 }

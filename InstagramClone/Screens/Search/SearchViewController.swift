@@ -31,12 +31,13 @@ final class SearchViewController: UIViewController {
    private lazy var searchBar: UISearchBar = {
       let searchBar = UISearchBar()
       searchBar.barTintColor = ThemeManager.colors.backgroundSecondary
+      searchBar.searchBarStyle = .default
       searchBar.keyboardType = .asciiCapable
       searchBar.returnKeyType = .search
       searchBar.tintColor = ThemeManager.colors.textPrimaryDark
       
       //Setup TextField
-      searchBar.searchTextField.font = ThemeManager.fonts.bodyMediumMedium
+      searchBar.searchTextField.font = ThemeManager.fonts.bodyLargeMedium
       searchBar.searchTextField.textColor = ThemeManager.colors.textPrimaryDark
       searchBar.searchTextField.borderStyle = .roundedRect
       searchBar.searchTextField.placeholder = Constants.searchPlaceholder
@@ -72,6 +73,7 @@ final class SearchViewController: UIViewController {
 private extension SearchViewController {
    func setupNavigationBar() {
       navigationBar(isHidden: true)
+      navigationController?.navigationBar.backgroundColor = ThemeManager.colors.backgroundSecondary
    }
    
    func updateView(for state: SearchViewState) {
@@ -104,7 +106,8 @@ private extension SearchViewController {
 
 private extension SearchViewController {
    func updateColors() {
-      view.backgroundColor = ThemeManager.colors.backgroundPrimary
+      view.backgroundColor = ThemeManager.colors.backgroundSecondary
+      tableView.backgroundColor = ThemeManager.colors.backgroundPrimary
    }
 }
 
@@ -120,6 +123,12 @@ private extension SearchViewController {
       searchBar.snp.makeConstraints { make in
          make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
          make.leading.trailing.equalToSuperview()
+         make.height.equalTo(Constants.searchBarHeight + Constants.verticalPadding * 2)
+      }
+      
+      searchBar.searchTextField.snp.makeConstraints { make in
+         make.leading.trailing.equalToSuperview().inset(Constants.horizontalPadding)
+         make.centerY.equalToSuperview()
          make.height.equalTo(Constants.searchBarHeight)
       }
       
@@ -214,9 +223,10 @@ private extension SearchViewController {
       static let defaultNumberOfCells: Int = 8
       
       //Sizes
-      static let searchBarHeight: CGFloat = ThemeManager.sizes.defaultSearchBarHeight + verticalPadding * 2
+      static let searchBarHeight: CGFloat = ThemeManager.sizes.defaultSearchBarHeight
       
       //Spacings
       static let verticalPadding: CGFloat = ThemeManager.spacings.spacingS
+      static let horizontalPadding: CGFloat = ThemeManager.spacings.defaultHorizontalPadding
    }
 }

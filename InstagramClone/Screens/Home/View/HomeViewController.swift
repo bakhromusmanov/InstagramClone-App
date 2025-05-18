@@ -67,6 +67,7 @@ private extension HomeViewController {
          target: self,
          action: #selector(logoutButtonPressed))
       navigationItem.leftBarButtonItem?.tintColor = ThemeManager.colors.textPrimaryDark
+      navigationController?.navigationBar.backgroundColor = ThemeManager.colors.backgroundSecondary
    }
 }
 
@@ -75,7 +76,6 @@ private extension HomeViewController {
 private extension HomeViewController {
    func updateColors() {
       view.backgroundColor = ThemeManager.colors.backgroundSecondary
-      navigationController?.navigationBar.backgroundColor = ThemeManager.colors.backgroundSecondary
    }
 }
 

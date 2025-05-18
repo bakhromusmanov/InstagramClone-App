@@ -197,8 +197,8 @@ enum AppSpacing {
 
 enum AppSizes {
    
-   /// Small Size: 36pt
-   static let componentHeightS: CGFloat = 36
+   /// Small Size: 40pt
+   static let componentHeightS: CGFloat = 40
    
    /// Medium Size: 44pt
    static let componentHeightM: CGFloat = 44
@@ -214,8 +214,8 @@ enum AppSizes {
    
    //MARK: - Defaults
    
-   /// Large Size: 48pt componentHeightL
-   static let defaultSearchBarHeight: CGFloat = componentHeightL
+   /// Small Size: 40pt componentHeightS
+   static let defaultSearchBarHeight: CGFloat = componentHeightS
    
    /// Medium Size: 44pt componentHeightM
    static let defaultButtonHeight: CGFloat = componentHeightM
