@@ -17,6 +17,8 @@ final class ImageDownloaderService {
    private let urlSession: URLSession
    private let imageCache = NSCache<NSURL, UIImage>()
    
+   //MARK: - Initialization
+   
    private init() {
       let config = URLSessionConfiguration.default
       config.requestCachePolicy = .returnCacheDataElseLoad
@@ -26,41 +28,53 @@ final class ImageDownloaderService {
    func loadImage(from url: URL, completion: @escaping (UIImage) -> Void) {
       // 1. Check in-memory cache
       if let cachedImage = imageCache.object(forKey: url as NSURL) {
-          completion(cachedImage)
-          return
+         completion(cachedImage)
+         return
       }
-
+      
       // 2. Skip if already downloading
       if tasks[url] != nil { return }
-
+      
       // 3. Start download
-      let task = urlSession.downloadTask(with: url) { [weak self] localURL, _, error in
-         defer { self?.tasks[url] = nil }
-
-         guard
-            let self = self,
-            let localURL = localURL,
-            let data = try? Data(contentsOf: localURL),
-            let image = UIImage(data: data)
-         else {
-            print("DEBUG: Error downloading or decoding image.")
+      let task = urlSession.dataTask(with: url) { [weak self] data, response, error in
+         
+         guard let self else { return }
+         defer { self.tasks[url] = nil } // Clean up task
+         
+         if let error {
+            print("DEBUG: Download failed - \(error.localizedDescription)")
             return
          }
-
+         
+         guard let data, let image = UIImage(data: data) else {
+            print("DEBUG: Invalid image data")
+            return
+         }
+         
+         // Store in memory cache
          self.imageCache.setObject(image, forKey: url as NSURL)
-
+         
          DispatchQueue.main.async {
             completion(image)
+            return
          }
       }
-
+      
       tasks[url] = task
       task.resume()
    }
    
-   func cancelLoading() {
-      tasks.forEach { $0.value.cancel() }
-      tasks.removeAll()
+   func cancelLoading(for url: URL) {
+      tasks[url]?.cancel()
+      tasks[url] = nil
    }
    
+   func clearMemoryCache() {
+      imageCache.removeAllObjects()
+   }
+   
+   func clearDiskCache(completion: (() -> Void)? = nil) {
+       urlSession.configuration.urlCache?.removeAllCachedResponses()
+       completion?()
+   }
 }

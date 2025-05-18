@@ -134,8 +134,11 @@ final class ProfileHeaderView: UICollectionReusableView {
       fatalError("init(coder:) has not been implemented")
    }
    
-   deinit {
-      ImageDownloaderService.shared.cancelLoading()
+   //MARK: Lifecycle
+   
+   override func prepareForReuse() {
+      cancelImageLoading()
+      profileImageView.image = nil
    }
 }
 
@@ -165,6 +168,11 @@ private extension ProfileHeaderView {
       ImageDownloaderService.shared.loadImage(from: imageURL) { image in
          self.profileImageView.image = image
       }
+   }
+   
+   func cancelImageLoading() {
+      guard let url = viewModel?.profileImageURL else { return }
+      ImageDownloaderService.shared.cancelLoading(for: url)
    }
 }
 
