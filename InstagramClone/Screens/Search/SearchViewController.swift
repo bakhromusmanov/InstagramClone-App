@@ -95,7 +95,7 @@ private extension SearchViewController {
 
 private extension SearchViewController {
    func fetchUsers() {
-      UserService.fetchUsers { users in
+      UserService.shared.fetchUsers { users in
          self.users = users
          self.updateView(for: .initial)
       }

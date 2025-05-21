@@ -6,59 +6,75 @@
 //
 
 import Foundation
-import FirebaseDatabase
+import FirebaseFirestore
 import FirebaseAuth
 
 final class UserService {
    
+   static let shared = UserService()
+   private init() { }
+   
    //MARK: Fetch User
    
-   static func fetchUser(completion: @escaping (UserEntity) -> Void) {
+   func fetchUser(completion: @escaping (UserEntity) -> Void) {
       guard let uid = Auth.auth().currentUser?.uid else {
          print("DEBUG: Couldn't get current user UID")
          return
       }
       
-      let path = UserEndpoint.user(uid: uid).path
-      fetchFromFirebase(path: path, type: UserEntity.self, completion: completion)
+      let usersPath = FirestoreEndpoint.users.path
+      let usersCollection = Firestore.firestore().collection(usersPath)
+      
+      usersCollection.document(uid).getDocument { snapshot, error in
+         if let error = error {
+            print("DEBUG: Error fetching user: \(error.localizedDescription)")
+            return
+         }
+         
+         guard let snapshot = snapshot, snapshot.exists else {
+            print("DEBUG: Snapshot is nil or user document does not exist")
+            return
+         }
+         
+         do {
+            let user = try snapshot.data(as: UserEntity.self)
+            completion(user)
+            return
+         } catch {
+            print("DEBUG: Failed to decode UserEntity: \(error.localizedDescription)")
+            return
+         }
+      }
    }
    
-   static func fetchUsers(completion: @escaping ([UserEntity]) -> Void) {
-      let path = UserEndpoint.users.path
-      fetchFromFirebase(path: path, type: [String : UserEntity].self) { dict in
-         let users = dict.map { $0.value }
+   func fetchUsers(completion: @escaping ([UserEntity]) -> Void) {
+      
+      let usersPath = FirestoreEndpoint.users.path
+      let usersCollection = Firestore.firestore().collection(usersPath)
+      
+      usersCollection.getDocuments { snapshot, error in
+         if let error = error {
+            print("DEBUG: Error fetching user: \(error.localizedDescription)")
+            return
+         }
+         
+         guard let documents = snapshot?.documents else {
+            print("DEBUG: Documents do not exist")
+            return
+         }
+         
+         let users = documents.compactMap { document in
+            do {
+               return try document.data(as: UserEntity.self)
+            } catch {
+               print("Error decoding document \(document.documentID): \(error.localizedDescription)")
+               return nil
+            }
+         }
+         
          completion(users)
       }
    }
 }
 
-//MARK: - Private Functions
 
-private extension UserService {
-   
-   static func fetchFromFirebase<T: Decodable>(path: String, type: T.Type, completion: @escaping (T) -> Void) {
-      
-      let ref = Database.database().reference().child(path)
-      
-      ref.getData { error, snapshot in
-         guard error == nil else {
-            print("DEBUG: Error getting data from path: \(path)")
-            return
-         }
-         
-         guard let snapshot, let value = snapshot.value else {
-            print("DEBUG: Snapshot is nil at path: \(path)")
-            return
-         }
-         
-         do {
-            let data = try JSONSerialization.data(withJSONObject: value)
-            let decoded = try JSONDecoder().decode(T.self, from: data)
-            completion(decoded)
-         } catch {
-            print("DEBUG: Decoding error at path: \(path)")
-         }
-      }
-   }
-   
-}

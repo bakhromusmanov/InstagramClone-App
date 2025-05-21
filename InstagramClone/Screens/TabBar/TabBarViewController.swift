@@ -111,14 +111,14 @@ private extension TabBarViewController {
 
 private extension TabBarViewController {
    func fetchUser() {
-      UserService.fetchUser { [weak self] user in
+      UserService.shared.fetchUser { [weak self] user in
          guard let self else { return }
          self.user = user
       }
    }
    
    func checkIfUserIsLoggedIn() {
-      if AuthService.isUserLoggedOut {
+      if AuthService.shared.isUserLoggedOut {
          let loginVC = LoginViewController()
          loginVC.setDelegate(self)
          let loginNav = UINavigationController(rootViewController: loginVC)

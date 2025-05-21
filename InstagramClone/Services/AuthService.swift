@@ -7,17 +7,26 @@
 
 import Foundation
 import FirebaseAuth
-import FirebaseDatabase
+import FirebaseFirestore
 
-struct AuthService {
+final class AuthService {
+   
+   static let shared = AuthService()
+   private init() { }
+   
+   //MARK: - Properties
    
    typealias AuthDataResultCallback = (AuthDataResult?, Error?) -> Void
    
-   static var isUserLoggedOut: Bool {
+   var isUserLoggedOut: Bool {
       return Auth.auth().currentUser == nil
    }
    
-   static func logout() {
+   let ref = Firestore.firestore()
+   
+   //MARK: Public Methods
+   
+   func logout() {
       do {
          try Auth.auth().signOut()
       } catch {
@@ -25,11 +34,11 @@ struct AuthService {
       }
    }
    
-   static func login(withEmail email: String, password: String, completion: AuthDataResultCallback?) {
+   func login(withEmail email: String, password: String, completion: AuthDataResultCallback?) {
       Auth.auth().signIn(withEmail: email, password: password, completion: completion)
    }
    
-   static func register(user: AuthEntity, completion: @escaping (Error?) -> Void) {
+   func register(user: AuthEntity, completion: @escaping (Error?) -> Void) {
       
       var user = user
       
@@ -45,13 +54,11 @@ struct AuthService {
          }
          
          user.userId = uid
-         let userPath = UserEndpoint.user(uid: uid).path
-         let ref = Database.database().reference().child(userPath)
          
          do {
-            let data = try JSONEncoder().encode(user)
-            let dictionary = try JSONSerialization.jsonObject(with: data) as? [String : Any]
-            ref.setValue(dictionary) { error, _ in
+            let data = try Firestore.Encoder().encode(user)
+            let path = FirestoreEndpoint.users.path
+            Firestore.firestore().collection(path).document(uid).setData(data) { error in
                completion(error)
                return
             }
@@ -59,9 +66,7 @@ struct AuthService {
             completion(error)
             return
          }
-         
       })
-      
    }
    
 }

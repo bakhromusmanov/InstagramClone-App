@@ -47,7 +47,7 @@ final class HomeViewController: UIViewController {
 @objc
 private extension HomeViewController {
    func logoutButtonPressed() {
-      AuthService.logout()
+      AuthService.shared.logout()
       let loginVC = LoginViewController()
       guard let controller = tabBarController as? TabBarViewController else { return }
       loginVC.setDelegate(controller)

@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		3F7435E491FB4D3D8BD8ADF5 /* Pods_InstagramClone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFE27019D1AD07D4E88C5A5 /* Pods_InstagramClone.framework */; };
 		A41F2E122DC0B96100AC975A /* AuthEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41F2E112DC0B96100AC975A /* AuthEntity.swift */; };
-		A41F2E162DC1EBBC00AC975A /* UserEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41F2E152DC1EBBC00AC975A /* UserEndpoint.swift */; };
+		A41F2E162DC1EBBC00AC975A /* FirestoreEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41F2E152DC1EBBC00AC975A /* FirestoreEndpoint.swift */; };
 		A41F2E182DC1ECBA00AC975A /* ImageEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41F2E172DC1ECBA00AC975A /* ImageEndpoint.swift */; };
 		A41F2E1B2DC49AD100AC975A /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41F2E1A2DC49AD100AC975A /* ProfileHeaderView.swift */; };
 		A41F2E1D2DC49B0400AC975A /* ProfilePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41F2E1C2DC49B0400AC975A /* ProfilePostCell.swift */; };
@@ -57,7 +57,7 @@
 /* Begin PBXFileReference section */
 		39C49211B62A878F5ED4A342 /* Pods-InstagramClone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramClone.debug.xcconfig"; path = "Target Support Files/Pods-InstagramClone/Pods-InstagramClone.debug.xcconfig"; sourceTree = "<group>"; };
 		A41F2E112DC0B96100AC975A /* AuthEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthEntity.swift; sourceTree = "<group>"; };
-		A41F2E152DC1EBBC00AC975A /* UserEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEndpoint.swift; sourceTree = "<group>"; };
+		A41F2E152DC1EBBC00AC975A /* FirestoreEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreEndpoint.swift; sourceTree = "<group>"; };
 		A41F2E172DC1ECBA00AC975A /* ImageEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEndpoint.swift; sourceTree = "<group>"; };
 		A41F2E1A2DC49AD100AC975A /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		A41F2E1C2DC49B0400AC975A /* ProfilePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePostCell.swift; sourceTree = "<group>"; };
@@ -303,7 +303,7 @@
 				A49ED5D42DD4556F0032E53A /* ImageDownloaderService.swift */,
 				A41F2E172DC1ECBA00AC975A /* ImageEndpoint.swift */,
 				A49ED5CB2DD326F60032E53A /* UserService.swift */,
-				A41F2E152DC1EBBC00AC975A /* UserEndpoint.swift */,
+				A41F2E152DC1EBBC00AC975A /* FirestoreEndpoint.swift */,
 				A49ED5CF2DD36D040032E53A /* AuthService.swift */,
 			);
 			path = Services;
@@ -510,7 +510,7 @@
 				A49ED5D72DD473DF0032E53A /* AuthContracts.swift in Sources */,
 				A41F2E1D2DC49B0400AC975A /* ProfilePostCell.swift in Sources */,
 				A4F090812DB6045D00F989A4 /* ValidationContract.swift in Sources */,
-				A41F2E162DC1EBBC00AC975A /* UserEndpoint.swift in Sources */,
+				A41F2E162DC1EBBC00AC975A /* FirestoreEndpoint.swift in Sources */,
 				A470D5FE2DAFC6870062A804 /* UIVIewController+NavigationBar.swift in Sources */,
 				A47FE03A2DD6052F00F7458C /* SearchViewCell.swift in Sources */,
 				A4DF48A92DAE5CE50031D04B /* RegistrationViewController.swift in Sources */,

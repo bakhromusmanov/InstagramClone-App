@@ -7,16 +7,22 @@
 
 import Foundation
 
-enum UserEndpoint {
-   case user(uid: String)
+enum FirestoreEndpoint {
    case users
+   case follows
+   case followers
+   case followings
    
    var path: String {
       switch self {
-      case .user(let uid):
-         return "users/\(uid)"
       case .users:
          return "users/"
+      case .follows:
+         return "follows"
+      case .followers:
+         return "followers"
+      case .followings:
+         return "followings"
       }
    }
 }
