@@ -22,8 +22,6 @@ final class AuthService {
       return Auth.auth().currentUser == nil
    }
    
-   let ref = Firestore.firestore()
-   
    //MARK: Public Methods
    
    func logout() {
@@ -42,7 +40,7 @@ final class AuthService {
       
       var user = user
       
-      Auth.auth().createUser(withEmail: user.email, password: user.password, completion: { result, error in
+      Auth.auth().createUser(withEmail: user.email, password: user.password) { result, error in
          if let error {
             completion(error)
             return
@@ -55,18 +53,13 @@ final class AuthService {
          
          user.userId = uid
          
-         do {
-            let data = try Firestore.Encoder().encode(user)
-            let path = FirestoreEndpoint.users.path
-            Firestore.firestore().collection(path).document(uid).setData(data) { error in
-               completion(error)
-               return
-            }
-         } catch {
-            completion(error)
+         guard let data = try? Firestore.Encoder().encode(user) else {
+            print("DEBUG: Error while encoding users auth data.")
             return
          }
-      })
+         
+         COLLECTION_USERS.document(uid).setData(data, completion: completion)
+      }
    }
    
 }

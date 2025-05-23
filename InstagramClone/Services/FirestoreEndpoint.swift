@@ -6,8 +6,13 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
-enum FirestoreEndpoint {
+let COLLECTION_USERS = Firestore.firestore().collection(FirestoreEndpoint.users.path)
+let COLLECTION_FOLLOWERS = Firestore.firestore().collection(FirestoreEndpoint.followers.path)
+let COLLECTION_FOLLOWINGS = Firestore.firestore().collection(FirestoreEndpoint.followings.path)
+
+private enum FirestoreEndpoint {
    case users
    case follows
    case followers

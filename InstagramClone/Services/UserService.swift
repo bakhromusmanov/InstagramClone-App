@@ -14,7 +14,7 @@ final class UserService {
    static let shared = UserService()
    private init() { }
    
-   //MARK: Fetch User
+   //MARK: fetchUser
    
    func fetchUser(completion: @escaping (UserEntity) -> Void) {
       guard let uid = Auth.auth().currentUser?.uid else {
@@ -22,10 +22,7 @@ final class UserService {
          return
       }
       
-      let usersPath = FirestoreEndpoint.users.path
-      let usersCollection = Firestore.firestore().collection(usersPath)
-      
-      usersCollection.document(uid).getDocument { snapshot, error in
+      COLLECTION_USERS.document(uid).getDocument { snapshot, error in
          if let error = error {
             print("DEBUG: Error fetching user: \(error.localizedDescription)")
             return
@@ -36,23 +33,18 @@ final class UserService {
             return
          }
          
-         do {
-            let user = try snapshot.data(as: UserEntity.self)
+         if let user = snapshot.decode(as: UserEntity.self) {
             completion(user)
-            return
-         } catch {
-            print("DEBUG: Failed to decode UserEntity: \(error.localizedDescription)")
-            return
          }
       }
    }
    
+   //MARK: fetchUsers
+   
    func fetchUsers(completion: @escaping ([UserEntity]) -> Void) {
       
-      let usersPath = FirestoreEndpoint.users.path
-      let usersCollection = Firestore.firestore().collection(usersPath)
       
-      usersCollection.getDocuments { snapshot, error in
+      COLLECTION_USERS.getDocuments { snapshot, error in
          if let error = error {
             print("DEBUG: Error fetching user: \(error.localizedDescription)")
             return
@@ -64,17 +56,13 @@ final class UserService {
          }
          
          let users = documents.compactMap { document in
-            do {
-               return try document.data(as: UserEntity.self)
-            } catch {
-               print("Error decoding document \(document.documentID): \(error.localizedDescription)")
-               return nil
-            }
+            document.decode(as: UserEntity.self)
          }
          
          completion(users)
       }
    }
 }
+
 
 
