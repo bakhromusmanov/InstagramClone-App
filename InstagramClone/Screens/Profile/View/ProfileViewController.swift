@@ -66,10 +66,26 @@ extension ProfileViewController {
 
 private extension ProfileViewController {
    func setupNavigationBar() {
-      navigationController?.navigationBar.titleTextAttributes = [
-         .foregroundColor : ThemeManager.colors.textPrimaryDark]
-      navigationItem.title = user.username
+      navigationBar(isHidden: false)
+      navigationController?.navigationBar.tintColor = ThemeManager.colors.textPrimaryDark
       navigationController?.navigationBar.backgroundColor = ThemeManager.colors.backgroundSecondary
+      navigationItem.title = user.username
+      navigationItem.leftBarButtonItem = UIBarButtonItem(
+         image: UIImage(systemName: Constants.backButtonImageName),
+         style: .plain,
+         target: self,
+         action: #selector(backButtonPressed)
+      )
+   }
+}
+
+//MARK: Actions
+
+private extension ProfileViewController {
+   @objc
+   private func backButtonPressed() {
+      navigationController?.popViewController(animated: true)
+      self.navigationBar(isHidden: true)
    }
 }
 
@@ -126,6 +142,7 @@ extension ProfileViewController: UICollectionViewDataSource {
       
       guard let headerView = headerView as? ProfileHeaderView else { return headerView }
       let viewModel = ProfileHeaderViewModel(user: user)
+      headerView.setDelegate(self)
       headerView.setViewModel(viewModel)
       return headerView
    }
@@ -153,7 +170,14 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
       let height = ProfileHeaderView.calculateHeight()
       return CGSize(width: collectionView.frame.width, height: height)
    }
-   
+}
+
+//MARK:
+
+extension ProfileViewController: ProfileHeaderViewDelegate {
+   func profileHeaderDidUpdate(_ profileHeaderView: ProfileHeaderView) {
+      collectionView.reloadData()
+   }
 }
 
 //MARK: - Constants
@@ -164,6 +188,7 @@ private extension ProfileViewController {
       //Texts
       static let cellIdentifier = "ProfileImageCell"
       static let headerIdentifier = "ProfileHeaderView"
+      static let backButtonImageName = "chevron.left"
       
       //Spacings
       static let gridSpacing: CGFloat = 1

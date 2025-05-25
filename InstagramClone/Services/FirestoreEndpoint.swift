@@ -14,7 +14,6 @@ let COLLECTION_FOLLOWINGS = Firestore.firestore().collection(FirestoreEndpoint.f
 
 private enum FirestoreEndpoint {
    case users
-   case follows
    case followers
    case followings
    
@@ -22,8 +21,6 @@ private enum FirestoreEndpoint {
       switch self {
       case .users:
          return "users/"
-      case .follows:
-         return "follows"
       case .followers:
          return "followers"
       case .followings:

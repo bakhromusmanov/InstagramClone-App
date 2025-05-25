@@ -151,7 +151,7 @@ private extension LoginViewController {
 
 private extension LoginViewController {
    func updateColors() {
-      setGradientBackground(startColor: ThemeManager.colors.secondary, endColor: ThemeManager.colors.primary)
+      view.setGradientBackground(startColor: ThemeManager.colors.secondary, endColor: ThemeManager.colors.primary)
    }
 }
 

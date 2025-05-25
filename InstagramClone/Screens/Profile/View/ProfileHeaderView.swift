@@ -8,12 +8,19 @@
 import Foundation
 import UIKit
 
+protocol ProfileHeaderViewDelegate: AnyObject {
+   func profileHeaderDidUpdate(_ profileHeaderView: ProfileHeaderView)
+}
+
 final class ProfileHeaderView: UICollectionReusableView {
    
    //MARK: - Properties
    
+   private weak var delegate: ProfileHeaderViewDelegate?
+   
    private var viewModel: ProfileHeaderViewModel? {
       didSet {
+         print("DEBUG: DIDSET: viewModel ")
          updateView()
       }
    }
@@ -39,6 +46,7 @@ final class ProfileHeaderView: UICollectionReusableView {
       imageView.contentMode = .scaleAspectFill
       imageView.layer.cornerRadius = Constants.profileImageCornerRadius
       imageView.layer.masksToBounds = true
+      imageView.startShimmering()
       return imageView
    }()
    
@@ -52,19 +60,19 @@ final class ProfileHeaderView: UICollectionReusableView {
    
    private lazy var postsButton: ProfileStatsButton = {
       let button = ProfileStatsButton(type: .system)
-      button.setupStats(title: Constants.postsLabelText, value: Constants.defaultStatsCount)
+      button.setStatsTitle(Constants.postsLabelText)
       return button
    }()
    
    private lazy var followersButton: ProfileStatsButton = {
       let button = ProfileStatsButton(type: .system)
-      button.setupStats(title: Constants.followersLabelText, value: Constants.defaultStatsCount)
+      button.setStatsTitle(Constants.followersLabelText)
       return button
    }()
    
    private lazy var followingsButton: ProfileStatsButton = {
       let button = ProfileStatsButton(type: .system)
-      button.setupStats(title: Constants.followingLabelText, value: Constants.defaultStatsCount)
+      button.setStatsTitle(Constants.followingLabelText)
       return button
    }()
    
@@ -76,15 +84,12 @@ final class ProfileHeaderView: UICollectionReusableView {
       return stackView
    }()
    
-   private lazy var editProfileButton: UIButton = {
+   private lazy var profileButton: UIButton = {
       let button = UIButton(type: .system)
-      button.setTitle(Constants.editProfileButtonText, for: .normal)
-      button.setTitleColor(ThemeManager.colors.textPrimaryDark, for: .normal)
       button.titleLabel?.font = ThemeManager.fonts.bodyMediumBold
-      button.backgroundColor = ThemeManager.colors.whiteOpacity10
       button.layer.cornerRadius = Constants.editButtonCornerRadius
-      button.layer.borderColor = ThemeManager.colors.border.cgColor
       button.layer.borderWidth = Constants.editButtonBorderWidth
+      button.addTarget(self, action: #selector(profileButtonPressed), for: .touchUpInside)
       return button
    }()
    
@@ -145,8 +150,14 @@ final class ProfileHeaderView: UICollectionReusableView {
 //MARK: - Public Functions
 
 extension ProfileHeaderView {
+   func setDelegate(_ delegate: ProfileHeaderViewDelegate) {
+      self.delegate = delegate
+   }
+   
    func setViewModel(_ viewModel: ProfileHeaderViewModel) {
       self.viewModel = viewModel
+      fetchIfUserIsFollowed()
+      fetchProfileStats()
    }
    
    static func calculateHeight() -> CGFloat {
@@ -167,12 +178,90 @@ private extension ProfileHeaderView {
       guard let imageURL = viewModel?.profileImageURL else { return }
       ImageDownloaderService.shared.loadImage(from: imageURL) { image in
          self.profileImageView.image = image
+         self.profileImageView.stopShimmering()
       }
+   }
+   
+   func updateProfileButton() {
+      guard let viewModel = viewModel else { return }
+      let profileButtonState = viewModel.profileButtonState
+
+      profileButton.setTitle(profileButtonState.title, for: .normal)
+      profileButton.setTitleColor(profileButtonState.titleColor, for: .normal)
+      profileButton.backgroundColor = profileButtonState.backgroundColor
+      profileButton.layer.borderColor = profileButtonState.borderColor.cgColor
+
+   }
+   
+   func updateStats() {
+      guard let viewModel = viewModel else { return }
+      followersButton.setStatsValue(viewModel.followersCount)
+      followingsButton.setStatsValue(viewModel.followingsCount)
+      postsButton.setStatsValue(viewModel.postsCount)
    }
    
    func cancelImageLoading() {
       guard let url = viewModel?.profileImageURL else { return }
       ImageDownloaderService.shared.cancelLoading(for: url)
+   }
+}
+
+//MARK: Networking
+
+private extension ProfileHeaderView {
+   func fetchIfUserIsFollowed() {
+      guard let userId = viewModel?.userId else { return }
+      UserService.shared.checkIfUserIsFollowed(uid: userId) { isFollowed in
+         self.viewModel?.isFollowed = isFollowed
+         self.updateProfileButton()
+      }
+      //delegate?.profileHeaderDidUpdate(self)
+   }
+   
+   func fetchProfileStats() {
+      guard let userId = viewModel?.userId else { return }
+      UserService.shared.fetchProfileStats(for: userId) { userStatsEntity in
+         self.viewModel?.followersCount = userStatsEntity.followersCount
+         self.viewModel?.followingsCount = userStatsEntity.followingsCount
+         self.viewModel?.postsCount = userStatsEntity.postsCount
+         self.updateStats()
+      }
+      //delegate?.profileHeaderDidUpdate(self)
+   }
+}
+
+//MARK: Actions
+
+private extension ProfileHeaderView {
+   @objc
+   func profileButtonPressed() {
+      guard let userId = viewModel?.userId, let profileButtonState = viewModel?.profileButtonState else {
+         return
+      }
+      
+      switch profileButtonState {
+      case .editProfile:
+         print("DEBUG: Edit profile controller should be presented.")
+      case .follow:
+         UserService.shared.followUser(with: userId) { error in
+            if error != nil {
+               print(UserService.ErrorType.followUser)
+               return
+            }
+            self.viewModel?.isFollowed = true
+         }
+      case .following:
+         UserService.shared.unfollowUser(with: userId) { error in
+            if error != nil {
+               print(UserService.ErrorType.unfollowUser)
+               return
+            }
+            self.viewModel?.isFollowed = false
+         }
+      }
+      
+      updateProfileButton()
+      fetchProfileStats()
    }
 }
 
@@ -188,7 +277,7 @@ private extension ProfileHeaderView {
          profileImageView.backgroundColor = .yellow
          fullNameLabel.backgroundColor = .red
          statsStackView.backgroundColor = .purple
-         editProfileButton.backgroundColor = .orange
+         profileButton.backgroundColor = .orange
          segmentStackView.backgroundColor = .systemPink
       }
    }
@@ -207,7 +296,7 @@ private extension ProfileHeaderView {
       statsStackView.addArrangedSubview(followersButton)
       statsStackView.addArrangedSubview(followingsButton)
       
-      addSubview(editProfileButton)
+      addSubview(profileButton)
       addSubview(segmentStackView)
       segmentStackView.addArrangedSubview(gridButton)
       segmentStackView.addArrangedSubview(listButton)
@@ -234,14 +323,14 @@ private extension ProfileHeaderView {
          make.centerY.equalTo(profileImageView.snp.centerY)
       }
       
-      editProfileButton.snp.makeConstraints { make in
+      profileButton.snp.makeConstraints { make in
          make.top.equalTo(fullNameLabel.snp.bottom).offset(Constants.spacingXL)
          make.leading.trailing.equalToSuperview().inset(Constants.defaultHorizontalPadding)
          make.height.equalTo(Constants.editProfileButtonHeight)
       }
       
       bottomSeparatorView.snp.makeConstraints { make in
-         make.top.equalTo(editProfileButton.snp.bottom).offset(Constants.defaultVerticalPadding)
+         make.top.equalTo(profileButton.snp.bottom).offset(Constants.defaultVerticalPadding)
          make.leading.trailing.equalToSuperview()
          make.height.equalTo(ThemeManager.sizes.separatorLineHeight)
       }
@@ -278,10 +367,8 @@ private extension ProfileHeaderView {
       static let postsLabelText = "posts"
       static let followersLabelText = "followers"
       static let followingLabelText = "following"
-      static let editProfileButtonText = "Edit Profile"
       static let defaultFullNameText = "Username"
-      static let defaultStatsCount: Int = 0
-      
+
       //Icons
       static let thumbnailImageName = "thumbnail"
       static let gridImageName = "square.grid.3x3.fill"
@@ -305,5 +392,7 @@ private extension ProfileHeaderView {
       static let profileImageCornerRadius: CGFloat = profileImageSize / 2
       static let editButtonCornerRadius: CGFloat = 5
       static let editButtonBorderWidth: CGFloat = 1
+      
+      //Colors
    }
 }

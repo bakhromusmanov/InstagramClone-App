@@ -30,7 +30,6 @@
 		A49ED5D02DD36D040032E53A /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49ED5CF2DD36D040032E53A /* AuthService.swift */; };
 		A49ED5D32DD452760032E53A /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49ED5D22DD452760032E53A /* ProfileHeaderViewModel.swift */; };
 		A49ED5D52DD4556F0032E53A /* ImageDownloaderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49ED5D42DD4556F0032E53A /* ImageDownloaderService.swift */; };
-		A49ED5D72DD473DF0032E53A /* AuthContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49ED5D62DD473DF0032E53A /* AuthContracts.swift */; };
 		A49ED5D92DD5BB000032E53A /* UIView+Shimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49ED5D82DD5BB000032E53A /* UIView+Shimmer.swift */; };
 		A49ED5DB2DD5CFD80032E53A /* ShimmerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49ED5DA2DD5CFD80032E53A /* ShimmerViewController.swift */; };
 		A4A195982DA92A2F000C77CA /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A195972DA92A2F000C77CA /* ThemeManager.swift */; };
@@ -53,6 +52,7 @@
 		D0E2613E2D15E2CC003D6C71 /* ImageSelectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E2613D2D15E2CC003D6C71 /* ImageSelectorController.swift */; };
 		D0E261402D15E2E4003D6C71 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E2613F2D15E2E4003D6C71 /* NotificationsViewController.swift */; };
 		D0E261422D15E2EE003D6C71 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E261412D15E2EE003D6C71 /* ProfileViewController.swift */; };
+		D0FE55A82DE3A0DC00F9C2F7 /* UserStatsEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FE55A72DE3A0DC00F9C2F7 /* UserStatsEntity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,7 +79,6 @@
 		A49ED5CF2DD36D040032E53A /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		A49ED5D22DD452760032E53A /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
 		A49ED5D42DD4556F0032E53A /* ImageDownloaderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloaderService.swift; sourceTree = "<group>"; };
-		A49ED5D62DD473DF0032E53A /* AuthContracts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthContracts.swift; sourceTree = "<group>"; };
 		A49ED5D82DD5BB000032E53A /* UIView+Shimmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shimmer.swift"; sourceTree = "<group>"; };
 		A49ED5DA2DD5CFD80032E53A /* ShimmerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerViewController.swift; sourceTree = "<group>"; };
 		A4A195972DA92A2F000C77CA /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
@@ -106,6 +105,7 @@
 		D0E2613D2D15E2CC003D6C71 /* ImageSelectorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelectorController.swift; sourceTree = "<group>"; };
 		D0E2613F2D15E2E4003D6C71 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		D0E261412D15E2EE003D6C71 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		D0FE55A72DE3A0DC00F9C2F7 /* UserStatsEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatsEntity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,16 +226,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		A49ED5CE2DD34B190032E53A /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				A49ED5D62DD473DF0032E53A /* AuthContracts.swift */,
-				A41F2E112DC0B96100AC975A /* AuthEntity.swift */,
-				A49ED5C92DD3233F0032E53A /* UserEntity.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		A49ED5D12DD452680032E53A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -301,13 +291,10 @@
 		A4BF0C052DA8EFA3004C3CC6 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				A49ED5CE2DD34B190032E53A /* Model */,
-				D0192ACF2DBD04250005171A /* ImageUploaderService.swift */,
-				A49ED5D42DD4556F0032E53A /* ImageDownloaderService.swift */,
-				A41F2E172DC1ECBA00AC975A /* ImageEndpoint.swift */,
-				A49ED5CB2DD326F60032E53A /* UserService.swift */,
 				A41F2E152DC1EBBC00AC975A /* FirestoreEndpoint.swift */,
-				A49ED5CF2DD36D040032E53A /* AuthService.swift */,
+				D0FE55AB2DE3A10F00F9C2F7 /* AuthService */,
+				D0FE55AA2DE3A10700F9C2F7 /* UserService */,
+				D0FE55A92DE3A0FF00F9C2F7 /* ImageService */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -373,6 +360,35 @@
 				D0E2612E2D15E0F9003D6C71 /* Info.plist */,
 			);
 			path = InstagramClone;
+			sourceTree = "<group>";
+		};
+		D0FE55A92DE3A0FF00F9C2F7 /* ImageService */ = {
+			isa = PBXGroup;
+			children = (
+				D0192ACF2DBD04250005171A /* ImageUploaderService.swift */,
+				A49ED5D42DD4556F0032E53A /* ImageDownloaderService.swift */,
+				A41F2E172DC1ECBA00AC975A /* ImageEndpoint.swift */,
+			);
+			path = ImageService;
+			sourceTree = "<group>";
+		};
+		D0FE55AA2DE3A10700F9C2F7 /* UserService */ = {
+			isa = PBXGroup;
+			children = (
+				A49ED5CB2DD326F60032E53A /* UserService.swift */,
+				A49ED5C92DD3233F0032E53A /* UserEntity.swift */,
+				D0FE55A72DE3A0DC00F9C2F7 /* UserStatsEntity.swift */,
+			);
+			path = UserService;
+			sourceTree = "<group>";
+		};
+		D0FE55AB2DE3A10F00F9C2F7 /* AuthService */ = {
+			isa = PBXGroup;
+			children = (
+				A49ED5CF2DD36D040032E53A /* AuthService.swift */,
+				A41F2E112DC0B96100AC975A /* AuthEntity.swift */,
+			);
+			path = AuthService;
 			sourceTree = "<group>";
 		};
 		E7650E75BAF919DE7BBD1F2F /* Pods */ = {
@@ -484,9 +500,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-InstagramClone/Pods-InstagramClone-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-InstagramClone/Pods-InstagramClone-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -507,10 +527,10 @@
 				A4DF48A72DAE5C9C0031D04B /* LoginViewController.swift in Sources */,
 				D0E2613E2D15E2CC003D6C71 /* ImageSelectorController.swift in Sources */,
 				A47029292DA8E9C00024FBEE /* Extensions.swift in Sources */,
+				D0FE55A82DE3A0DC00F9C2F7 /* UserStatsEntity.swift in Sources */,
 				A49ED5D52DD4556F0032E53A /* ImageDownloaderService.swift in Sources */,
 				D0E261402D15E2E4003D6C71 /* NotificationsViewController.swift in Sources */,
 				A49ED5CA2DD3233F0032E53A /* UserEntity.swift in Sources */,
-				A49ED5D72DD473DF0032E53A /* AuthContracts.swift in Sources */,
 				A41F2E1D2DC49B0400AC975A /* ProfilePostCell.swift in Sources */,
 				A4F090812DB6045D00F989A4 /* ValidationContract.swift in Sources */,
 				A41F2E162DC1EBBC00AC975A /* FirestoreEndpoint.swift in Sources */,

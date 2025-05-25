@@ -192,7 +192,7 @@ private extension RegistrationViewController {
 
 private extension RegistrationViewController {
    func updateColors() {
-      setGradientBackground(startColor: ThemeManager.colors.secondary, endColor: ThemeManager.colors.primary)
+      view.setGradientBackground(startColor: ThemeManager.colors.secondary, endColor: ThemeManager.colors.primary)
    }
    
    func updateSignUpButton(isEnabled: Bool) {

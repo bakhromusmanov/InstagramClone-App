@@ -9,6 +9,10 @@ import Foundation
 import FirebaseAuth
 import FirebaseFirestore
 
+protocol AuthDelegate: AnyObject {
+   func authDidComplete()
+}
+
 final class AuthService {
    
    static let shared = AuthService()
@@ -20,6 +24,10 @@ final class AuthService {
    
    var isUserLoggedOut: Bool {
       return Auth.auth().currentUser == nil
+   }
+   
+   var currentUserUid: String? {
+      return Auth.auth().currentUser?.uid
    }
    
    //MARK: Public Methods

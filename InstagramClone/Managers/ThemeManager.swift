@@ -18,19 +18,23 @@ enum ThemeManager {
 
 enum AppColors {
    
-   /// Primary color: #246BFD
+   /// Primary blue color: #246BFD
    static let primary = UIColor.accentPrimary
    
-   /// Primary color .withAlphaComponent(0.75)
+   /// Primary blue color .withAlphaComponent(0.75)
    static let primaryOpacity75 = primary.withAlphaComponent(0.75)
    
-   /// Secondary color: #FFD300
+   /// Secondary pink color: #FFD300
    static let secondary = UIColor.accentSecondary
    
-   /// Secondary color .withAlphaComponent(0.5)
+   /// Secondary pink color .withAlphaComponent(0.5)
    static let secondaryOpacity50 = primary.withAlphaComponent(0.5)
    
    static let grey100 = UIColor.grey100
+   
+   static let grey200 = UIColor.grey200
+   
+   static let grey300 = UIColor.grey300
    
    /// White color: #FFFFFF
    static let white = UIColor.white
@@ -63,13 +67,22 @@ enum AppColors {
    static let backgroundPrimary = UIColor.backgroundPrimary
    static let backgroundSecondary = UIColor.backgroundSecondary
    
+   /// Primary dark item tint color: black
+   static let tintPrimaryDark = UIColor.textPrimary
+   
+   /// Secondary dark item tint color: gray
+   static let tintSecondaryDark = UIColor.textSecondary
+   
+   /// Primary dark text color: black
    static let textPrimaryDark = UIColor.textPrimary
+   
+   /// Secondary dark text color: gray
    static let textSecondaryDark = UIColor.textSecondary
    
-   /// Primary text field's text color: white
+   /// Primary light text color: white
    static let textPrimaryLight = white
    
-   /// Secondary text field's text color: whiteOpacity50
+   /// Secondary light text color: whiteOpacity50
    static let textSecondaryLight = whiteOpacity50
 }
 

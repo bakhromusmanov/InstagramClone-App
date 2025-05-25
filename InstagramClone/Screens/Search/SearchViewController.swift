@@ -30,15 +30,15 @@ final class SearchViewController: UIViewController {
    
    private lazy var searchBar: UISearchBar = {
       let searchBar = UISearchBar()
-      searchBar.barTintColor = ThemeManager.colors.backgroundSecondary
+      searchBar.barTintColor = Constants.searchBarBackgroundColor
       searchBar.searchBarStyle = .default
       searchBar.keyboardType = .asciiCapable
       searchBar.returnKeyType = .search
-      searchBar.tintColor = ThemeManager.colors.textPrimaryDark
+      searchBar.tintColor = Constants.tintColor
       
       //Setup TextField
-      searchBar.searchTextField.font = ThemeManager.fonts.bodyLargeMedium
-      searchBar.searchTextField.textColor = ThemeManager.colors.textPrimaryDark
+      searchBar.searchTextField.font = Constants.searchBarTextFont
+      searchBar.searchTextField.textColor = Constants.textColor
       searchBar.searchTextField.borderStyle = .roundedRect
       searchBar.searchTextField.placeholder = Constants.searchPlaceholder
       
@@ -73,7 +73,8 @@ final class SearchViewController: UIViewController {
 private extension SearchViewController {
    func setupNavigationBar() {
       navigationBar(isHidden: true)
-      navigationController?.navigationBar.backgroundColor = ThemeManager.colors.backgroundSecondary
+      navigationItem.backButtonTitle = Constants.backButtonTitle
+      navigationController?.navigationBar.backgroundColor = Constants.navigationBarBackgroundColor
    }
    
    func updateView(for state: SearchViewState) {
@@ -106,8 +107,8 @@ private extension SearchViewController {
 
 private extension SearchViewController {
    func updateColors() {
-      view.backgroundColor = ThemeManager.colors.backgroundSecondary
-      tableView.backgroundColor = ThemeManager.colors.backgroundPrimary
+      view.backgroundColor = Constants.secondaryBackgroundColor
+      tableView.backgroundColor = Constants.primaryBackgroundColor
    }
 }
 
@@ -209,7 +210,22 @@ extension SearchViewController: UITableViewDataSource {
 //MARK: - UITableViewDelegate
 
 extension SearchViewController: UITableViewDelegate {
-   
+   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+      
+      defer { tableView.deselectRow(at: indexPath, animated: true) }
+      let selectedUser: UserEntity
+      
+      switch state {
+      case .initial:
+         selectedUser = users[indexPath.row]
+      case .searchingUsers:
+         selectedUser = filteredUsers[indexPath.row]
+      default: return
+      }
+      
+      let controller = ProfileViewController(user: selectedUser)
+      navigationController?.pushViewController(controller, animated: true)
+   }
 }
 
 //MARK: - Constants
@@ -220,6 +236,9 @@ private extension SearchViewController {
       //Namings
       static let searchCellIdentifier = "SearchViewCell"
       static let searchPlaceholder = "Search"
+      static let backButtonTitle = ""
+      
+      //Defaults
       static let defaultNumberOfCells: Int = 8
       
       //Sizes
@@ -228,5 +247,16 @@ private extension SearchViewController {
       //Spacings
       static let verticalPadding: CGFloat = ThemeManager.spacings.spacingS
       static let horizontalPadding: CGFloat = ThemeManager.spacings.defaultHorizontalPadding
+      
+      //Fonts
+      static let searchBarTextFont = ThemeManager.fonts.bodyLargeMedium
+      
+      //Colors
+      static let textColor = ThemeManager.colors.textPrimaryDark
+      static let tintColor = ThemeManager.colors.tintPrimaryDark
+      static let primaryBackgroundColor = ThemeManager.colors.backgroundPrimary
+      static let searchBarBackgroundColor = ThemeManager.colors.backgroundSecondary
+      static let navigationBarBackgroundColor = ThemeManager.colors.backgroundSecondary
+      static let secondaryBackgroundColor = ThemeManager.colors.backgroundSecondary
    }
 }

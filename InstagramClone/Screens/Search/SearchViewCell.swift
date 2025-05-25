@@ -56,6 +56,7 @@ final class SearchViewCell: UITableViewCell {
       super.init(style: style, reuseIdentifier: reuseIdentifier)
       setupViews()
       setupConstraints()
+      setupSelectionView()
       showLayoutColors(false)
    }
    
@@ -116,11 +117,19 @@ private extension SearchViewCell {
       fullNameLabel.backgroundColor = .green
       backgroundColor = .yellow
    }
+   
+   func setupSelectionView() {
+      selectionStyle = .default
+      let selectionView = UIView()
+      selectionView.backgroundColor = ThemeManager.colors.grey200
+      selectedBackgroundView = selectionView
+   }
 }
 
 //MARK: - Layout & Constraints
 
 private extension SearchViewCell {
+   
    func setupViews() {
       contentView.addSubview(profileImageView)
       contentView.addSubview(labelsStackView)

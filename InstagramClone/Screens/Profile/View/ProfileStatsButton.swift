@@ -14,6 +14,7 @@ final class ProfileStatsButton: UIButton {
    
    private let countLabel: UILabel = {
       let label = UILabel()
+      label.text = Constants.defaultStatsCount
       label.textColor = ThemeManager.colors.textPrimaryDark
       label.font = ThemeManager.fonts.bodyMediumBold
       return label
@@ -42,8 +43,11 @@ final class ProfileStatsButton: UIButton {
 //MARK: - Public Functions
 
 extension ProfileStatsButton {
-   func setupStats(title: String, value: Int) {
+   func setStatsTitle(_ title: String) {
       label.text = title
+   }
+   
+   func setStatsValue(_ value: Int) {
       countLabel.text = "\(value)"
    }
 }
@@ -77,6 +81,7 @@ private extension ProfileStatsButton {
 
 private extension ProfileStatsButton {
    enum Constants {
+      static let defaultStatsCount = "0"
       static let labelToLabelSpacing: CGFloat = 4
    }
 }
