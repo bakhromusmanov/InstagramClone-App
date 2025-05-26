@@ -16,9 +16,7 @@ struct ProfileHeaderViewModel {
    var profileImageURL: URL?
    var userId: String
    var isFollowed: Bool = false
-   var followersCount: Int = 0
-   var followingsCount: Int = 0
-   var postsCount: Int = 0
+   var userStats = UserStatsEntity()
    
    var profileButtonState: ProfileButtonState {
       let isCurrentUser = AuthService.shared.currentUserUid == userId

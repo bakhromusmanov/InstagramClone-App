@@ -8,7 +8,7 @@
 import Foundation
 
 struct UserStatsEntity {
-   var followersCount: Int
-   var followingsCount: Int
+   var followersCount: Int = 0
+   var followingsCount: Int = 0
    var postsCount: Int = 0
 }

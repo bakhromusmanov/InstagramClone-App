@@ -34,7 +34,7 @@ final class UserService {
          }
          
          if let user = snapshot.decode(as: UserEntity.self) {
-            print("DEBUG: SUCESS: fetchUser")
+            print("DEBUG: SUCСESS: fetchUser")
             completion(user)
          }
       }
@@ -58,7 +58,7 @@ final class UserService {
             document.decode(as: UserEntity.self)
          }
          
-         print("DEBUG: SUCESS: fetchUsers")
+         print("DEBUG: SUCСESS: fetchUsers")
          completion(users)
       }
    }
@@ -83,7 +83,7 @@ final class UserService {
             return
          }
          
-         print("DEBUG: SUCESS: checkIfUserIsFollowed")
+         print("DEBUG: SUCСESS: checkIfUserIsFollowed")
          completion(isFollowed)
       }
    }
@@ -104,7 +104,7 @@ final class UserService {
          }
          
          COLLECTION_FOLLOWERS.document(targetUserUid).collection(Constants.userFollowers).document(currentUserUid).setData([:], completion: completion)
-         print("DEBUG: SUCESS: followUser")
+         print("DEBUG: SUCСESS: followUser")
       }
    }
    
@@ -124,7 +124,7 @@ final class UserService {
          }
          
          COLLECTION_FOLLOWERS.document(targetUserUid).collection(Constants.userFollowers).document(currentUserUid).delete(completion: completion)
-         print("DEBUG: SUCESS: unfollowUser")
+         print("DEBUG: SUCСESS: unfollowUser")
       }
    }
    
@@ -156,7 +156,7 @@ final class UserService {
             }
             
             let userStatsEntity = UserStatsEntity(followersCount: followersCount, followingsCount: followingsCount)
-            print("DEBUG: SUCESS: fetchProfileStats")
+            print("DEBUG: SUCСESS: fetchProfileStats")
             completion(userStatsEntity)
          }
       }

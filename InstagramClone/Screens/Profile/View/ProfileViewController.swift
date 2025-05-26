@@ -54,6 +54,11 @@ final class ProfileViewController: UIViewController {
       setupNavigationBar()
       updateColors()
    }
+   
+   override func viewDidAppear(_ animated: Bool) {
+      super.viewDidAppear(animated)
+      collectionView.reloadData()
+   }
 }
 
 //MARK: - Public Functions
@@ -70,20 +75,22 @@ private extension ProfileViewController {
       navigationController?.navigationBar.tintColor = ThemeManager.colors.textPrimaryDark
       navigationController?.navigationBar.backgroundColor = ThemeManager.colors.backgroundSecondary
       navigationItem.title = user.username
-      navigationItem.leftBarButtonItem = UIBarButtonItem(
-         image: UIImage(systemName: Constants.backButtonImageName),
-         style: .plain,
-         target: self,
-         action: #selector(backButtonPressed)
-      )
+      if !isFirstViewController {
+         navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: Constants.backButtonImageName),
+            style: .plain,
+            target: self,
+            action: #selector(backButtonPressed)
+         )
+      }
    }
 }
 
-//MARK: Actions
+//MARK: - Actions
 
+@objc
 private extension ProfileViewController {
-   @objc
-   private func backButtonPressed() {
+   func backButtonPressed() {
       navigationController?.popViewController(animated: true)
       self.navigationBar(isHidden: true)
    }
@@ -142,8 +149,7 @@ extension ProfileViewController: UICollectionViewDataSource {
       
       guard let headerView = headerView as? ProfileHeaderView else { return headerView }
       let viewModel = ProfileHeaderViewModel(user: user)
-      headerView.setDelegate(self)
-      headerView.setViewModel(viewModel)
+      headerView.configure(with: viewModel)
       return headerView
    }
 }
@@ -169,14 +175,6 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
       let height = ProfileHeaderView.calculateHeight()
       return CGSize(width: collectionView.frame.width, height: height)
-   }
-}
-
-//MARK:
-
-extension ProfileViewController: ProfileHeaderViewDelegate {
-   func profileHeaderDidUpdate(_ profileHeaderView: ProfileHeaderView) {
-      collectionView.reloadData()
    }
 }
 

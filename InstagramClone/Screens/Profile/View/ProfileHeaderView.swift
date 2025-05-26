@@ -8,22 +8,11 @@
 import Foundation
 import UIKit
 
-protocol ProfileHeaderViewDelegate: AnyObject {
-   func profileHeaderDidUpdate(_ profileHeaderView: ProfileHeaderView)
-}
-
 final class ProfileHeaderView: UICollectionReusableView {
    
    //MARK: - Properties
    
-   private weak var delegate: ProfileHeaderViewDelegate?
-   
-   private var viewModel: ProfileHeaderViewModel? {
-      didSet {
-         print("DEBUG: DIDSET: viewModel ")
-         updateView()
-      }
-   }
+   private var viewModel: ProfileHeaderViewModel?
    
    //MARK: - Subviews
    
@@ -150,14 +139,12 @@ final class ProfileHeaderView: UICollectionReusableView {
 //MARK: - Public Functions
 
 extension ProfileHeaderView {
-   func setDelegate(_ delegate: ProfileHeaderViewDelegate) {
-      self.delegate = delegate
-   }
-   
-   func setViewModel(_ viewModel: ProfileHeaderViewModel) {
+   func configure(with viewModel: ProfileHeaderViewModel) {
       self.viewModel = viewModel
+      updateFullName()
       fetchIfUserIsFollowed()
       fetchProfileStats()
+      fetchProfileImage()
    }
    
    static func calculateHeight() -> CGFloat {
@@ -169,35 +156,32 @@ extension ProfileHeaderView {
 //MARK: - Private Functions
 
 private extension ProfileHeaderView {
-   func updateView() {
+   func updateFullName() {
       fullNameLabel.text = viewModel?.fullName
-      updateProfileImage()
    }
    
-   func updateProfileImage() {
-      guard let imageURL = viewModel?.profileImageURL else { return }
-      ImageDownloaderService.shared.loadImage(from: imageURL) { image in
-         self.profileImageView.image = image
-         self.profileImageView.stopShimmering()
-      }
+   func updateProfileImage(with image: UIImage) {
+      profileImageView.image = image
+      profileImageView.stopShimmering()
+      print("DEBUG: Update Profile Image")
    }
    
    func updateProfileButton() {
-      guard let viewModel = viewModel else { return }
-      let profileButtonState = viewModel.profileButtonState
+      guard let profileButtonState = viewModel?.profileButtonState else { return }
 
       profileButton.setTitle(profileButtonState.title, for: .normal)
       profileButton.setTitleColor(profileButtonState.titleColor, for: .normal)
       profileButton.backgroundColor = profileButtonState.backgroundColor
       profileButton.layer.borderColor = profileButtonState.borderColor.cgColor
-
+      print("DEBUG: Update Profile Button")
    }
    
    func updateStats() {
-      guard let viewModel = viewModel else { return }
-      followersButton.setStatsValue(viewModel.followersCount)
-      followingsButton.setStatsValue(viewModel.followingsCount)
-      postsButton.setStatsValue(viewModel.postsCount)
+      guard let userStats = viewModel?.userStats else { return }
+      followersButton.setStatsValue(userStats.followersCount)
+      followingsButton.setStatsValue(userStats.followingsCount)
+      postsButton.setStatsValue(userStats.postsCount)
+      print("DEBUG: Update Stats")
    }
    
    func cancelImageLoading() {
@@ -213,27 +197,32 @@ private extension ProfileHeaderView {
       guard let userId = viewModel?.userId else { return }
       UserService.shared.checkIfUserIsFollowed(uid: userId) { isFollowed in
          self.viewModel?.isFollowed = isFollowed
+         print(isFollowed)
          self.updateProfileButton()
       }
-      //delegate?.profileHeaderDidUpdate(self)
    }
    
    func fetchProfileStats() {
       guard let userId = viewModel?.userId else { return }
       UserService.shared.fetchProfileStats(for: userId) { userStatsEntity in
-         self.viewModel?.followersCount = userStatsEntity.followersCount
-         self.viewModel?.followingsCount = userStatsEntity.followingsCount
-         self.viewModel?.postsCount = userStatsEntity.postsCount
+         self.viewModel?.userStats = userStatsEntity
+         print(userStatsEntity)
          self.updateStats()
       }
-      //delegate?.profileHeaderDidUpdate(self)
+   }
+   
+   func fetchProfileImage() {
+      guard let imageURL = viewModel?.profileImageURL else { return }
+      ImageDownloaderService.shared.loadImage(from: imageURL) { image in
+         self.updateProfileImage(with: image)
+      }
    }
 }
 
-//MARK: Actions
+//MARK: - Actions
 
+@objc
 private extension ProfileHeaderView {
-   @objc
    func profileButtonPressed() {
       guard let userId = viewModel?.userId, let profileButtonState = viewModel?.profileButtonState else {
          return
@@ -249,6 +238,8 @@ private extension ProfileHeaderView {
                return
             }
             self.viewModel?.isFollowed = true
+            self.fetchIfUserIsFollowed()
+            self.fetchProfileStats()
          }
       case .following:
          UserService.shared.unfollowUser(with: userId) { error in
@@ -257,11 +248,10 @@ private extension ProfileHeaderView {
                return
             }
             self.viewModel?.isFollowed = false
+            self.fetchIfUserIsFollowed()
+            self.fetchProfileStats()
          }
       }
-      
-      updateProfileButton()
-      fetchProfileStats()
    }
 }
 

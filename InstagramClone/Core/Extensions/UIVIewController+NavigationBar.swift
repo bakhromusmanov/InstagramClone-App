@@ -11,4 +11,8 @@ extension UIViewController {
    func navigationBar(isHidden: Bool) {
       navigationController?.navigationBar.isHidden = isHidden
    }
+   
+   var isFirstViewController: Bool {
+      return navigationController?.viewControllers.first == self
+   }
 }
