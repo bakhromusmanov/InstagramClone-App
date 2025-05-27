@@ -12,6 +12,5 @@ struct AuthEntity: Codable {
    var password: String
    var fullName: String
    var username: String
-   var userId: String?
    var profileImageURL: String?
 }

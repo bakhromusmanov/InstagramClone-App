@@ -44,11 +44,9 @@ final class AuthService {
       Auth.auth().signIn(withEmail: email, password: password, completion: completion)
    }
    
-   func register(user: AuthEntity, completion: @escaping (Error?) -> Void) {
+   func register(authEntity: AuthEntity, completion: @escaping (Error?) -> Void) {
       
-      var user = user
-      
-      Auth.auth().createUser(withEmail: user.email, password: user.password) { result, error in
+      Auth.auth().createUser(withEmail: authEntity.email, password: authEntity.password) { result, error in
          if let error {
             completion(error)
             return
@@ -59,7 +57,7 @@ final class AuthService {
             return
          }
          
-         user.userId = uid
+         let user = UserEntity(email: authEntity.email, fullName: authEntity.fullName, username: authEntity.username, userId: uid, profileImageURL: authEntity.profileImageURL)
          
          guard let data = try? Firestore.Encoder().encode(user) else {
             print("DEBUG: Error while encoding users auth data.")

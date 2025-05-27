@@ -260,7 +260,7 @@ private extension RegistrationViewController {
 
 private extension RegistrationViewController {
    func register(user: AuthEntity) {
-      AuthService.shared.register(user: user) { error in
+      AuthService.shared.register(authEntity: user) { error in
          if let error {
             print("DEBUG: Error while registering user: \(error.localizedDescription)")
             return
