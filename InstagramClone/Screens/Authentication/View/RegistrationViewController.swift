@@ -36,30 +36,30 @@ final class RegistrationViewController: UIViewController {
       return stackView
    }()
    
-   private lazy var emailTextField: CustomTextField = {
-      let textField = CustomTextField(placeholder: Constants.emailPlaceholder)
+   private lazy var emailTextField: BaseTextField = {
+      let textField = BaseTextField(placeholder: Constants.emailPlaceholder)
       textField.keyboardType = .emailAddress
       textField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
       return textField
    }()
    
-   private lazy var passwordTextField: CustomTextField = {
-      let textField = CustomTextField(placeholder: Constants.passwordPlaceholder)
+   private lazy var passwordTextField: BaseTextField = {
+      let textField = BaseTextField(placeholder: Constants.passwordPlaceholder)
       textField.keyboardType = .asciiCapable
       textField.isSecureTextEntry = true
       textField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
       return textField
    }()
    
-   private lazy var fullNameTextField: CustomTextField = {
-      let textField = CustomTextField(placeholder: Constants.fullNamePlaceholder)
+   private lazy var fullNameTextField: BaseTextField = {
+      let textField = BaseTextField(placeholder: Constants.fullNamePlaceholder)
       textField.keyboardType = .asciiCapable
       textField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
       return textField
    }()
    
-   private lazy var usernameTextField: CustomTextField = {
-      let textField = CustomTextField(placeholder: Constants.usernamePlaceholder)
+   private lazy var usernameTextField: BaseTextField = {
+      let textField = BaseTextField(placeholder: Constants.usernamePlaceholder)
       textField.keyboardType = .namePhonePad
       textField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
       return textField
@@ -75,7 +75,7 @@ final class RegistrationViewController: UIViewController {
    
    private lazy var haveAccountButton: UIButton = {
       let button = UIButton(type: .system)
-      button.setTitleColor(ThemeManager.colors.disabled, for: .normal)
+      button.setTitleColor(ThemeManager.colors.textSecondaryLight, for: .normal)
       button.setDualTitle(regularText: Constants.haveAccountTitle, boldText: Constants.loginTitle)
       button.addTarget(self, action: #selector(haveAccountButtonPressed), for: .touchUpInside)
       return button
@@ -121,16 +121,7 @@ private extension RegistrationViewController {
    }
    
    func addPhotoButtonPressed(sender: UIButton) {
-      if UIImagePickerController.isSourceTypeAvailable(.camera) {
-         showPhotoPicker(
-            onCameraTap: { [weak self] in
-               self?.takePhotoWithCamera() },
-            onLibraryTap: { [weak self] in
-               self?.choosePhotoFromLibrary() }
-         )
-      } else {
-         choosePhotoFromLibrary()
-      }
+      showPhotoPicker(delegate: self)
    }
    
    func textDidChange(sender: UITextField) {
@@ -169,22 +160,6 @@ private extension RegistrationViewController {
    
    func showLoginController() {
       navigationController?.popViewController(animated: true)
-   }
-   
-   func takePhotoWithCamera() {
-      let imagePicker = UIImagePickerController()
-      imagePicker.delegate = self
-      imagePicker.sourceType = .camera
-      imagePicker.allowsEditing = true
-      present(imagePicker, animated: true)
-   }
-   
-   func choosePhotoFromLibrary() {
-      let imagePicker = UIImagePickerController()
-      imagePicker.delegate = self
-      imagePicker.sourceType = .photoLibrary
-      imagePicker.allowsEditing = true
-      present(imagePicker, animated: true)
    }
 }
 

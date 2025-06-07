@@ -17,7 +17,7 @@ final class ProfileViewController: UIViewController {
    
    private let topSeparatorView: UIView = {
       let view = UIView()
-      view.backgroundColor = ThemeManager.colors.textSecondaryDark
+      view.backgroundColor = ThemeManager.colors.separatorLine
       return view
    }()
    

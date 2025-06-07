@@ -68,7 +68,7 @@ final class SearchViewController: UIViewController {
    }
 }
 
-//MARK: - Private Functions
+//MARK: - Private Methods
 
 private extension SearchViewController {
    func setupNavigationBar() {

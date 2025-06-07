@@ -32,15 +32,15 @@ final class LoginViewController: UIViewController {
       return stackView
    }()
    
-   private lazy var emailTextField: CustomTextField = {
-      let textField = CustomTextField(placeholder: Constants.emailPlaceholder)
+   private lazy var emailTextField: BaseTextField = {
+      let textField = BaseTextField(placeholder: Constants.emailPlaceholder)
       textField.keyboardType = .emailAddress
       textField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
       return textField
    }()
    
-   private lazy var passwordTextField: CustomTextField = {
-      let textField = CustomTextField(placeholder: Constants.passwordPlaceholder)
+   private lazy var passwordTextField: BaseTextField = {
+      let textField = BaseTextField(placeholder: Constants.passwordPlaceholder)
       textField.keyboardType = .asciiCapable
       textField.isSecureTextEntry = true
       textField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
@@ -57,7 +57,7 @@ final class LoginViewController: UIViewController {
    
    private lazy var forgotPasswordButton: UIButton = {
       let button = UIButton(type: .system)
-      button.setTitleColor(ThemeManager.colors.disabled, for: .normal)
+      button.setTitleColor(ThemeManager.colors.textSecondaryLight, for: .normal)
       button.setDualTitle(regularText: Constants.forgotPasswordTitle, boldText: Constants.getHelpTitle)
       button.addTarget(self, action: #selector(forgotPasswordButtonPressed), for: .touchUpInside)
       return button
@@ -65,7 +65,7 @@ final class LoginViewController: UIViewController {
    
    private lazy var signUpButton: UIButton = {
       let button = UIButton(type: .system)
-      button.setTitleColor(ThemeManager.colors.disabled, for: .normal)
+      button.setTitleColor(ThemeManager.colors.textSecondaryLight, for: .normal)
       button.setDualTitle(regularText: Constants.dontHaveAccountTitle, boldText: Constants.signUpTitle)
       button.addTarget(self, action: #selector(signUpButtonPressed), for: .touchUpInside)
       return button

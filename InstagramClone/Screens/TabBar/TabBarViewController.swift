@@ -69,7 +69,7 @@ private extension TabBarViewController {
       
       //MARK: Make ImageSelectorModule
       
-      let imageSelectorViewController = ImageSelectorController()
+      let imageSelectorViewController = UploadPostViewController()
       let imageSelectorNavigationController = makeNavigationController(
          selectedImage: UIImage(systemName: Constants.plusSelectedImageName) ?? UIImage(),
          unselectedImage: UIImage(systemName: Constants.plusUnselectedImageName) ?? UIImage(),

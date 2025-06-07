@@ -14,7 +14,7 @@
 		A41F2E1B2DC49AD100AC975A /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41F2E1A2DC49AD100AC975A /* ProfileHeaderView.swift */; };
 		A41F2E1D2DC49B0400AC975A /* ProfilePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41F2E1C2DC49B0400AC975A /* ProfilePostCell.swift */; };
 		A47029292DA8E9C00024FBEE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47029282DA8E9C00024FBEE /* Extensions.swift */; };
-		A470D5F72DAFB5A00062A804 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A470D5F62DAFB5A00062A804 /* CustomTextField.swift */; };
+		A470D5F72DAFB5A00062A804 /* BaseTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A470D5F62DAFB5A00062A804 /* BaseTextField.swift */; };
 		A470D5FA2DAFBA390062A804 /* UIButton+AttributedTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A470D5F92DAFBA390062A804 /* UIButton+AttributedTitle.swift */; };
 		A470D5FC2DAFC0700062A804 /* UIViewController+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A470D5FB2DAFC0700062A804 /* UIViewController+Gradient.swift */; };
 		A470D5FE2DAFC6870062A804 /* UIVIewController+NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A470D5FD2DAFC6870062A804 /* UIVIewController+NavigationBar.swift */; };
@@ -40,8 +40,10 @@
 		A4F090812DB6045D00F989A4 /* ValidationContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F090802DB6045D00F989A4 /* ValidationContract.swift */; };
 		A4F090832DB604BA00F989A4 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F090822DB604BA00F989A4 /* RegistrationViewModel.swift */; };
 		A4F090862DB6112D00F989A4 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F090852DB6112D00F989A4 /* SettingsManager.swift */; };
-		A4F090882DB64F2C00F989A4 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F090872DB64F2C00F989A4 /* UIViewController+Alert.swift */; };
+		A4F090882DB64F2C00F989A4 /* UIViewController+PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F090872DB64F2C00F989A4 /* UIViewController+PhotoPicker.swift */; };
 		D0192AD02DBD04250005171A /* ImageUploaderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0192ACF2DBD04250005171A /* ImageUploaderService.swift */; };
+		D0A2C6CA2DF3085C00CB058A /* BaseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A2C6C92DF3085B00CB058A /* BaseTextView.swift */; };
+		D0A2C6CE2DF3FAA400CB058A /* RectangularDashedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A2C6CD2DF3FAA400CB058A /* RectangularDashedView.swift */; };
 		D0E261212D15E0F7003D6C71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E261202D15E0F7003D6C71 /* AppDelegate.swift */; };
 		D0E261282D15E0F7003D6C71 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = D0E261272D15E0F7003D6C71 /* Base */; };
 		D0E2612A2D15E0F9003D6C71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E261292D15E0F9003D6C71 /* Assets.xcassets */; };
@@ -49,7 +51,7 @@
 		D0E261382D15E258003D6C71 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E261372D15E258003D6C71 /* TabBarViewController.swift */; };
 		D0E2613A2D15E2A3003D6C71 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E261392D15E2A3003D6C71 /* HomeViewController.swift */; };
 		D0E2613C2D15E2AF003D6C71 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E2613B2D15E2AF003D6C71 /* SearchViewController.swift */; };
-		D0E2613E2D15E2CC003D6C71 /* ImageSelectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E2613D2D15E2CC003D6C71 /* ImageSelectorController.swift */; };
+		D0E2613E2D15E2CC003D6C71 /* UploadPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E2613D2D15E2CC003D6C71 /* UploadPostViewController.swift */; };
 		D0E261402D15E2E4003D6C71 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E2613F2D15E2E4003D6C71 /* NotificationsViewController.swift */; };
 		D0E261422D15E2EE003D6C71 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E261412D15E2EE003D6C71 /* ProfileViewController.swift */; };
 		D0FE55A82DE3A0DC00F9C2F7 /* UserStatsEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FE55A72DE3A0DC00F9C2F7 /* UserStatsEntity.swift */; };
@@ -63,7 +65,7 @@
 		A41F2E1A2DC49AD100AC975A /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		A41F2E1C2DC49B0400AC975A /* ProfilePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePostCell.swift; sourceTree = "<group>"; };
 		A47029282DA8E9C00024FBEE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		A470D5F62DAFB5A00062A804 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		A470D5F62DAFB5A00062A804 /* BaseTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextField.swift; sourceTree = "<group>"; };
 		A470D5F92DAFBA390062A804 /* UIButton+AttributedTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+AttributedTitle.swift"; sourceTree = "<group>"; };
 		A470D5FB2DAFC0700062A804 /* UIViewController+Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Gradient.swift"; sourceTree = "<group>"; };
 		A470D5FD2DAFC6870062A804 /* UIVIewController+NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIewController+NavigationBar.swift"; sourceTree = "<group>"; };
@@ -89,10 +91,12 @@
 		A4F090802DB6045D00F989A4 /* ValidationContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationContract.swift; sourceTree = "<group>"; };
 		A4F090822DB604BA00F989A4 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		A4F090852DB6112D00F989A4 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
-		A4F090872DB64F2C00F989A4 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
+		A4F090872DB64F2C00F989A4 /* UIViewController+PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PhotoPicker.swift"; sourceTree = "<group>"; };
 		B352A547463F7ACADE7A2B66 /* Pods-InstagramClone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramClone.release.xcconfig"; path = "Target Support Files/Pods-InstagramClone/Pods-InstagramClone.release.xcconfig"; sourceTree = "<group>"; };
 		BBFE27019D1AD07D4E88C5A5 /* Pods_InstagramClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstagramClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0192ACF2DBD04250005171A /* ImageUploaderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploaderService.swift; sourceTree = "<group>"; };
+		D0A2C6C92DF3085B00CB058A /* BaseTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextView.swift; sourceTree = "<group>"; };
+		D0A2C6CD2DF3FAA400CB058A /* RectangularDashedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangularDashedView.swift; sourceTree = "<group>"; };
 		D0E2611D2D15E0F7003D6C71 /* InstagramClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstagramClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0E261202D15E0F7003D6C71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0E261272D15E0F7003D6C71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -102,7 +106,7 @@
 		D0E261372D15E258003D6C71 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		D0E261392D15E2A3003D6C71 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		D0E2613B2D15E2AF003D6C71 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		D0E2613D2D15E2CC003D6C71 /* ImageSelectorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelectorController.swift; sourceTree = "<group>"; };
+		D0E2613D2D15E2CC003D6C71 /* UploadPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPostViewController.swift; sourceTree = "<group>"; };
 		D0E2613F2D15E2E4003D6C71 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		D0E261412D15E2EE003D6C71 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		D0FE55A72DE3A0DC00F9C2F7 /* UserStatsEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatsEntity.swift; sourceTree = "<group>"; };
@@ -201,7 +205,6 @@
 			isa = PBXGroup;
 			children = (
 				A49ED5DA2DD5CFD80032E53A /* ShimmerViewController.swift */,
-				A470D5F62DAFB5A00062A804 /* CustomTextField.swift */,
 				A470D5FF2DAFCF8F0062A804 /* CustomButton.swift */,
 			);
 			path = Components;
@@ -234,12 +237,12 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		A4A195922DA926EC000C77CA /* ImageSelector */ = {
+		A4A195922DA926EC000C77CA /* UploadPost */ = {
 			isa = PBXGroup;
 			children = (
-				D0E2613D2D15E2CC003D6C71 /* ImageSelectorController.swift */,
+				D0E2613D2D15E2CC003D6C71 /* UploadPostViewController.swift */,
 			);
-			path = ImageSelector;
+			path = UploadPost;
 			sourceTree = "<group>";
 		};
 		A4A195942DA9273A000C77CA /* Model */ = {
@@ -261,6 +264,9 @@
 		A4BF0C022DA8EEC2004C3CC6 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				D0A2C6C92DF3085B00CB058A /* BaseTextView.swift */,
+				A470D5F62DAFB5A00062A804 /* BaseTextField.swift */,
+				D0A2C6CD2DF3FAA400CB058A /* RectangularDashedView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -273,7 +279,7 @@
 				A470D5F92DAFBA390062A804 /* UIButton+AttributedTitle.swift */,
 				A470D5FB2DAFC0700062A804 /* UIViewController+Gradient.swift */,
 				A470D5FD2DAFC6870062A804 /* UIVIewController+NavigationBar.swift */,
-				A4F090872DB64F2C00F989A4 /* UIViewController+Alert.swift */,
+				A4F090872DB64F2C00F989A4 /* UIViewController+PhotoPicker.swift */,
 				A49ED5D82DD5BB000032E53A /* UIView+Shimmer.swift */,
 			);
 			path = Extensions;
@@ -291,7 +297,7 @@
 		A4BF0C052DA8EFA3004C3CC6 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				A41F2E152DC1EBBC00AC975A /* FirestoreEndpoint.swift */,
+				D0A2C6C82DF2B51600CB058A /* Firestore */,
 				D0FE55AB2DE3A10F00F9C2F7 /* AuthService */,
 				D0FE55AA2DE3A10700F9C2F7 /* UserService */,
 				D0FE55A92DE3A0FF00F9C2F7 /* ImageService */,
@@ -306,7 +312,7 @@
 				A4427E6B2DA8F060003688F2 /* TabBar */,
 				A4427E6C2DA8F073003688F2 /* Home */,
 				A4427E6D2DA8F080003688F2 /* Search */,
-				A4A195922DA926EC000C77CA /* ImageSelector */,
+				A4A195922DA926EC000C77CA /* UploadPost */,
 				A4427E6E2DA8F087003688F2 /* Notifications */,
 				A4427E6F2DA8F091003688F2 /* Profile */,
 			);
@@ -328,6 +334,14 @@
 				BBFE27019D1AD07D4E88C5A5 /* Pods_InstagramClone.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D0A2C6C82DF2B51600CB058A /* Firestore */ = {
+			isa = PBXGroup;
+			children = (
+				A41F2E152DC1EBBC00AC975A /* FirestoreEndpoint.swift */,
+			);
+			path = Firestore;
 			sourceTree = "<group>";
 		};
 		D0E261142D15E0F7003D6C71 = {
@@ -521,11 +535,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				A470D5FC2DAFC0700062A804 /* UIViewController+Gradient.swift in Sources */,
-				A470D5F72DAFB5A00062A804 /* CustomTextField.swift in Sources */,
+				A470D5F72DAFB5A00062A804 /* BaseTextField.swift in Sources */,
 				A49ED5DB2DD5CFD80032E53A /* ShimmerViewController.swift in Sources */,
 				A470D6002DAFCF8F0062A804 /* CustomButton.swift in Sources */,
 				A4DF48A72DAE5C9C0031D04B /* LoginViewController.swift in Sources */,
-				D0E2613E2D15E2CC003D6C71 /* ImageSelectorController.swift in Sources */,
+				D0E2613E2D15E2CC003D6C71 /* UploadPostViewController.swift in Sources */,
 				A47029292DA8E9C00024FBEE /* Extensions.swift in Sources */,
 				D0FE55A82DE3A0DC00F9C2F7 /* UserStatsEntity.swift in Sources */,
 				A49ED5D52DD4556F0032E53A /* ImageDownloaderService.swift in Sources */,
@@ -543,7 +557,7 @@
 				A41F2E122DC0B96100AC975A /* AuthEntity.swift in Sources */,
 				A47FE0542DE097FA00F7458C /* Firestore+Decoding.swift in Sources */,
 				A49ED5CC2DD326F60032E53A /* UserService.swift in Sources */,
-				A4F090882DB64F2C00F989A4 /* UIViewController+Alert.swift in Sources */,
+				A4F090882DB64F2C00F989A4 /* UIViewController+PhotoPicker.swift in Sources */,
 				A41F2E1B2DC49AD100AC975A /* ProfileHeaderView.swift in Sources */,
 				D0E2613C2D15E2AF003D6C71 /* SearchViewController.swift in Sources */,
 				D0E261212D15E0F7003D6C71 /* AppDelegate.swift in Sources */,
@@ -553,11 +567,13 @@
 				D0192AD02DBD04250005171A /* ImageUploaderService.swift in Sources */,
 				A47FE03C2DD60B9900F7458C /* SearchCellViewModel.swift in Sources */,
 				A470D5FA2DAFBA390062A804 /* UIButton+AttributedTitle.swift in Sources */,
+				D0A2C6CE2DF3FAA400CB058A /* RectangularDashedView.swift in Sources */,
 				A49ED5D32DD452760032E53A /* ProfileHeaderViewModel.swift in Sources */,
 				A49ED5D02DD36D040032E53A /* AuthService.swift in Sources */,
 				D0E261422D15E2EE003D6C71 /* ProfileViewController.swift in Sources */,
 				A49ED5D92DD5BB000032E53A /* UIView+Shimmer.swift in Sources */,
 				D0E2613A2D15E2A3003D6C71 /* HomeViewController.swift in Sources */,
+				D0A2C6CA2DF3085C00CB058A /* BaseTextView.swift in Sources */,
 				A48F69272DB2806700523B56 /* LoginViewModel.swift in Sources */,
 				A4F090862DB6112D00F989A4 /* SettingsManager.swift in Sources */,
 				D0E261382D15E258003D6C71 /* TabBarViewController.swift in Sources */,

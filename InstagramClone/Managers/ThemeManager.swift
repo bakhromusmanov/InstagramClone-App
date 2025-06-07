@@ -53,9 +53,6 @@ enum AppColors {
    /// Border color: textSecondary
    static let border = textSecondaryDark
    
-   /// Disabled color: whiteOpacity50
-   static let disabled = whiteOpacity50
-   
    /// Disabled button color: secondaryOpacity50
    static let disabledButton = secondaryOpacity50
    
@@ -82,8 +79,14 @@ enum AppColors {
    /// Primary light text color: white
    static let textPrimaryLight = white
    
-   /// Secondary light text color: whiteOpacity50
-   static let textSecondaryLight = whiteOpacity50
+   /// Secondary light text color: grey200
+   static let textSecondaryLight = grey200
+   
+   /// Text views, text fields background color: grey200
+   static let inputFieldBackground = grey200
+   
+   /// Top separator line's color: border gray
+   static let separatorLine = border
 }
 
 //MARK: - App Fonts
