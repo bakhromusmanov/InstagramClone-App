@@ -12,6 +12,8 @@ Welcome to **InstaClone**, a feature-rich social networking app that replicates 
    - Register and log in with Firebase authentication.
    - Maintain user sessions for seamless interaction.
 
+![Screenshot 1](Simulator%20Screenshot%20-%202.png)
+
 2. **User Profiles**:
    - Create and customize user profiles.
    - Follow and unfollow other users directly from their profile.
@@ -29,10 +31,7 @@ Welcome to **InstaClone**, a feature-rich social networking app that replicates 
    - Search for users by username or other criteria.
    - View profiles and follow/unfollow users from the search results.
 
-## 🖼️ Screenshots
-
 ![Screenshot 1](Simulator%20Screenshot%20-%201.png)
-![Screenshot 1](Simulator%20Screenshot%20-%202.png)
 
 ### Advanced Functionality:
 - **Dynamic Content**:
