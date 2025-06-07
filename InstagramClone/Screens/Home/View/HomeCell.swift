@@ -100,9 +100,9 @@ final class HomeCell: UICollectionViewCell {
       return label
    }()
    
-   private let captionLabel: UILabel = {
+   private let descriptionLabel: UILabel = {
       let label = UILabel()
-      label.text = Constants.captionLabelTitle
+      label.text = Constants.descriptionLabelTitle
       label.font = Constants.captionLabelFont
       label.textAlignment = .left
       label.textColor = ThemeManager.colors.textPrimaryDark
@@ -151,6 +151,8 @@ extension HomeCell {
 
 //MARK: - Private Functions
 
+
+
 //MARK: - Appearance & Theming
 
 private extension HomeCell {
@@ -167,7 +169,7 @@ private extension HomeCell {
       shareButton.backgroundColor = .systemTeal
       footerView.backgroundColor = .systemIndigo
       likeCountLabel.backgroundColor = .purple
-      captionLabel.backgroundColor = .systemPink
+      descriptionLabel.backgroundColor = .systemPink
       timestampLabel.backgroundColor = .yellow
    }
 }
@@ -196,7 +198,7 @@ private extension HomeCell {
       actionsStackView.addArrangedSubview(shareButton)
       
       footerView.addSubview(likeCountLabel)
-      footerView.addSubview(captionLabel)
+      footerView.addSubview(descriptionLabel)
       footerView.addSubview(timestampLabel)
    }
    
@@ -256,13 +258,13 @@ private extension HomeCell {
          make.leading.equalToSuperview().inset(Constants.defaultHorizontalPadding)
       }
       
-      captionLabel.snp.makeConstraints { make in
+      descriptionLabel.snp.makeConstraints { make in
          make.top.equalTo(likeCountLabel.snp.bottom).offset(Constants.spacingS)
          make.leading.equalToSuperview().inset(Constants.defaultHorizontalPadding)
       }
       
       timestampLabel.snp.makeConstraints { make in
-         make.top.equalTo(captionLabel.snp.bottom).offset(Constants.spacingS)
+         make.top.equalTo(descriptionLabel.snp.bottom).offset(Constants.spacingS)
          make.leading.equalToSuperview().inset(Constants.defaultHorizontalPadding)
          make.bottom.equalToSuperview()
       }
@@ -277,7 +279,7 @@ private extension HomeCell {
       //Texts
       static let usernameButtonTitle = "user"
       static let likeCountButtonTitle = "1 like"
-      static let captionLabelTitle = "Some test caption for now"
+      static let descriptionLabelTitle = "Some test caption for now"
       static let timestampLabelTitle = "2 days ago"
       
       //Icons
