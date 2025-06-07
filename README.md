@@ -3,8 +3,6 @@
 
 Welcome to **InstaClone**, a feature-rich social networking app that replicates the functionality of Instagram. This app is built programmatically using advanced iOS development techniques and demonstrates the integration of a modern backend with Firebase and Cloud Firestore.  
 
-![Screenshot 1](Simulator%20Screenshot%20-%200.png)
-
 ## 📱 What the App Can Do:
 
 ### Core Features:
@@ -12,7 +10,7 @@ Welcome to **InstaClone**, a feature-rich social networking app that replicates 
    - Register and log in with Firebase authentication.
    - Maintain user sessions for seamless interaction.
 
-![Screenshot 1](Simulator%20Screenshot%20-%202.png)
+![Screenshot 1](Simulator%20Screenshot%20-%200.png)
 
 2. **User Profiles**:
    - Create and customize user profiles.
