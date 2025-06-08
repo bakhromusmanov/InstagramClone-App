@@ -61,13 +61,16 @@ private extension HomeViewController {
 
 private extension HomeViewController {
    func setupNavigationBar() {
+      navigationItem.title = Constants.navigationBarTitle
+      navigationController?.navigationBar.backgroundColor = ThemeManager.colors.backgroundSecondary
+      navigationItem.titleView?.tintColor = ThemeManager.colors.textPrimaryDark
+      
       navigationItem.leftBarButtonItem = UIBarButtonItem(
          title: Constants.logoutTitle,
          style: .done,
          target: self,
          action: #selector(logoutButtonPressed))
       navigationItem.leftBarButtonItem?.tintColor = ThemeManager.colors.textPrimaryDark
-      navigationController?.navigationBar.backgroundColor = ThemeManager.colors.backgroundSecondary
    }
 }
 
@@ -142,6 +145,8 @@ extension HomeViewController: UICollectionViewDelegate {
 
 private extension HomeViewController {
    enum Constants {
+      //Texts
+      static let navigationBarTitle = "Feed"
       static let homeCell = "HomeCell"
       static let logoutTitle = "Logout"
       

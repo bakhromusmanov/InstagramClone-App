@@ -96,9 +96,17 @@ private extension SearchViewController {
 
 private extension SearchViewController {
    func fetchUsers() {
-      UserService.shared.fetchUsers { users in
+      UserService.shared.fetchUsers { [weak self] users in
+         guard let self = self else { return }
          self.users = users
          self.updateView(for: .initial)
+      }
+   }
+   
+   func fetchUser(with userId: String) {
+      UserService.shared.fetchUser(with: userId) { user in
+         let controller = ProfileViewController(user: user)
+         self.navigationController?.pushViewController(controller, animated: true)
       }
    }
 }
@@ -155,10 +163,6 @@ extension SearchViewController: UISearchBarDelegate {
       }
       
       updateView(for: .searchingUsers)
-   }
-   
-   func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-      print("searchBarCancelButtonClicked")
    }
 }
 
@@ -223,8 +227,7 @@ extension SearchViewController: UITableViewDelegate {
       default: return
       }
       
-      let controller = ProfileViewController(user: selectedUser)
-      navigationController?.pushViewController(controller, animated: true)
+      fetchUser(with: selectedUser.userId)
    }
 }
 

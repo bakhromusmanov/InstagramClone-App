@@ -54,17 +54,15 @@ final class ProfileViewController: UIViewController {
       setupNavigationBar()
       updateColors()
    }
-   
-   override func viewDidAppear(_ animated: Bool) {
-      super.viewDidAppear(animated)
-      collectionView.reloadData()
-   }
 }
 
 //MARK: - Public Functions
 
 extension ProfileViewController {
-
+   func updateUserData(_ user: UserEntity) {
+      self.user = user
+      collectionView.reloadData()
+   }
 }
 
 //MARK: - Private Functions
@@ -132,7 +130,7 @@ private extension ProfileViewController {
 extension ProfileViewController: UICollectionViewDataSource {
    
    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-      return Constants.numberOfItems
+      return user.postsCount
    }
    
    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -148,8 +146,8 @@ extension ProfileViewController: UICollectionViewDataSource {
       let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.headerIdentifier, for: indexPath)
       
       guard let headerView = headerView as? ProfileHeaderView else { return headerView }
-      let viewModel = ProfileHeaderViewModel(user: user)
-      headerView.configure(with: viewModel)
+      
+      headerView.configure(with: user)
       return headerView
    }
 }

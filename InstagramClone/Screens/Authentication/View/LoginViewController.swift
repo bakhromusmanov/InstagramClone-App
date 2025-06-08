@@ -135,7 +135,9 @@ private extension LoginViewController {
 
 private extension LoginViewController {
    @objc private func logInButtonPressed(sender: UIButton) {
-      AuthService.shared.login(withEmail: viewModel.email, password: viewModel.password) { result, error in
+      AuthService.shared.login(withEmail: viewModel.email, password: viewModel.password) { [weak self] result, error in
+         guard let self = self else { return }
+         
          if let error {
             print("DEBUG: Error while logging in user: \(error.localizedDescription)")
             return

@@ -44,6 +44,10 @@
 		D0192AD02DBD04250005171A /* ImageUploaderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0192ACF2DBD04250005171A /* ImageUploaderService.swift */; };
 		D0A2C6CA2DF3085C00CB058A /* BaseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A2C6C92DF3085B00CB058A /* BaseTextView.swift */; };
 		D0A2C6CE2DF3FAA400CB058A /* RectangularDashedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A2C6CD2DF3FAA400CB058A /* RectangularDashedView.swift */; };
+		D0A2C6D32DF4923700CB058A /* PostEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A2C6D22DF4923700CB058A /* PostEntity.swift */; };
+		D0A2C6D52DF4924100CB058A /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A2C6D42DF4924100CB058A /* PostService.swift */; };
+		D0A2C6D72DF57C9900CB058A /* AppDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A2C6D62DF57C9900CB058A /* AppDataManager.swift */; };
+		D0A2C6D92DF581C500CB058A /* Notification+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A2C6D82DF581C500CB058A /* Notification+Name.swift */; };
 		D0E261212D15E0F7003D6C71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E261202D15E0F7003D6C71 /* AppDelegate.swift */; };
 		D0E261282D15E0F7003D6C71 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = D0E261272D15E0F7003D6C71 /* Base */; };
 		D0E2612A2D15E0F9003D6C71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E261292D15E0F9003D6C71 /* Assets.xcassets */; };
@@ -97,6 +101,10 @@
 		D0192ACF2DBD04250005171A /* ImageUploaderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploaderService.swift; sourceTree = "<group>"; };
 		D0A2C6C92DF3085B00CB058A /* BaseTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextView.swift; sourceTree = "<group>"; };
 		D0A2C6CD2DF3FAA400CB058A /* RectangularDashedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangularDashedView.swift; sourceTree = "<group>"; };
+		D0A2C6D22DF4923700CB058A /* PostEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostEntity.swift; sourceTree = "<group>"; };
+		D0A2C6D42DF4924100CB058A /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
+		D0A2C6D62DF57C9900CB058A /* AppDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDataManager.swift; sourceTree = "<group>"; };
+		D0A2C6D82DF581C500CB058A /* Notification+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name.swift"; sourceTree = "<group>"; };
 		D0E2611D2D15E0F7003D6C71 /* InstagramClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstagramClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0E261202D15E0F7003D6C71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0E261272D15E0F7003D6C71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -194,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				D0E261202D15E0F7003D6C71 /* AppDelegate.swift */,
+				D0A2C6D62DF57C9900CB058A /* AppDataManager.swift */,
 				A4BF0C022DA8EEC2004C3CC6 /* Base */,
 				A4BF0C032DA8EEC6004C3CC6 /* Extensions */,
 				A470D5F82DAFB5B10062A804 /* Components */,
@@ -275,6 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				A47029282DA8E9C00024FBEE /* Extensions.swift */,
+				D0A2C6D82DF581C500CB058A /* Notification+Name.swift */,
 				A47FE0532DE097FA00F7458C /* Firestore+Decoding.swift */,
 				A470D5F92DAFBA390062A804 /* UIButton+AttributedTitle.swift */,
 				A470D5FB2DAFC0700062A804 /* UIViewController+Gradient.swift */,
@@ -298,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				D0A2C6C82DF2B51600CB058A /* Firestore */,
+				D0A2C6D12DF4921400CB058A /* PostService */,
 				D0FE55AB2DE3A10F00F9C2F7 /* AuthService */,
 				D0FE55AA2DE3A10700F9C2F7 /* UserService */,
 				D0FE55A92DE3A0FF00F9C2F7 /* ImageService */,
@@ -344,6 +355,15 @@
 			path = Firestore;
 			sourceTree = "<group>";
 		};
+		D0A2C6D12DF4921400CB058A /* PostService */ = {
+			isa = PBXGroup;
+			children = (
+				D0A2C6D22DF4923700CB058A /* PostEntity.swift */,
+				D0A2C6D42DF4924100CB058A /* PostService.swift */,
+			);
+			path = PostService;
+			sourceTree = "<group>";
+		};
 		D0E261142D15E0F7003D6C71 = {
 			isa = PBXGroup;
 			children = (
@@ -379,9 +399,9 @@
 		D0FE55A92DE3A0FF00F9C2F7 /* ImageService */ = {
 			isa = PBXGroup;
 			children = (
-				D0192ACF2DBD04250005171A /* ImageUploaderService.swift */,
-				A49ED5D42DD4556F0032E53A /* ImageDownloaderService.swift */,
 				A41F2E172DC1ECBA00AC975A /* ImageEndpoint.swift */,
+				A49ED5D42DD4556F0032E53A /* ImageDownloaderService.swift */,
+				D0192ACF2DBD04250005171A /* ImageUploaderService.swift */,
 			);
 			path = ImageService;
 			sourceTree = "<group>";
@@ -389,9 +409,9 @@
 		D0FE55AA2DE3A10700F9C2F7 /* UserService */ = {
 			isa = PBXGroup;
 			children = (
-				A49ED5CB2DD326F60032E53A /* UserService.swift */,
 				A49ED5C92DD3233F0032E53A /* UserEntity.swift */,
 				D0FE55A72DE3A0DC00F9C2F7 /* UserStatsEntity.swift */,
+				A49ED5CB2DD326F60032E53A /* UserService.swift */,
 			);
 			path = UserService;
 			sourceTree = "<group>";
@@ -399,8 +419,8 @@
 		D0FE55AB2DE3A10F00F9C2F7 /* AuthService */ = {
 			isa = PBXGroup;
 			children = (
-				A49ED5CF2DD36D040032E53A /* AuthService.swift */,
 				A41F2E112DC0B96100AC975A /* AuthEntity.swift */,
+				A49ED5CF2DD36D040032E53A /* AuthService.swift */,
 			);
 			path = AuthService;
 			sourceTree = "<group>";
@@ -536,10 +556,12 @@
 			files = (
 				A470D5FC2DAFC0700062A804 /* UIViewController+Gradient.swift in Sources */,
 				A470D5F72DAFB5A00062A804 /* BaseTextField.swift in Sources */,
+				D0A2C6D72DF57C9900CB058A /* AppDataManager.swift in Sources */,
 				A49ED5DB2DD5CFD80032E53A /* ShimmerViewController.swift in Sources */,
 				A470D6002DAFCF8F0062A804 /* CustomButton.swift in Sources */,
 				A4DF48A72DAE5C9C0031D04B /* LoginViewController.swift in Sources */,
 				D0E2613E2D15E2CC003D6C71 /* UploadPostViewController.swift in Sources */,
+				D0A2C6D92DF581C500CB058A /* Notification+Name.swift in Sources */,
 				A47029292DA8E9C00024FBEE /* Extensions.swift in Sources */,
 				D0FE55A82DE3A0DC00F9C2F7 /* UserStatsEntity.swift in Sources */,
 				A49ED5D52DD4556F0032E53A /* ImageDownloaderService.swift in Sources */,
@@ -559,6 +581,7 @@
 				A49ED5CC2DD326F60032E53A /* UserService.swift in Sources */,
 				A4F090882DB64F2C00F989A4 /* UIViewController+PhotoPicker.swift in Sources */,
 				A41F2E1B2DC49AD100AC975A /* ProfileHeaderView.swift in Sources */,
+				D0A2C6D52DF4924100CB058A /* PostService.swift in Sources */,
 				D0E2613C2D15E2AF003D6C71 /* SearchViewController.swift in Sources */,
 				D0E261212D15E0F7003D6C71 /* AppDelegate.swift in Sources */,
 				A4A195982DA92A2F000C77CA /* ThemeManager.swift in Sources */,
@@ -568,6 +591,7 @@
 				A47FE03C2DD60B9900F7458C /* SearchCellViewModel.swift in Sources */,
 				A470D5FA2DAFBA390062A804 /* UIButton+AttributedTitle.swift in Sources */,
 				D0A2C6CE2DF3FAA400CB058A /* RectangularDashedView.swift in Sources */,
+				D0A2C6D32DF4923700CB058A /* PostEntity.swift in Sources */,
 				A49ED5D32DD452760032E53A /* ProfileHeaderViewModel.swift in Sources */,
 				A49ED5D02DD36D040032E53A /* AuthService.swift in Sources */,
 				D0E261422D15E2EE003D6C71 /* ProfileViewController.swift in Sources */,

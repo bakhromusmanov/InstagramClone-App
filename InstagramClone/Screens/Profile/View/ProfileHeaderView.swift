@@ -139,12 +139,12 @@ final class ProfileHeaderView: UICollectionReusableView {
 //MARK: - Public Functions
 
 extension ProfileHeaderView {
-   func configure(with viewModel: ProfileHeaderViewModel) {
-      self.viewModel = viewModel
-      updateFullName()
-      fetchIfUserIsFollowed()
-      fetchProfileStats()
+   func configure(with user: UserEntity) {
+      viewModel = ProfileHeaderViewModel(user: user)
       fetchProfileImage()
+      fetchIfUserIsFollowed()
+      updateFullName()
+      updateProfileStats()
    }
    
    static func calculateHeight() -> CGFloat {
@@ -158,6 +158,7 @@ extension ProfileHeaderView {
 private extension ProfileHeaderView {
    func updateFullName() {
       fullNameLabel.text = viewModel?.fullName
+      print("DEBUG: Update Full Name")
    }
    
    func updateProfileImage(with image: UIImage) {
@@ -176,7 +177,7 @@ private extension ProfileHeaderView {
       print("DEBUG: Update Profile Button")
    }
    
-   func updateStats() {
+   func updateProfileStats() {
       guard let userStats = viewModel?.userStats else { return }
       followersButton.setStatsValue(userStats.followersCount)
       followingsButton.setStatsValue(userStats.followingsCount)
@@ -195,19 +196,10 @@ private extension ProfileHeaderView {
 private extension ProfileHeaderView {
    func fetchIfUserIsFollowed() {
       guard let userId = viewModel?.userId else { return }
-      UserService.shared.checkIfUserIsFollowed(uid: userId) { isFollowed in
+      UserService.shared.checkIfUserIsFollowed(uid: userId) { [weak self] isFollowed in
+         guard let self = self else { return }
          self.viewModel?.isFollowed = isFollowed
-         print(isFollowed)
          self.updateProfileButton()
-      }
-   }
-   
-   func fetchProfileStats() {
-      guard let userId = viewModel?.userId else { return }
-      UserService.shared.fetchProfileStats(for: userId) { userStatsEntity in
-         self.viewModel?.userStats = userStatsEntity
-         print(userStatsEntity)
-         self.updateStats()
       }
    }
    
@@ -232,24 +224,20 @@ private extension ProfileHeaderView {
       case .editProfile:
          print("DEBUG: Edit profile controller should be presented.")
       case .follow:
-         UserService.shared.followUser(with: userId) { error in
-            if error != nil {
-               print(UserService.ErrorType.followUser)
-               return
-            }
-            self.viewModel?.isFollowed = true
-            self.fetchIfUserIsFollowed()
-            self.fetchProfileStats()
+         UserService.shared.followUser(with: userId) { [weak self] error in
+            guard error == nil, let self = self else { return }
+            AppDataManager.shared.incrementFollowingsCount(by: 1)
+            viewModel?.profileButtonTapped(isFollowed: true)
+            updateProfileStats()
+            updateProfileButton()
          }
       case .following:
-         UserService.shared.unfollowUser(with: userId) { error in
-            if error != nil {
-               print(UserService.ErrorType.unfollowUser)
-               return
-            }
-            self.viewModel?.isFollowed = false
-            self.fetchIfUserIsFollowed()
-            self.fetchProfileStats()
+         UserService.shared.unfollowUser(with: userId) { [weak self] error in
+            guard error == nil, let self = self else { return }
+            AppDataManager.shared.incrementFollowingsCount(by: -1)
+            viewModel?.profileButtonTapped(isFollowed: false)
+            updateProfileStats()
+            updateProfileButton()
          }
       }
    }

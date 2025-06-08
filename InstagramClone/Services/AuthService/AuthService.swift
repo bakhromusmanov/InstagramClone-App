@@ -30,43 +30,82 @@ final class AuthService {
       return Auth.auth().currentUser?.uid
    }
    
-   //MARK: Public Methods
+   //MARK: - Logout
    
    func logout() {
       do {
          try Auth.auth().signOut()
+         print(AuthServiceSuccess.logout)
       } catch {
-         print("DEBUG: Error while signing out")
+         print(AuthServiceError.firestoreError(error).localizedDescription)
       }
    }
    
+   //MARK: - Login
+   
    func login(withEmail email: String, password: String, completion: AuthDataResultCallback?) {
       Auth.auth().signIn(withEmail: email, password: password, completion: completion)
+      print(AuthServiceSuccess.loginUser)
    }
+   
+   //MARK: - Register
    
    func register(authEntity: AuthEntity, completion: @escaping (Error?) -> Void) {
       
       Auth.auth().createUser(withEmail: authEntity.email, password: authEntity.password) { result, error in
          if let error {
-            completion(error)
+            print(AuthServiceError.firestoreError(error).localizedDescription)
+            completion(AuthServiceError.firestoreError(error))
             return
          }
          
          guard let uid = result?.user.uid else {
-            print("DEBUG: Error while generating UID")
+            print(AuthServiceError.nilUserUID.localizedDescription)
+            completion(AuthServiceError.nilUserUID)
             return
          }
          
          let user = UserEntity(email: authEntity.email, fullName: authEntity.fullName, username: authEntity.username, userId: uid, profileImageURL: authEntity.profileImageURL)
          
          guard let data = try? Firestore.Encoder().encode(user) else {
-            print("DEBUG: Error while encoding users auth data.")
+            print(AuthServiceError.encodingUserFailed.localizedDescription)
+            completion(AuthServiceError.encodingUserFailed)
             return
          }
          
          COLLECTION_USERS.document(uid).setData(data, completion: completion)
+         print(AuthServiceSuccess.registerUser)
       }
    }
+}
+
+//MARK: - AuthServiceError
+
+private enum AuthServiceError: Error {
+   case nilUserUID
+   case firestoreError(Error)
+   case encodingUserFailed
+   case unknownError
    
+   var localizedDescription: String {
+      switch self {
+      case .nilUserUID:
+         return "DEBUG: Current user UID is nil."
+      case .firestoreError(let error):
+         return "DEBUG: Firestore error: \(error.localizedDescription)"
+      case .encodingUserFailed:
+         return "DEBUG: Failed to encode user."
+      case .unknownError:
+         return "DEBUG: An unknown error occurred."
+      }
+   }
+}
+
+//MARK: - AuthServiceSuccess
+
+private enum AuthServiceSuccess {
+   static let registerUser = "DEBUG: SUCCESS to register user!"
+   static let loginUser = "DEBUG: SUCCESS to login user!"
+   static let logout = "DEBUG: SUCCESS to logout user!"
 }
 

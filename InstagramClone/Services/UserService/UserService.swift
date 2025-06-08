@@ -16,25 +16,31 @@ final class UserService {
    
    //MARK: Fetch User
    
-   func fetchUser(completion: @escaping (UserEntity) -> Void) {
-      guard let uid = Auth.auth().currentUser?.uid else {
-         print(UserService.ErrorType.missingCurrentUserUid)
-         return
+   func fetchUser(with userUid: String? = nil, completion: @escaping (UserEntity) -> Void) {
+      
+      let emptyUser = UserEntity()
+      
+      guard let uid = userUid ?? Auth.auth().currentUser?.uid else {
+          print(UserServiceError.nilUserUid.localizedDescription)
+          completion(emptyUser)
+          return
       }
       
       COLLECTION_USERS.document(uid).getDocument { snapshot, error in
          if let error = error {
-            print(UserService.ErrorType.snapshot + error.localizedDescription)
+            print(UserServiceError.firestoreError(error).localizedDescription)
+            completion(emptyUser)
             return
          }
          
          guard let snapshot = snapshot else {
-            print(UserService.ErrorType.snapshotNil)
+            print(UserServiceError.nilSnapshot.localizedDescription)
+            completion(emptyUser)
             return
          }
          
          if let user = snapshot.decode(as: UserEntity.self) {
-            print("DEBUG: SUCСESS: fetchUser")
+            print(UserServiceSuccess.fetchUser)
             completion(user)
          }
       }
@@ -43,14 +49,17 @@ final class UserService {
    //MARK: Fetch Users
    
    func fetchUsers(completion: @escaping ([UserEntity]) -> Void) {
+      let emptyUsers = [UserEntity()]
       COLLECTION_USERS.getDocuments { snapshot, error in
          if let error = error {
-            print(UserService.ErrorType.snapshot + error.localizedDescription)
+            print(UserServiceError.firestoreError(error).localizedDescription)
+            completion(emptyUsers)
             return
          }
          
          guard let documents = snapshot?.documents else {
-            print(UserService.ErrorType.snapshotNil)
+            print(UserServiceError.nilSnapshot.localizedDescription)
+            completion(emptyUsers)
             return
          }
          
@@ -58,7 +67,7 @@ final class UserService {
             document.decode(as: UserEntity.self)
          }
          
-         print("DEBUG: SUCСESS: fetchUsers")
+         print(UserServiceSuccess.fetchUsers)
          completion(users)
       }
    }
@@ -67,23 +76,25 @@ final class UserService {
    
    func checkIfUserIsFollowed(uid: String, completion: @escaping (Bool) -> Void) {
       guard let currentUserUid = AuthService.shared.currentUserUid else {
-         print(UserService.ErrorType.missingCurrentUserUid)
+         print(UserServiceError.nilUserUid.localizedDescription)
+         completion(false)
          return
       }
       
-      COLLECTION_FOLLOWINGS.document(currentUserUid).collection(Constants.userFollowings).document(uid).getDocument { snapshot, error in
+      COLLECTION_USERS.document(currentUserUid).collection(COLLECTION_FOLLOWINGS).document(uid).getDocument { snapshot, error in
          
          if let error = error {
-            print(UserService.ErrorType.snapshot + error.localizedDescription)
+            print(UserServiceError.firestoreError(error).localizedDescription)
+            completion(false)
             return
          }
          
          guard let isFollowed = snapshot?.exists else {
-            print(UserService.ErrorType.snapshotNil)
+            print(UserServiceError.nilSnapshot)
+            completion(false)
             return
          }
-         
-         print("DEBUG: SUCСESS: checkIfUserIsFollowed")
+         print(UserServiceSuccess.checkIfUserFollowed)
          completion(isFollowed)
       }
    }
@@ -92,19 +103,39 @@ final class UserService {
    
    func followUser(with targetUserUid: String, completion: @escaping (Error?) -> Void) {
       guard let currentUserUid = AuthService.shared.currentUserUid else {
-         print(UserService.ErrorType.missingCurrentUserUid)
+         print(UserServiceError.nilUserUid.localizedDescription)
+         completion(UserServiceError.nilUserUid)
          return
       }
       
-      COLLECTION_FOLLOWINGS.document(currentUserUid).collection(Constants.userFollowings).document(targetUserUid).setData([:]) { error in
+      let currentUserRef = COLLECTION_USERS.document(currentUserUid)
+      let targetUserRef = COLLECTION_USERS.document(targetUserUid)
+      
+      currentUserRef.collection(COLLECTION_FOLLOWINGS).document(targetUserUid).setData([:]) { error in
          
          if let error = error {
-            print(UserService.ErrorType.followUser + error.localizedDescription)
+            print(
+               UserServiceError.followFailed(error).localizedDescription
+            )
+            completion(error)
             return
          }
          
-         COLLECTION_FOLLOWERS.document(targetUserUid).collection(Constants.userFollowers).document(currentUserUid).setData([:], completion: completion)
-         print("DEBUG: SUCСESS: followUser")
+         targetUserRef.collection(COLLECTION_FOLLOWERS).document(currentUserUid).setData([:]) { error in
+            
+            if let error = error {
+               print(UserServiceError.followFailed(error).localizedDescription)
+               completion(error)
+               return
+            }
+            
+            currentUserRef.updateData([Constants.followingsCount : FieldValue.increment(Int64(1))])
+            
+            targetUserRef.updateData([Constants.followersCount : FieldValue.increment(Int64(1))])
+            
+            completion(nil)
+            print(UserServiceSuccess.followUser)
+         }
       }
    }
    
@@ -112,75 +143,86 @@ final class UserService {
    
    func unfollowUser(with targetUserUid: String, completion: @escaping (Error?) -> Void) {
       guard let currentUserUid = AuthService.shared.currentUserUid else {
-         print(UserService.ErrorType.missingCurrentUserUid)
+         print(UserServiceError.nilUserUid.localizedDescription)
+         completion(UserServiceError.nilUserUid)
          return
       }
       
-      COLLECTION_FOLLOWINGS.document(currentUserUid).collection(Constants.userFollowings).document(targetUserUid).delete { error in
+      let currentUserRef = COLLECTION_USERS.document(currentUserUid)
+      let targetUserRef = COLLECTION_USERS.document(targetUserUid)
+      
+      currentUserRef.collection(COLLECTION_FOLLOWINGS).document(targetUserUid).delete { error in
          
          if let error = error {
-            print(UserService.ErrorType.unfollowUser + error.localizedDescription)
+            print(UserServiceError.unfollowFailed(error).localizedDescription)
+            completion(UserServiceError.unfollowFailed(error))
             return
          }
          
-         COLLECTION_FOLLOWERS.document(targetUserUid).collection(Constants.userFollowers).document(currentUserUid).delete(completion: completion)
-         print("DEBUG: SUCСESS: unfollowUser")
-      }
-   }
-   
-   //MARK: Fetch Profile Stats
-   
-   func fetchProfileStats(for uid: String, completion: @escaping (UserStatsEntity) -> Void) {
-      
-      var followersCount = 0
-      var followingsCount = 0
-      
-      COLLECTION_FOLLOWERS.document(uid).collection(Constants.userFollowers).getDocuments { snapshot, error in
-         if let error = error {
-            print(UserService.ErrorType.userStats + error.localizedDescription)
-            return
-         }
-         
-         if let snapshot = snapshot {
-            followersCount = snapshot.documents.count
-         }
-         
-         COLLECTION_FOLLOWINGS.document(uid).collection(Constants.userFollowings).getDocuments { snapshot, error in
+         targetUserRef.collection(COLLECTION_FOLLOWERS).document(currentUserUid).delete { error in
+            
             if let error = error {
-               print(UserService.ErrorType.userStats + error.localizedDescription)
+               print(UserServiceError.unfollowFailed(error).localizedDescription)
+               completion(UserServiceError.unfollowFailed(error))
                return
             }
             
-            if let snapshot = snapshot {
-               followingsCount = snapshot.documents.count
-            }
+            currentUserRef.updateData([Constants.followingsCount : FieldValue.increment(Int64(-1))])
             
-            let userStatsEntity = UserStatsEntity(followersCount: followersCount, followingsCount: followingsCount)
-            print("DEBUG: SUCСESS: fetchProfileStats")
-            completion(userStatsEntity)
+            targetUserRef.updateData([Constants.followersCount : FieldValue.increment(Int64(-1))])
+            
+            completion(nil)
+            print(UserServiceSuccess.unfollowUser)
          }
+      }
+   }
+   
+}
+
+//MARK: - UserServiceError
+
+private enum UserServiceError: Error {
+   case nilUserUid
+   case firestoreError(Error)
+   case nilSnapshot
+   case followFailed(Error)
+   case unfollowFailed(Error)
+   case unknownError
+   
+   var localizedDescription: String {
+      switch self {
+      case .nilUserUid:
+         return "DEBUG: Current user UID is nil."
+      case .firestoreError(let error):
+         return "DEBUG: Firestore error: \(error.localizedDescription)"
+      case .nilSnapshot:
+         return "DEBUG: Snapshot is nil."
+      case .followFailed(let error):
+         return "DEBUG: Failed to follow user: \(error.localizedDescription)"
+      case .unfollowFailed(let error):
+         return "DEBUG: Failed to unfollow user: \(error.localizedDescription)"
+      case .unknownError:
+         return "DEBUG: An unknown error occurred."
       }
    }
 }
 
-//MARK: - UserService
+//MARK: - UserServiceSuccess
 
-extension UserService {
-   enum ErrorType {
-      static let missingCurrentUserUid = "DEBUG: Current user UID is nil."
-      static let snapshot = "DEBUG: Firestore snapshot error: "
-      static let snapshotNil = "DEBUG: Snapshot is nil."
-      static let followUser = "DEBUG: Failed to follow user: "
-      static let unfollowUser = "DEBUG: Failed to unfollow user: "
-      static let userStats = "DEBUG: Failed to fetch user stats: "
-   }
+private enum UserServiceSuccess {
+   static let fetchUser = "DEBUG: SUCCESS to fetch user!"
+   static let fetchUsers = "DEBUG: SUCCESS to fetch users!"
+   static let checkIfUserFollowed = "DEBUG: SUCCESS to check if user is followed!"
+   static let followUser = "DEBUG: SUCCESS to follow user!"
+   static let unfollowUser = "DEBUG: SUCCESS to unfollow user!"
+   static let userStats = "DEBUG: SUCCESS to fetch user stats!"
 }
 
 //MARK: - Constants
 
 private extension UserService {
    enum Constants {
-      static let userFollowers = "user_followers"
-      static let userFollowings = "user_followings"
+      static let followingsCount = "followingsCount"
+      static let followersCount = "followersCount"
    }
 }

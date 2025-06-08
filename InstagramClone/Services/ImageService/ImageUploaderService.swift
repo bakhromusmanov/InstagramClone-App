@@ -10,26 +10,31 @@ import FirebaseStorage
 
 final class ImageUploaderService {
    
+   static let shared = ImageUploaderService()
    private init() { }
    
-   //MARK: - uploadPostImage
+   //MARK: - Upload Post Image
    
-   static func uploadPostImage(username: String, image: UIImage, completion: @escaping (String) -> Void) {
+   func uploadPostImage(username: String, image: UIImage, completion: @escaping (String?) -> Void) {
       let path = ImageEndpoint.postImage(username: username).path
       upload(image: image, path: path, completion: completion)
    }
    
-   //MARK: - uploadProfileImage
+   //MARK: - Upload Profile Image
    
-   static func uploadProfileImage(username: String, image: UIImage, completion: @escaping (String) -> Void) {
+   func uploadProfileImage(username: String, image: UIImage, completion: @escaping (String?) -> Void) {
       let path = ImageEndpoint.profileImage(username: username).path
       upload(image: image, path: path, completion: completion)
    }
    
-   //MARK: - Private Functions
+   //MARK: - Private Methods
    
-   private static func upload(image: UIImage, path: String, completion: @escaping (String) -> Void) {
-      guard let imageData = image.jpegData(compressionQuality: Constants.compressionQuality) else { return }
+   private func upload(image: UIImage, path: String, completion: @escaping (String?) -> Void) {
+      guard let imageData = image.jpegData(compressionQuality: Constants.compressionQuality) else {
+         print(ImageUploaderError.failedToCompressImage)
+         completion(nil)
+         return
+      }
       
       let ref = Storage.storage().reference(withPath: path)
    
@@ -38,21 +43,49 @@ final class ImageUploaderService {
          case .success:
             ref.downloadURL { url, error in
                if let error = error {
-                  print("DEBUG: Error while getting downloadURL of image: \(error.localizedDescription)")
+                  print(ImageUploaderError.failedToRetrieveDownloadURL(error).localizedDescription)
+                  completion(nil)
                   return
                }
                
                if let url = url {
                   let downloadURL = url.absoluteString
+                  print(ImageUploaderSuccess.uploadCompleted)
                   completion(downloadURL)
                }
             }
          case .failure(let error):
-            print("DEBUG: Error while putting image data into storage: \(error.localizedDescription)")
+            print(ImageUploaderError.uploadFailed(error).localizedDescription)
+            completion(nil)
             return
          }
       }
    }
+}
+
+//MARK: - ImageUploaderError
+
+private enum ImageUploaderError: Error {
+    case failedToCompressImage
+    case uploadFailed(Error)
+    case failedToRetrieveDownloadURL(Error)
+    
+    var localizedDescription: String {
+        switch self {
+        case .failedToCompressImage:
+            return "DEBUG: Failed to compress the image."
+        case .uploadFailed(let error):
+            return "DEBUG: Upload to storage failed: \(error.localizedDescription)"
+        case .failedToRetrieveDownloadURL(let error):
+            return "DEBUG: Failed to retrieve download URL: \(error.localizedDescription)"
+        }
+    }
+}
+
+//MARK: - ImageUploaderSuccess
+
+private enum ImageUploaderSuccess {
+    static let uploadCompleted = "DEBUG: Image uploaded successfully."
 }
 
 //MARK: - Constants

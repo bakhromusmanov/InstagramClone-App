@@ -16,7 +16,7 @@ struct ProfileHeaderViewModel {
    var profileImageURL: URL?
    var userId: String
    var isFollowed: Bool = false
-   var userStats = UserStatsEntity()
+   var userStats: UserStatsEntity
    
    var profileButtonState: ProfileButtonState {
       let isCurrentUser = AuthService.shared.currentUserUid == userId
@@ -33,9 +33,19 @@ struct ProfileHeaderViewModel {
    init(user: UserEntity) {
       fullName = user.fullName
       userId = user.userId
+      userStats = UserStatsEntity(user: user)
       if let url = user.profileImageURL {
          profileImageURL = URL(string: url)
       }
+   }
+}
+
+//MARK: - Public Methods
+
+extension ProfileHeaderViewModel {
+   mutating func profileButtonTapped(isFollowed: Bool) {
+      self.isFollowed = isFollowed
+      userStats.followersCount = isFollowed ? userStats.followersCount + 1 : userStats.followersCount - 1
    }
 }
 

@@ -106,8 +106,8 @@ private extension RegistrationViewController {
       
       //MARK: ImageUploaderService
       
-      if let profileImage {
-         ImageUploaderService.uploadProfileImage(username: user.username, image: profileImage, completion: { downloadURL in
+      if let profileImage = profileImage {
+         ImageUploaderService.shared.uploadProfileImage(username: user.username, image: profileImage, completion: { downloadURL in
             user.profileImageURL = downloadURL
             self.register(user: user)
          })
@@ -235,7 +235,9 @@ private extension RegistrationViewController {
 
 private extension RegistrationViewController {
    func register(user: AuthEntity) {
-      AuthService.shared.register(authEntity: user) { error in
+      AuthService.shared.register(authEntity: user) { [weak self] error in
+         guard let self = self else { return }
+         
          if let error {
             print("DEBUG: Error while registering user: \(error.localizedDescription)")
             return

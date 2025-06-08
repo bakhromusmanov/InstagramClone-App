@@ -11,11 +11,6 @@ final class TabBarViewController: UITabBarController {
    
    //MARK: - Properties
    
-   private var user: UserEntity? {
-      didSet {
-         setupTabBarControllers()
-      }
-   }
    
    //MARK: - Lifecycle
    
@@ -23,6 +18,7 @@ final class TabBarViewController: UITabBarController {
       super.viewDidLoad()
       setValue(CustomTabBar(), forKey: "tabBar")
       setupShimmerView()
+      setupObservers()
       fetchUser()
    }
    
@@ -49,7 +45,7 @@ private extension TabBarViewController {
    
    func setupTabBarControllers() {
       
-      guard let user = user else { return }
+      guard let user = AppDataManager.shared.user else { return }
       
       //MARK: Make HomeModule
       
@@ -107,13 +103,36 @@ private extension TabBarViewController {
    }
 }
 
+//MARK: - Actions
+
+@objc
+private extension TabBarViewController {
+   func handleDidUpdateUser() {
+      guard let navController = viewControllers?[TabIndex.profile.rawValue] as? UINavigationController,
+            let profileVC = navController.viewControllers.first as? ProfileViewController,
+            let user = AppDataManager.shared.user else { return }
+      
+      profileVC.updateUserData(user)
+   }
+}
+
+
+//MARK: - Observers
+
+private extension TabBarViewController {
+   func setupObservers() {
+      NotificationCenter.default.addObserver(self, selector: #selector(handleDidUpdateUser), name: .didUpdateCurrentUser, object: nil)
+   }
+}
+
 //MARK: - Networking
 
 private extension TabBarViewController {
    func fetchUser() {
       UserService.shared.fetchUser { [weak self] user in
          guard let self else { return }
-         self.user = user
+         AppDataManager.shared.setCurrentUser(user)
+         setupTabBarControllers()
       }
    }
    
@@ -126,6 +145,22 @@ private extension TabBarViewController {
          present(loginNav, animated: false)
       }
    }
+}
+
+//MARK: - UITabBarControllerDelegate
+
+extension TabBarViewController: UITabBarControllerDelegate {
+   
+}
+
+//MARK: - TabIndex
+
+private enum TabIndex: Int {
+   case home = 0
+   case search = 1
+   case uploadPost
+   case notifications
+   case profile
 }
 
 //MARK: - AuthDelegate
