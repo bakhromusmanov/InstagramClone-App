@@ -12,11 +12,7 @@ final class AppDataManager {
    static let shared = AppDataManager()
    private init() { }
    
-   private(set) var user: UserEntity? {
-      didSet {
-         postDidUpdateUserNotification()
-      }
-   }
+   private(set) var user: UserEntity?
 }
 
 //MARK: - Public Methods
@@ -28,14 +24,17 @@ extension AppDataManager {
    
    func incrementFollowersCount(by count: Int) {
       user?.followersCount += count
+      postDidUpdateUserNotification()
    }
    
    func incrementFollowingsCount(by count: Int) {
       user?.followingsCount += count
+      postDidUpdateUserNotification()
    }
    
    func incrementPostsCount(by count: Int) {
       user?.postsCount += count
+      postDidUpdateUserNotification()
    }
 }
 

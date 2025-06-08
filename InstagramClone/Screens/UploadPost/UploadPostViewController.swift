@@ -11,8 +11,6 @@ final class UploadPostViewController: UIViewController {
    
    //MARK: - Properties
    
-   
-   
    //MARK: Subviews
    
    private let topSeparatorView: UIView = {
@@ -105,6 +103,12 @@ final class UploadPostViewController: UIViewController {
    }
 }
 
+//MARK: - Public Methods
+
+extension UploadPostViewController {
+   
+}
+
 //MARK: - Private Methods
 
 private extension UploadPostViewController {
@@ -155,12 +159,22 @@ private extension UploadPostViewController {
    }
 }
 
+//MARK: - Navigation
+
+private extension UploadPostViewController {
+   func navigateToHomeController() {
+      if let tabBarController = self.tabBarController as? TabBarViewController {
+         tabBarController.navigateToHomeAndRefresh()
+      }
+   }
+}
+
 //MARK: - Actions
 
 @objc
 private extension UploadPostViewController {
    func handleNextButtonTapped() {
-      updateView(with: .notSelectedPhoto)
+      uploadPost()
    }
    
    func handleUndoButtonTapped() {
@@ -169,6 +183,22 @@ private extension UploadPostViewController {
    
    func selectPhotoButtonTapped() {
       showPhotoPicker(delegate: self)
+   }
+}
+
+//MARK: - Networking
+
+private extension UploadPostViewController {
+   func uploadPost() {
+      guard let image = photoImageView.image, let caption = captionTextView.text else {
+         return
+      }
+      
+      PostService.shared.uploadPost(image: image, caption: caption) { error in
+         guard error == nil else { return }
+         self.navigateToHomeController()
+         self.updateView(with: .notSelectedPhoto)
+      }
    }
 }
 

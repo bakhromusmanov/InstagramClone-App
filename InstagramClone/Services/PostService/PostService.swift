@@ -48,42 +48,93 @@ final class PostService {
             return
          }
          
+         print(PostServiceSuccess.postUploaded)
          documentRef.setData(data, completion: completion)
       }
    }
    
    //MARK: - Fetch User Posts
    
-   func fetchUserPosts(completion: @escaping ([PostEntity]?) -> Void) {
+   func fetchUserPosts(for userUid: String, completion: @escaping ([PostEntity]) -> Void) {
+      
+      let query = COLLECTION_POSTS.whereField(Constants.postEntityUserId, isEqualTo: userUid)
+         .order(by: Constants.postEntityTimestamp, descending: true)
+      
+      query.getDocuments { snapshot, error in
+         
+         if let error = error {
+            print(PostServiceError.firestoreError(error).localizedDescription)
+            completion([])
+            return
+         }
+         
+         guard let documents = snapshot?.documents else {
+            print(PostServiceError.nilSnapshot.localizedDescription)
+            completion([])
+            return
+         }
+         
+         let posts = documents.compactMap { document in
+            document.decode(as: PostEntity.self)
+         }
+         
+         print(PostServiceSuccess.userPostsFetched)
+         completion(posts)
+      }
+   }
+   
+   //MARK: - Fetch Feed Posts
+   
+   func fetchFeedPosts(completion: @escaping ([PostEntity]) -> Void) {
+      
+      let query = COLLECTION_POSTS
+         .order(by: Constants.postEntityTimestamp, descending: true)
+      
+      query.getDocuments { snapshot, error in
+         
+         if let error = error {
+            print(PostServiceError.firestoreError(error).localizedDescription)
+            completion([])
+            return
+         }
+         
+         guard let documents = snapshot?.documents else {
+            print(PostServiceError.nilSnapshot.localizedDescription)
+            completion([])
+            return
+         }
+         
+         let posts = documents.compactMap { document in
+            document.decode(as: PostEntity.self)
+         }
+         
+         print(PostServiceSuccess.feedPostsFetched)
+         completion(posts)
+      }
+   }
+   
+   //MARK: - Fetch User Following IDs
+   
+   func fetchFollowingUserIds(completion: @escaping ([String]) -> Void) {
       guard let uid = AuthService.shared.currentUserUid else {
-         print(PostServiceError.nilUserUID.localizedDescription)
-         completion(nil)
+         completion([])
          return }
       
-      COLLECTION_POSTS
-         .whereField(Constants.postEntityUserId, isEqualTo: uid)
-         .order(by: Constants.postEntityTimestamp, descending: true)
-         .getDocuments { snapshot, error in
+      COLLECTION_USERS.document(uid).collection(COLLECTION_FOLLOWINGS).getDocuments { snapshot, error in
          
-            if let error = error {
-               print(PostServiceError.firestoreError(error).localizedDescription)
-               completion(nil)
-               return
-            }
-            
-            guard let documents = snapshot?.documents else {
-               print(PostServiceError.nilSnapshot.localizedDescription)
-               completion(nil)
-               return
-            }
-            
-            let posts = documents.compactMap { document in
-               document.decode(as: PostEntity.self)
-            }
-            
-            print(PostServiceSuccess.userPostsFetched)
-            completion(posts)
+         if let error = error {
+            completion([])
+            return
          }
+         
+         guard let documents = snapshot?.documents else {
+            completion([])
+            return
+         }
+         
+         let userFollowingIds = documents.map { $0.documentID }
+         completion(userFollowingIds)
+      }
    }
 }
 
@@ -119,6 +170,7 @@ private enum PostServiceError: Error {
 private enum PostServiceSuccess {
    static let postUploaded = "DEBUG: SUCCESS Post uploaded successfully!"
    static let userPostsFetched = "DEBUG: SUCCESS Fetching user posts!"
+   static let feedPostsFetched = "DEBUG: SUCCESS Fetching feed posts!"
 }
 
 //MARK: - Constants

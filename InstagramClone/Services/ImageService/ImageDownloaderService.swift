@@ -33,7 +33,7 @@ final class ImageDownloaderService {
       }
       
       // 2. Skip if already downloading
-      if tasks[url] != nil { return }
+      //if tasks[url] != nil { return }
       
       // 3. Start download
       let task = urlSession.dataTask(with: url) { [weak self] data, response, error in

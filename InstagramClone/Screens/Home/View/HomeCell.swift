@@ -32,12 +32,12 @@ final class HomeCell: UICollectionViewCell {
       stackView.distribution = .fillEqually
       stackView.axis = .horizontal
       stackView.alignment = .center
-      stackView.spacing = Constants.spacingS
+      stackView.spacing = Constants.labelToLabelSpacing
       return stackView
    }()
    
    private let profileImageView: UIImageView = {
-      let imageView = UIImageView(image: UIImage(named: Constants.thumbnailImageName))
+      let imageView = UIImageView()
       imageView.contentMode = .scaleAspectFill
       imageView.clipsToBounds = true
       imageView.layer.cornerRadius = Constants.profileImageCornerRadius
@@ -45,14 +45,13 @@ final class HomeCell: UICollectionViewCell {
    }()
    
    private let mediaImageView: UIImageView = {
-      let imageView = UIImageView(image: UIImage(named: Constants.placeholderImageName))
+      let imageView = UIImageView()
       imageView.contentMode = .scaleAspectFill
       return imageView
    }()
    
    private lazy var usernameButton: UIButton = {
       let button = UIButton(type: .system)
-      button.setTitle(Constants.usernameButtonTitle, for: .normal)
       button.setTitleColor(ThemeManager.colors.textPrimaryDark, for: .normal)
       button.titleLabel?.font = Constants.usernameButtonFont
       return button
@@ -93,16 +92,14 @@ final class HomeCell: UICollectionViewCell {
    
    private let likeCountLabel: UILabel = {
       let label = UILabel()
-      label.text = Constants.likeCountButtonTitle
       label.font = Constants.likesCountLabelFont
       label.textAlignment = .left
       label.textColor = ThemeManager.colors.textPrimaryDark
       return label
    }()
    
-   private let descriptionLabel: UILabel = {
+   private let captionLabel: UILabel = {
       let label = UILabel()
-      label.text = Constants.descriptionLabelTitle
       label.font = Constants.captionLabelFont
       label.textAlignment = .left
       label.textColor = ThemeManager.colors.textPrimaryDark
@@ -111,9 +108,8 @@ final class HomeCell: UICollectionViewCell {
    
    private let timestampLabel: UILabel = {
       let label = UILabel()
-      label.text = Constants.timestampLabelTitle
-      label.font = Constants.timestampLabelFont
       label.textAlignment = .left
+      label.font = Constants.timestampLabelFont
       label.textColor = ThemeManager.colors.textSecondaryDark
       return label
    }()
@@ -136,9 +132,18 @@ final class HomeCell: UICollectionViewCell {
 //MARK: - Public Functions
 
 extension HomeCell {
+   
+   func configure(with post: PostEntity) {
+      usernameButton.setTitle(post.username, for: .normal)
+      likeCountLabel.text = String(post.likesCount) + " likes"
+      captionLabel.text = post.caption
+      timestampLabel.text = DateFormatter.postDateFormatter.string(from: post.timestamp.dateValue())
+      fetchProfileImage(profile: post.profileImageUrl)
+      fetchMediaImage(post.postImageUrl)
+   }
 
    static var baseContentHeight: CGFloat {
-      let height: CGFloat = Constants.profileImageViewSize + Constants.defaultVerticalPadding * 4 + Constants.actionButtonSize + Constants.likesCountLabelFont.lineHeight + Constants.captionLabelFont.lineHeight + Constants.timestampLabelFont.lineHeight
+      let height: CGFloat = Constants.profileImageViewSize + Constants.defaultVerticalPadding * 4 + Constants.actionButtonSize + Constants.likesCountLabelFont.lineHeight + Constants.captionLabelFont.lineHeight + Constants.timestampLabelFont.lineHeight + 2 * Constants.labelToLabelSpacing
       return height
    }
    
@@ -146,12 +151,28 @@ extension HomeCell {
       self.mediaHeight = mediaHeight
       updateHeightConstraint()
    }
-
 }
 
 //MARK: - Private Functions
 
 
+//MARK: - Networking
+
+private extension HomeCell {
+   func fetchProfileImage(profile profileUrlString: String?) {
+      guard let profileUrlString, let profileUrl = URL(string: profileUrlString) else { return }
+      ImageDownloaderService.shared.loadImage(from: profileUrl) { image in
+         self.profileImageView.image = image
+      }
+   }
+   
+   func fetchMediaImage(_ urlString: String) {
+      guard let url = URL(string: urlString) else { return }
+      ImageDownloaderService.shared.loadImage(from: url) { image in
+         self.mediaImageView.image = image
+      }
+   }
+}
 
 //MARK: - Appearance & Theming
 
@@ -169,7 +190,7 @@ private extension HomeCell {
       shareButton.backgroundColor = .systemTeal
       footerView.backgroundColor = .systemIndigo
       likeCountLabel.backgroundColor = .purple
-      descriptionLabel.backgroundColor = .systemPink
+      captionLabel.backgroundColor = .systemPink
       timestampLabel.backgroundColor = .yellow
    }
 }
@@ -198,7 +219,7 @@ private extension HomeCell {
       actionsStackView.addArrangedSubview(shareButton)
       
       footerView.addSubview(likeCountLabel)
-      footerView.addSubview(descriptionLabel)
+      footerView.addSubview(captionLabel)
       footerView.addSubview(timestampLabel)
    }
    
@@ -215,7 +236,7 @@ private extension HomeCell {
       }
 
       usernameButton.snp.makeConstraints { make in
-         make.leading.equalTo(profileImageView.snp.trailing).offset(Constants.spacingS)
+         make.leading.equalTo(profileImageView.snp.trailing).offset(Constants.labelToLabelSpacing)
          make.centerY.equalTo(profileImageView.snp.centerY)
       }
 
@@ -231,6 +252,7 @@ private extension HomeCell {
       }
       
       actionsStackView.snp.makeConstraints { make in
+         make.height.equalTo(Constants.actionButtonSize)
          make.top.bottom.equalToSuperview().inset(Constants.defaultVerticalPadding)
          make.leading.equalToSuperview().inset(Constants.defaultHorizontalPadding)
       }
@@ -258,13 +280,13 @@ private extension HomeCell {
          make.leading.equalToSuperview().inset(Constants.defaultHorizontalPadding)
       }
       
-      descriptionLabel.snp.makeConstraints { make in
-         make.top.equalTo(likeCountLabel.snp.bottom).offset(Constants.spacingS)
+      captionLabel.snp.makeConstraints { make in
+         make.top.equalTo(likeCountLabel.snp.bottom).offset(Constants.labelToLabelSpacing)
          make.leading.equalToSuperview().inset(Constants.defaultHorizontalPadding)
       }
       
       timestampLabel.snp.makeConstraints { make in
-         make.top.equalTo(descriptionLabel.snp.bottom).offset(Constants.spacingS)
+         make.top.equalTo(captionLabel.snp.bottom).offset(Constants.labelToLabelSpacing)
          make.leading.equalToSuperview().inset(Constants.defaultHorizontalPadding)
          make.bottom.equalToSuperview()
       }
@@ -277,14 +299,6 @@ private extension HomeCell {
    enum Constants {
       
       //Texts
-      static let usernameButtonTitle = "user"
-      static let likeCountButtonTitle = "1 like"
-      static let descriptionLabelTitle = "Some test caption for now"
-      static let timestampLabelTitle = "2 days ago"
-      
-      //Icons
-      static let thumbnailImageName = "thumbnail"
-      static let placeholderImageName = "placeholder"
       static let likeSelectedImageName = "heart.fill"
       static let likeUnselectedImageName = "heart"
       static let commentSelectedImageName = "message.fill"
@@ -298,7 +312,7 @@ private extension HomeCell {
       static let profileImageCornerRadius: CGFloat = profileImageViewSize / 2
       
       //Spacings
-      static let spacingS: CGFloat = ThemeManager.spacings.spacingS
+      static let labelToLabelSpacing: CGFloat = ThemeManager.spacings.spacingS
       static let defaultHorizontalPadding = ThemeManager.spacings.spacingM
       static let defaultVerticalPadding = ThemeManager.spacings.spacingM
       

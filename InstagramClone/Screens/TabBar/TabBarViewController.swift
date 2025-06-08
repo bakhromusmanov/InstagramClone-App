@@ -35,7 +35,19 @@ final class TabBarViewController: UITabBarController {
    }
 }
 
-//MARK: - Private Functions
+//MARK: - Public Methods
+
+extension TabBarViewController {
+   func navigateToHomeAndRefresh() {
+      selectedIndex = TabIndex.home.rawValue
+      if let homeNav = viewControllers?[TabIndex.home.rawValue] as? UINavigationController,
+         let homeVC = homeNav.viewControllers.first as? HomeViewController {
+         homeVC.refreshData()
+      }
+   }
+}
+
+//MARK: - Private Methods
 
 private extension TabBarViewController {
    
@@ -65,11 +77,11 @@ private extension TabBarViewController {
       
       //MARK: Make ImageSelectorModule
       
-      let imageSelectorViewController = UploadPostViewController()
-      let imageSelectorNavigationController = makeNavigationController(
+      let uploadPostViewController = UploadPostViewController()
+      let uploadPostNavigationController = makeNavigationController(
          selectedImage: UIImage(systemName: Constants.plusSelectedImageName) ?? UIImage(),
          unselectedImage: UIImage(systemName: Constants.plusUnselectedImageName) ?? UIImage(),
-         rootViewController: imageSelectorViewController)
+         rootViewController: uploadPostViewController)
       
       //MARK: Make NotificationsModule
       
@@ -90,7 +102,7 @@ private extension TabBarViewController {
       viewControllers = [
          homeNavigationController,
          searchNavigationController,
-         imageSelectorNavigationController,
+         uploadPostNavigationController,
          notificationsNavigationController,
          profileNavigationController]
    }
@@ -158,9 +170,9 @@ extension TabBarViewController: UITabBarControllerDelegate {
 private enum TabIndex: Int {
    case home = 0
    case search = 1
-   case uploadPost
-   case notifications
-   case profile
+   case uploadPost = 2
+   case notifications = 3
+   case profile = 4
 }
 
 //MARK: - AuthDelegate

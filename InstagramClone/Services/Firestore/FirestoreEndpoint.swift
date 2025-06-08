@@ -11,7 +11,7 @@ import FirebaseFirestore
 let COLLECTION_USERS = Firestore.firestore().collection(FirestoreEndpoint.users.path)
 let COLLECTION_FOLLOWERS = FirestoreEndpoint.followers.path
 let COLLECTION_FOLLOWINGS = FirestoreEndpoint.followings.path
-let COLLECTION_POSTS = Firestore.firestore().collection(FirestoreEndpoint.followings.path)
+let COLLECTION_POSTS = Firestore.firestore().collection(FirestoreEndpoint.posts.path)
 
 private enum FirestoreEndpoint {
    case users

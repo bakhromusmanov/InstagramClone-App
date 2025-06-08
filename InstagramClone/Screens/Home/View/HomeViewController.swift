@@ -9,7 +9,11 @@ import UIKit
 
 final class HomeViewController: UIViewController {
    
-   //MARK: Subviews
+   //MARK: - Properties
+   
+   private var posts = [PostEntity]()
+   
+   //MARK: - Subviews
    
    private let topSeparatorView: UIView = {
       let view = UIView()
@@ -26,6 +30,7 @@ final class HomeViewController: UIViewController {
       collectionView.dataSource = self
       collectionView.delegate = self
       collectionView.showsVerticalScrollIndicator = false
+      collectionView.alwaysBounceVertical = true
       collectionView.register(HomeCell.self, forCellWithReuseIdentifier: Constants.homeCell)
       
       return collectionView
@@ -35,10 +40,36 @@ final class HomeViewController: UIViewController {
    
    override func viewDidLoad() {
       super.viewDidLoad()
+      fetchFeedPosts()
       setupViews()
       setupConstraints()
       setupNavigationBar()
       updateColors()
+   }
+}
+
+//MARK: - Public Methods
+
+extension HomeViewController {
+   func refreshData() {
+      fetchFeedPosts()
+   }
+}
+
+//MARK: - Private Methods
+
+private extension HomeViewController {
+   func setupNavigationBar() {
+      navigationItem.title = Constants.navigationBarTitle
+      navigationController?.navigationBar.backgroundColor = ThemeManager.colors.backgroundSecondary
+      navigationItem.titleView?.tintColor = ThemeManager.colors.textPrimaryDark
+      
+      navigationItem.leftBarButtonItem = UIBarButtonItem(
+         title: Constants.logoutTitle,
+         style: .done,
+         target: self,
+         action: #selector(logoutButtonPressed))
+      navigationItem.leftBarButtonItem?.tintColor = ThemeManager.colors.textPrimaryDark
    }
 }
 
@@ -57,20 +88,15 @@ private extension HomeViewController {
    }
 }
 
-//MARK: - Private Functions
+//MARK: - Networking
 
 private extension HomeViewController {
-   func setupNavigationBar() {
-      navigationItem.title = Constants.navigationBarTitle
-      navigationController?.navigationBar.backgroundColor = ThemeManager.colors.backgroundSecondary
-      navigationItem.titleView?.tintColor = ThemeManager.colors.textPrimaryDark
-      
-      navigationItem.leftBarButtonItem = UIBarButtonItem(
-         title: Constants.logoutTitle,
-         style: .done,
-         target: self,
-         action: #selector(logoutButtonPressed))
-      navigationItem.leftBarButtonItem?.tintColor = ThemeManager.colors.textPrimaryDark
+   func fetchFeedPosts() {
+      PostService.shared.fetchFeedPosts { [weak self] posts in
+         guard let self = self else { return }
+         self.posts = posts
+         self.collectionView.reloadData()
+      }
    }
 }
 
@@ -108,7 +134,7 @@ private extension HomeViewController {
 
 extension HomeViewController: UICollectionViewDataSource {
    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-      return Constants.defaultNumberOfItems
+      return posts.count
    }
    
    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -116,8 +142,9 @@ extension HomeViewController: UICollectionViewDataSource {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.homeCell, for: indexPath)
       
       guard let cell = cell as? HomeCell else { return cell }
-      cell.setMediaHeight(view.bounds.width)
       
+      cell.setMediaHeight(view.bounds.width)
+      cell.configure(with: posts[indexPath.row])
       return cell
    }
 }
