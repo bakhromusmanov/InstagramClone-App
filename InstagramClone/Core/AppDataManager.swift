@@ -24,26 +24,31 @@ extension AppDataManager {
    
    func incrementFollowersCount(by count: Int) {
       user?.followersCount += count
-      postDidUpdateUserNotification()
+      sendUpdateUserStatsNotification()
    }
    
    func incrementFollowingsCount(by count: Int) {
       user?.followingsCount += count
-      postDidUpdateUserNotification()
+      sendUpdateUserStatsNotification()
    }
    
-   func incrementPostsCount(by count: Int) {
-      user?.postsCount += count
-      postDidUpdateUserNotification()
+   func handleUserDidUploadPost() {
+      user?.postsCount += 1
+      sendDidUploadPostNotification()
    }
 }
 
 //MARK: - Observers
 
 private extension AppDataManager {
-   func postDidUpdateUserNotification() {
-      NotificationCenter.default.post(name: .didUpdateCurrentUser, object: nil)
-      print("DEBUG: Posted 'didUpdateCurrentUser' Notification ")
+   func sendUpdateUserStatsNotification() {
+      NotificationCenter.default.post(name: .didUpdateCurrentUserStats, object: nil)
+      print("DEBUG: Posted 'didUpdateCurrentUserStats' Notification ")
+   }
+   
+   func sendDidUploadPostNotification() {
+      NotificationCenter.default.post(name: .didUploadPost, object: nil)
+      print("DEBUG: Posted 'didUploadPost' Notification ")
    }
 }
 

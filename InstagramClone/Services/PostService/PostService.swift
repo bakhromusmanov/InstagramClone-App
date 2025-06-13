@@ -16,18 +16,18 @@ final class PostService {
    
    //MARK: - Upload Post
    
-   func uploadPost(image: UIImage, caption: String, completion: @escaping (Error?) -> Void) {
+   func uploadPost(image: UIImage, caption: String, completion: @escaping (Result<PostEntity, Error>) -> Void) {
       
       guard let user = AppDataManager.shared.user else {
          print(PostServiceError.missingUser.localizedDescription)
-         completion(PostServiceError.missingUser)
+         completion(.failure(PostServiceError.missingUser))
          return }
       
       ImageUploaderService.shared.uploadPostImage(username: user.username, image: image) { postImageUrl in
          
          guard let postImageUrl = postImageUrl else {
             print(PostServiceError.imageUploadFailed.localizedDescription)
-            completion(PostServiceError.imageUploadFailed)
+            completion(.failure(PostServiceError.imageUploadFailed))
             return }
          
          let documentRef = COLLECTION_POSTS.document()
@@ -44,12 +44,23 @@ final class PostService {
          
          guard let data = try? Firestore.Encoder().encode(post) else {
             print(PostServiceError.errorEncodingPost.localizedDescription)
-            completion(PostServiceError.errorEncodingPost)
+            completion(.failure(PostServiceError.errorEncodingPost))
             return
          }
          
-         print(PostServiceSuccess.postUploaded)
-         documentRef.setData(data, completion: completion)
+         
+         documentRef.setData(data) { error in
+            if let error = error {
+               print(PostServiceError.firestoreError(error).localizedDescription)
+               completion(.failure(PostServiceError.firestoreError(error)))
+               return
+            }
+            
+            let userRef = COLLECTION_USERS.document(user.userId)
+            userRef.updateData([Constants.postsCount : FieldValue.increment(Int64(1))])
+            print(PostServiceSuccess.postUploaded)
+            completion(.success(post))
+         }
       }
    }
    
@@ -58,7 +69,6 @@ final class PostService {
    func fetchUserPosts(for userUid: String, completion: @escaping ([PostEntity]) -> Void) {
       
       let query = COLLECTION_POSTS.whereField(Constants.postEntityUserId, isEqualTo: userUid)
-         .order(by: Constants.postEntityTimestamp, descending: true)
       
       query.getDocuments { snapshot, error in
          
@@ -117,17 +127,20 @@ final class PostService {
    
    func fetchFollowingUserIds(completion: @escaping ([String]) -> Void) {
       guard let uid = AuthService.shared.currentUserUid else {
+         print(PostServiceError.nilUserUID.localizedDescription)
          completion([])
          return }
       
       COLLECTION_USERS.document(uid).collection(COLLECTION_FOLLOWINGS).getDocuments { snapshot, error in
          
          if let error = error {
+            print(PostServiceError.firestoreError(error).localizedDescription)
             completion([])
             return
          }
          
          guard let documents = snapshot?.documents else {
+            print(PostServiceError.nilSnapshot.localizedDescription)
             completion([])
             return
          }
@@ -179,5 +192,6 @@ private extension PostService {
    enum Constants {
       static let postEntityUserId = "userId"
       static let postEntityTimestamp = "timestamp"
+      static let postsCount = "postsCount"
    }
 }

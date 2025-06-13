@@ -194,9 +194,15 @@ private extension UploadPostViewController {
          return
       }
       
-      PostService.shared.uploadPost(image: image, caption: caption) { error in
-         guard error == nil else { return }
-         self.navigateToHomeController()
+      PostService.shared.uploadPost(image: image, caption: caption) { [weak self] result in
+         guard let self = self else { return }
+         switch result {
+         case .success:
+            AppDataManager.shared.handleUserDidUploadPost()
+            self.navigateToHomeController()
+         case .failure:
+            break
+         }
          self.updateView(with: .notSelectedPhoto)
       }
    }

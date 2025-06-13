@@ -31,6 +31,26 @@ final class ProfilePostCell: UICollectionViewCell {
    }
 }
 
+//MARK: - Public Methods
+
+extension ProfilePostCell {
+   func configure(with imageUrl: String?) {
+      fetchPostImage(from: imageUrl)
+   }
+}
+
+//MARK: - Networking
+
+private extension ProfilePostCell {
+   func fetchPostImage(from urlString: String?) {
+      guard let urlString = urlString, let url = URL(string: urlString) else { return }
+      ImageDownloaderService.shared.loadImage(from: url) { [weak self] image in
+         guard let self = self else { return }
+         self.postImageView.image = image
+      }
+   }
+}
+
 //MARK: - Layout & Constraints
 
 private extension ProfilePostCell {
@@ -49,7 +69,6 @@ private extension ProfilePostCell {
 
 private extension ProfilePostCell {
    enum Constants {
-      
       //Icons
       static let postImageName = "placeholder"
    }

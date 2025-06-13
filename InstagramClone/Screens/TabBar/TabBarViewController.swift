@@ -115,25 +115,33 @@ private extension TabBarViewController {
    }
 }
 
-//MARK: - Actions
-
-@objc
-private extension TabBarViewController {
-   func handleDidUpdateUser() {
-      guard let navController = viewControllers?[TabIndex.profile.rawValue] as? UINavigationController,
-            let profileVC = navController.viewControllers.first as? ProfileViewController,
-            let user = AppDataManager.shared.user else { return }
-      
-      profileVC.updateUserData(user)
-   }
-}
-
-
 //MARK: - Observers
 
 private extension TabBarViewController {
    func setupObservers() {
-      NotificationCenter.default.addObserver(self, selector: #selector(handleDidUpdateUser), name: .didUpdateCurrentUser, object: nil)
+      NotificationCenter.default.addObserver(self, selector: #selector(handleDidUpdateUserStats), name: .didUpdateCurrentUserStats, object: nil)
+      
+      NotificationCenter.default.addObserver(self, selector: #selector(handleDidUploadPost), name: .didUploadPost, object: nil)
+   }
+}
+
+//MARK: - Actions
+
+@objc
+private extension TabBarViewController {
+   func handleDidUpdateUserStats() {
+      guard let profileNavController = viewControllers?[TabIndex.profile.rawValue] as? UINavigationController,
+            let profileVC = profileNavController.viewControllers.first as? ProfileViewController,
+            let user = AppDataManager.shared.user else { return }
+      
+      profileVC.updateUserStats(user)
+   }
+   
+   func handleDidUploadPost() {
+      guard let profileNavController = viewControllers?[TabIndex.profile.rawValue] as? UINavigationController,
+            let profileVC = profileNavController.viewControllers.first as? ProfileViewController, let user = AppDataManager.shared.user else { return }
+      
+      profileVC.updateUserPosts(user)
    }
 }
 

@@ -12,6 +12,7 @@ final class ProfileViewController: UIViewController {
    //MARK: - Properties
    
    private var user: UserEntity
+   private var posts = [PostEntity]()
    
    //MARK: Subviews
    
@@ -49,6 +50,7 @@ final class ProfileViewController: UIViewController {
    
    override func viewDidLoad() {
       super.viewDidLoad()
+      fetchUserPosts()
       setupViews()
       setupConstraints()
       setupNavigationBar()
@@ -59,9 +61,14 @@ final class ProfileViewController: UIViewController {
 //MARK: - Public Functions
 
 extension ProfileViewController {
-   func updateUserData(_ user: UserEntity) {
+   func updateUserStats(_ user: UserEntity) {
       self.user = user
       collectionView.reloadData()
+   }
+   
+   func updateUserPosts(_ user: UserEntity) {
+      self.user = user
+      fetchUserPosts()
    }
 }
 
@@ -91,6 +98,18 @@ private extension ProfileViewController {
    func backButtonPressed() {
       navigationController?.popViewController(animated: true)
       self.navigationBar(isHidden: true)
+   }
+}
+
+//MARK: - Networking
+
+private extension ProfileViewController {
+   func fetchUserPosts() {
+      PostService.shared.fetchUserPosts(for: user.userId) { [weak self] posts in
+         guard let self = self else { return }
+         self.posts = posts
+         self.collectionView.reloadData()
+      }
    }
 }
 
@@ -130,7 +149,7 @@ private extension ProfileViewController {
 extension ProfileViewController: UICollectionViewDataSource {
    
    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-      return user.postsCount
+      return posts.count
    }
    
    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -138,6 +157,8 @@ extension ProfileViewController: UICollectionViewDataSource {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellIdentifier, for: indexPath)
       
       guard let cell = cell as? ProfilePostCell else { return cell }
+      let post = posts[indexPath.row]
+      cell.configure(with: post.postImageUrl)
       return cell
    }
    

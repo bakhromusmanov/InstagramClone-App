@@ -8,5 +8,6 @@
 import Foundation
 
 extension Notification.Name {
-    static let didUpdateCurrentUser = Notification.Name("didUpdateCurrentUser")
+    static let didUpdateCurrentUserStats = Notification.Name("didUpdateCurrentUserStats")
+   static let didUploadPost = Notification.Name("didUploadPost")
 }
