@@ -46,6 +46,8 @@ Welcome to **InstaClone**, a feature-rich social networking app that replicates 
   - Leverages Firebase Firestore for storing and retrieving data.
   - Uploads and manages images with Firebase Storage.
 
+![Screenshot 1](Simulator%20Screenshot%20-%205.png)
+
 - **Custom UI/UX**:
   - Fully programmatic UI without storyboards.
   - Optimized for a visually appealing and intuitive user experience.
