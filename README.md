@@ -12,24 +12,30 @@ Welcome to **InstaClone**, a feature-rich social networking app that replicates 
 
 ![Screenshot 1](Simulator%20Screenshot%20-%200.png)
 
-2. **User Profiles**:
-   - Create and customize user profiles.
-   - Follow and unfollow other users directly from their profile.
-
-3. **Social Feed**:
+2. **Social Feed**:
    - Upload posts with captions and images.
    - View posts from users you follow on the home feed.
    - Like and comment on posts.
 
-4. **Notifications**:
-   - Receive in-app notifications for likes, comments, and new followers.
-   - Navigate directly to posts or profiles from the notifications screen.
+![Screenshot 1](Simulator%20Screenshot%20-%201.png)
+![Screenshot 1](Simulator%20Screenshot%20-%202.png)
 
-5. **Search and Discovery**:
+3. **Search and Discovery**:
    - Search for users by username or other criteria.
    - View profiles and follow/unfollow users from the search results.
 
-![Screenshot 1](Simulator%20Screenshot%20-%201.png)
+![Screenshot 1](Simulator%20Screenshot%20-%203.png)
+
+4. **User Profiles**:
+   - Create and customize user profiles.
+   - Follow and unfollow other users directly from their profile.
+
+![Screenshot 1](Simulator%20Screenshot%20-%204.png)
+
+5. **Notifications**:
+   - Receive in-app notifications for likes, comments, and new followers.
+   - Navigate directly to posts or profiles from the notifications screen.
+
 
 ### Advanced Functionality:
 - **Dynamic Content**:
